@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
-    private final WPI_VictorSPX intakeMotor = new WPI_VictorSPX(IntakeConstants.kIntakeMotorPort); 
+    private final WPI_VictorSPX intakeMotor = new WPI_VictorSPX(IntakeConstants.kIntakeMotorPort);
     private final Compressor compressor = new Compressor(IntakeConstants.kCompressorPort);
     private final DoubleSolenoid intakeSolenoid = new DoubleSolenoid(IntakeConstants.kIntakeDoubleSolenoidPort1,IntakeConstants.kIntakeDoubleSolenoidPort2);
     public boolean compressorState = false;
@@ -50,6 +50,6 @@ public class IntakeSubsystem extends SubsystemBase {
   public void intakeOff() {
     intakeSolenoid.set(Value.kOff);
   }
- 
+
 
 }

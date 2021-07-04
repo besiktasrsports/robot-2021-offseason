@@ -25,12 +25,12 @@ public class ToggleDropIntake extends CommandBase {
   public void execute() {
     if(m_intake.intakeState == true){
       m_intake.intakeUp();
-    } 
-    
+    }
+
     else {
       m_intake.intakeDown();
     }
-    
+
   }
 
   // Called once the command ends or is interrupted.

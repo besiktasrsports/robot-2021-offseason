@@ -21,12 +21,12 @@ import frc.robot.subsystems.DriveSubsytem;
  * Add your docs here.
  */
 public class SneakyTrajectory {
-    
+
   private DriveSubsytem m_drive;
 
- 
+
   public SneakyTrajectory(DriveSubsytem drive){
-                
+
         m_drive = drive;
         var autoVoltageConstraint =
         new DifferentialDriveVoltageConstraint(

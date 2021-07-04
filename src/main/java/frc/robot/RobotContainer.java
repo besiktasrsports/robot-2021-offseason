@@ -37,7 +37,7 @@ public class RobotContainer {
   public final DriveSubsytem m_robotDrive = new DriveSubsytem();
   public final SneakyTrajectory s_trajectory = new SneakyTrajectory(m_robotDrive);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  
+
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
@@ -56,7 +56,7 @@ public class RobotContainer {
     // Intake Commands
     new JoystickButton(m_driverController, 3).whileHeld(new RunIntake(m_intake, 0.5));
     new JoystickButton(m_operatorController, 1).whileHeld(new ToggleDropIntake(m_intake));
-    
+
     // Shooter Commands
     new JoystickButton(m_driverController, 4).whileHeld(new RunShooter(m_shooter, 0.75));
 
@@ -65,7 +65,7 @@ public class RobotContainer {
 
     // Misc Commands
     new JoystickButton(m_operatorController, 2).whileHeld(new ToggleCompressor(m_intake));
-  
+
   }
 
   /**

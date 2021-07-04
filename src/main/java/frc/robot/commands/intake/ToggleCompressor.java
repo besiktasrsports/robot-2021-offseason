@@ -9,7 +9,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 
 public class ToggleCompressor extends CommandBase {
   private final IntakeSubsystem m_intake;
-  
+
   public ToggleCompressor(IntakeSubsystem intake) {
     m_intake = intake;
     addRequirements(m_intake);
@@ -26,8 +26,8 @@ public class ToggleCompressor extends CommandBase {
   public void execute() {
     if (m_intake.compressorState == true) {
       m_intake.openCompressor();
-    } 
-    
+    }
+
     else {
       m_intake.closeCompressor();
     }

@@ -17,7 +17,7 @@ public class TurretJoystickCommand extends CommandBase {
     this.speed = _speed;
     this.m_turret = _turret;
     addRequirements(m_turret);
-    
+
   }
 
   // Called when the command is initially scheduled.

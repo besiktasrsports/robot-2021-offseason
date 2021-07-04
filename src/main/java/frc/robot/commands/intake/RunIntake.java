@@ -28,7 +28,7 @@ public class RunIntake extends CommandBase {
 
   }
 
-  
+
 
   @Override
   public void end(boolean interrupted) {

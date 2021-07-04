@@ -20,8 +20,8 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
   public static SendableChooser<Integer> autoChooser = new SendableChooser<>();
- 
-  
+
+
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -62,10 +62,10 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    
+
     m_robotContainer.m_robotDrive.resetEncoders();
     m_robotContainer.m_robotDrive.zeroHeading();
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand(autoChooser.getSelected());    
+    m_autonomousCommand = m_robotContainer.getAutonomousCommand(autoChooser.getSelected());
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();

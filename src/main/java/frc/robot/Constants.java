@@ -44,8 +44,8 @@ public final class Constants {
         public static final double kTrackwidthMeters = 0.69;
         public static final double kMaxAutoVoltage = 10;
 
-        
-        
+
+
         public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackwidthMeters);
         public  static  final  boolean kGyroReversed =  true ;
 
@@ -82,7 +82,7 @@ public final class Constants {
     //Accelerator
     public static final class AcceleratorConstants{
         public static final int kAcceleratorMotorPort = 50;
-        
+
     }
     //Turret
 
@@ -119,7 +119,7 @@ public final class Constants {
 
     }
 
-    
+
     public static final class MiscConstants{
 
     }

@@ -11,7 +11,7 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class RunShooter extends CommandBase {
     private final double m_speed;
     private final ShooterSubsystem m_shooter;
-  
+
   public RunShooter(ShooterSubsystem shooter, double speed) {
     m_speed = speed;
     m_shooter = shooter;
