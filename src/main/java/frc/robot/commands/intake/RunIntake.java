@@ -25,10 +25,7 @@ public class RunIntake extends CommandBase {
   @Override
   public void execute() {
     m_intake.runIntake(m_speed);
-
   }
-
-
 
   @Override
   public void end(boolean interrupted) {

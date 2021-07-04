@@ -10,9 +10,11 @@ import frc.robot.subsystems.FunnelSubsystem;
 public class FunnelCommand extends CommandBase {
   /** Creates a new FunnelCommand. */
   private final FunnelSubsystem m_funnel;
+
   private final Double m_speed;
   private final Double m__speed;
-  public FunnelCommand( FunnelSubsystem funnel, double speed, double _speed) {
+
+  public FunnelCommand(FunnelSubsystem funnel, double speed, double _speed) {
     this.m_speed = speed;
     this.m_funnel = funnel;
     this.m__speed = _speed;

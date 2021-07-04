@@ -5,7 +5,6 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -13,11 +12,13 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
-    private final WPI_VictorSPX intakeMotor = new WPI_VictorSPX(IntakeConstants.kIntakeMotorPort);
-    private final Compressor compressor = new Compressor(IntakeConstants.kCompressorPort);
-    private final DoubleSolenoid intakeSolenoid = new DoubleSolenoid(IntakeConstants.kIntakeDoubleSolenoidPort1,IntakeConstants.kIntakeDoubleSolenoidPort2);
-    public boolean compressorState = false;
-    public boolean intakeState = false;
+  private final WPI_VictorSPX intakeMotor = new WPI_VictorSPX(IntakeConstants.kIntakeMotorPort);
+  private final Compressor compressor = new Compressor(IntakeConstants.kCompressorPort);
+  private final DoubleSolenoid intakeSolenoid =
+      new DoubleSolenoid(
+          IntakeConstants.kIntakeDoubleSolenoidPort1, IntakeConstants.kIntakeDoubleSolenoidPort2);
+  public boolean compressorState = false;
+  public boolean intakeState = false;
 
   public IntakeSubsystem() {
     compressor.setClosedLoopControl(false);
@@ -39,6 +40,7 @@ public class IntakeSubsystem extends SubsystemBase {
   public void closeCompressor() {
     compressor.setClosedLoopControl(false);
   }
+
   public void intakeUp() {
     intakeSolenoid.set(Value.kReverse);
   }
@@ -50,6 +52,4 @@ public class IntakeSubsystem extends SubsystemBase {
   public void intakeOff() {
     intakeSolenoid.set(Value.kOff);
   }
-
-
 }

@@ -1,17 +1,17 @@
 {
-  "java.configuration.updateBuildConfiguration": "automatic",
-  "java.server.launchMode": "Standard",
   "files.exclude": {
-    "**/.git": true,
-    "**/.svn": true,
-    "**/.hg": true,
-    "**/CVS": true,
+    "**/*~": true,
     "**/.DS_Store": true,
-    "bin/": true,
     "**/.classpath": true,
+    "**/.factorypath": true,
+    "**/.git": true,
+    "**/.hg": true,
     "**/.project": true,
     "**/.settings": true,
-    "**/.factorypath": true,
-    "**/*~": true
-  }
+    "**/.svn": true,
+    "**/CVS": true,
+    "bin/": true
+  },
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "java.server.launchMode": "Standard"
 }

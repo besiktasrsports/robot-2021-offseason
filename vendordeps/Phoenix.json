@@ -1,214 +1,214 @@
 {
-    "fileName": "Phoenix.json",
-    "name": "CTRE-Phoenix",
-    "version": "5.19.4",
-    "uuid": "ab676553-b602-441f-a38d-f1296eff6537",
-    "mavenUrls": [
-        "https://devsite.ctr-electronics.com/maven/release/"
-    ],
-    "jsonUrl": "https://devsite.ctr-electronics.com/maven/release/com/ctre/phoenix/Phoenix-latest.json",
-    "javaDependencies": [
-        {
-            "groupId": "com.ctre.phoenix",
-            "artifactId": "api-java",
-            "version": "5.19.4"
-        },
-        {
-            "groupId": "com.ctre.phoenix",
-            "artifactId": "wpiapi-java",
-            "version": "5.19.4"
-        }
-    ],
-    "jniDependencies": [
-        {
-            "groupId": "com.ctre.phoenix",
-            "artifactId": "cci",
-            "version": "5.19.4",
-            "isJar": false,
-            "skipInvalidPlatforms": true,
-            "validPlatforms": [
-                "linuxathena"
-            ]
-        },
-        {
-            "groupId": "com.ctre.phoenix.sim",
-            "artifactId": "cci-sim",
-            "version": "5.19.4",
-            "isJar": false,
-            "skipInvalidPlatforms": true,
-            "validPlatforms": [
-                "windowsx86-64",
-                "linuxx86-64",
-                "osxx86-64"
-            ]
-        },
-        {
-            "groupId": "com.ctre.phoenix.sim",
-            "artifactId": "simTalonSRX",
-            "version": "5.19.4",
-            "isJar": false,
-            "skipInvalidPlatforms": true,
-            "validPlatforms": [
-                "windowsx86-64",
-                "linuxx86-64",
-                "osxx86-64"
-            ]
-        },
-        {
-            "groupId": "com.ctre.phoenix.sim",
-            "artifactId": "simVictorSPX",
-            "version": "5.19.4",
-            "isJar": false,
-            "skipInvalidPlatforms": true,
-            "validPlatforms": [
-                "windowsx86-64",
-                "linuxx86-64",
-                "osxx86-64"
-            ]
-        }
-    ],
-    "cppDependencies": [
-        {
-            "groupId": "com.ctre.phoenix",
-            "artifactId": "wpiapi-cpp",
-            "version": "5.19.4",
-            "libName": "CTRE_Phoenix_WPI",
-            "headerClassifier": "headers",
-            "sharedLibrary": false,
-            "skipInvalidPlatforms": true,
-            "binaryPlatforms": [
-                "linuxathena",
-                "windowsx86-64",
-                "linuxx86-64",
-                "osxx86-64"
-            ]
-        },
-        {
-            "groupId": "com.ctre.phoenix",
-            "artifactId": "api-cpp",
-            "version": "5.19.4",
-            "libName": "CTRE_Phoenix",
-            "headerClassifier": "headers",
-            "sharedLibrary": false,
-            "skipInvalidPlatforms": true,
-            "binaryPlatforms": [
-                "linuxathena",
-                "windowsx86-64",
-                "linuxx86-64",
-                "osxx86-64"
-            ]
-        },
-        {
-            "groupId": "com.ctre.phoenix",
-            "artifactId": "cci",
-            "version": "5.19.4",
-            "libName": "CTRE_PhoenixCCI",
-            "headerClassifier": "headers",
-            "sharedLibrary": false,
-            "skipInvalidPlatforms": true,
-            "binaryPlatforms": [
-                "linuxathena"
-            ]
-        },
-        {
-            "groupId": "com.ctre.phoenix.sim",
-            "artifactId": "cci-sim",
-            "version": "5.19.4",
-            "libName": "CTRE_PhoenixCCISim",
-            "headerClassifier": "headers",
-            "sharedLibrary": false,
-            "skipInvalidPlatforms": true,
-            "binaryPlatforms": [
-                "windowsx86-64",
-                "linuxx86-64",
-                "osxx86-64"
-            ]
-        },
-        {
-            "groupId": "com.ctre.phoenix",
-            "artifactId": "diagnostics",
-            "version": "5.19.4",
-            "libName": "CTRE_PhoenixDiagnostics",
-            "headerClassifier": "headers",
-            "sharedLibrary": false,
-            "skipInvalidPlatforms": true,
-            "binaryPlatforms": [
-                "linuxathena",
-                "windowsx86-64",
-                "linuxx86-64",
-                "osxx86-64"
-            ]
-        },
-        {
-            "groupId": "com.ctre.phoenix",
-            "artifactId": "canutils",
-            "version": "5.19.4",
-            "libName": "CTRE_PhoenixCanutils",
-            "headerClassifier": "headers",
-            "sharedLibrary": false,
-            "skipInvalidPlatforms": true,
-            "binaryPlatforms": [
-                "windowsx86-64",
-                "linuxx86-64",
-                "osxx86-64"
-            ]
-        },
-        {
-            "groupId": "com.ctre.phoenix",
-            "artifactId": "platform-sim",
-            "version": "5.19.4",
-            "libName": "CTRE_PhoenixPlatform",
-            "headerClassifier": "headers",
-            "sharedLibrary": false,
-            "skipInvalidPlatforms": true,
-            "binaryPlatforms": [
-                "windowsx86-64",
-                "linuxx86-64",
-                "osxx86-64"
-            ]
-        },
-        {
-            "groupId": "com.ctre.phoenix",
-            "artifactId": "core",
-            "version": "5.19.4",
-            "libName": "CTRE_PhoenixCore",
-            "headerClassifier": "headers",
-            "sharedLibrary": false,
-            "skipInvalidPlatforms": true,
-            "binaryPlatforms": [
-                "linuxathena",
-                "windowsx86-64",
-                "linuxx86-64",
-                "osxx86-64"
-            ]
-        },
-        {
-            "groupId": "com.ctre.phoenix.sim",
-            "artifactId": "simTalonSRX",
-            "version": "5.19.4",
-            "libName": "CTRE_SimTalonSRX",
-            "headerClassifier": "headers",
-            "sharedLibrary": true,
-            "skipInvalidPlatforms": true,
-            "binaryPlatforms": [
-                "windowsx86-64",
-                "linuxx86-64",
-                "osxx86-64"
-            ]
-        },
-        {
-            "groupId": "com.ctre.phoenix.sim",
-            "artifactId": "simVictorSPX",
-            "version": "5.19.4",
-            "libName": "CTRE_SimVictorSPX",
-            "headerClassifier": "headers",
-            "sharedLibrary": true,
-            "skipInvalidPlatforms": true,
-            "binaryPlatforms": [
-                "windowsx86-64",
-                "linuxx86-64",
-                "osxx86-64"
-            ]
-        }
-    ]
+  "cppDependencies": [
+    {
+      "artifactId": "wpiapi-cpp",
+      "binaryPlatforms": [
+        "linuxathena",
+        "windowsx86-64",
+        "linuxx86-64",
+        "osxx86-64"
+      ],
+      "groupId": "com.ctre.phoenix",
+      "headerClassifier": "headers",
+      "libName": "CTRE_Phoenix_WPI",
+      "sharedLibrary": false,
+      "skipInvalidPlatforms": true,
+      "version": "5.19.4"
+    },
+    {
+      "artifactId": "api-cpp",
+      "binaryPlatforms": [
+        "linuxathena",
+        "windowsx86-64",
+        "linuxx86-64",
+        "osxx86-64"
+      ],
+      "groupId": "com.ctre.phoenix",
+      "headerClassifier": "headers",
+      "libName": "CTRE_Phoenix",
+      "sharedLibrary": false,
+      "skipInvalidPlatforms": true,
+      "version": "5.19.4"
+    },
+    {
+      "artifactId": "cci",
+      "binaryPlatforms": [
+        "linuxathena"
+      ],
+      "groupId": "com.ctre.phoenix",
+      "headerClassifier": "headers",
+      "libName": "CTRE_PhoenixCCI",
+      "sharedLibrary": false,
+      "skipInvalidPlatforms": true,
+      "version": "5.19.4"
+    },
+    {
+      "artifactId": "cci-sim",
+      "binaryPlatforms": [
+        "windowsx86-64",
+        "linuxx86-64",
+        "osxx86-64"
+      ],
+      "groupId": "com.ctre.phoenix.sim",
+      "headerClassifier": "headers",
+      "libName": "CTRE_PhoenixCCISim",
+      "sharedLibrary": false,
+      "skipInvalidPlatforms": true,
+      "version": "5.19.4"
+    },
+    {
+      "artifactId": "diagnostics",
+      "binaryPlatforms": [
+        "linuxathena",
+        "windowsx86-64",
+        "linuxx86-64",
+        "osxx86-64"
+      ],
+      "groupId": "com.ctre.phoenix",
+      "headerClassifier": "headers",
+      "libName": "CTRE_PhoenixDiagnostics",
+      "sharedLibrary": false,
+      "skipInvalidPlatforms": true,
+      "version": "5.19.4"
+    },
+    {
+      "artifactId": "canutils",
+      "binaryPlatforms": [
+        "windowsx86-64",
+        "linuxx86-64",
+        "osxx86-64"
+      ],
+      "groupId": "com.ctre.phoenix",
+      "headerClassifier": "headers",
+      "libName": "CTRE_PhoenixCanutils",
+      "sharedLibrary": false,
+      "skipInvalidPlatforms": true,
+      "version": "5.19.4"
+    },
+    {
+      "artifactId": "platform-sim",
+      "binaryPlatforms": [
+        "windowsx86-64",
+        "linuxx86-64",
+        "osxx86-64"
+      ],
+      "groupId": "com.ctre.phoenix",
+      "headerClassifier": "headers",
+      "libName": "CTRE_PhoenixPlatform",
+      "sharedLibrary": false,
+      "skipInvalidPlatforms": true,
+      "version": "5.19.4"
+    },
+    {
+      "artifactId": "core",
+      "binaryPlatforms": [
+        "linuxathena",
+        "windowsx86-64",
+        "linuxx86-64",
+        "osxx86-64"
+      ],
+      "groupId": "com.ctre.phoenix",
+      "headerClassifier": "headers",
+      "libName": "CTRE_PhoenixCore",
+      "sharedLibrary": false,
+      "skipInvalidPlatforms": true,
+      "version": "5.19.4"
+    },
+    {
+      "artifactId": "simTalonSRX",
+      "binaryPlatforms": [
+        "windowsx86-64",
+        "linuxx86-64",
+        "osxx86-64"
+      ],
+      "groupId": "com.ctre.phoenix.sim",
+      "headerClassifier": "headers",
+      "libName": "CTRE_SimTalonSRX",
+      "sharedLibrary": true,
+      "skipInvalidPlatforms": true,
+      "version": "5.19.4"
+    },
+    {
+      "artifactId": "simVictorSPX",
+      "binaryPlatforms": [
+        "windowsx86-64",
+        "linuxx86-64",
+        "osxx86-64"
+      ],
+      "groupId": "com.ctre.phoenix.sim",
+      "headerClassifier": "headers",
+      "libName": "CTRE_SimVictorSPX",
+      "sharedLibrary": true,
+      "skipInvalidPlatforms": true,
+      "version": "5.19.4"
+    }
+  ],
+  "fileName": "Phoenix.json",
+  "javaDependencies": [
+    {
+      "artifactId": "api-java",
+      "groupId": "com.ctre.phoenix",
+      "version": "5.19.4"
+    },
+    {
+      "artifactId": "wpiapi-java",
+      "groupId": "com.ctre.phoenix",
+      "version": "5.19.4"
+    }
+  ],
+  "jniDependencies": [
+    {
+      "artifactId": "cci",
+      "groupId": "com.ctre.phoenix",
+      "isJar": false,
+      "skipInvalidPlatforms": true,
+      "validPlatforms": [
+        "linuxathena"
+      ],
+      "version": "5.19.4"
+    },
+    {
+      "artifactId": "cci-sim",
+      "groupId": "com.ctre.phoenix.sim",
+      "isJar": false,
+      "skipInvalidPlatforms": true,
+      "validPlatforms": [
+        "windowsx86-64",
+        "linuxx86-64",
+        "osxx86-64"
+      ],
+      "version": "5.19.4"
+    },
+    {
+      "artifactId": "simTalonSRX",
+      "groupId": "com.ctre.phoenix.sim",
+      "isJar": false,
+      "skipInvalidPlatforms": true,
+      "validPlatforms": [
+        "windowsx86-64",
+        "linuxx86-64",
+        "osxx86-64"
+      ],
+      "version": "5.19.4"
+    },
+    {
+      "artifactId": "simVictorSPX",
+      "groupId": "com.ctre.phoenix.sim",
+      "isJar": false,
+      "skipInvalidPlatforms": true,
+      "validPlatforms": [
+        "windowsx86-64",
+        "linuxx86-64",
+        "osxx86-64"
+      ],
+      "version": "5.19.4"
+    }
+  ],
+  "jsonUrl": "https://devsite.ctr-electronics.com/maven/release/com/ctre/phoenix/Phoenix-latest.json",
+  "mavenUrls": [
+    "https://devsite.ctr-electronics.com/maven/release/"
+  ],
+  "name": "CTRE-Phoenix",
+  "uuid": "ab676553-b602-441f-a38d-f1296eff6537",
+  "version": "5.19.4"
 }

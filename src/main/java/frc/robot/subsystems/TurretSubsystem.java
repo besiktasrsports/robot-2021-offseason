@@ -11,10 +11,12 @@ import frc.robot.Constants.TurretConstants;
 
 public class TurretSubsystem extends SubsystemBase {
 
-
   private final WPI_VictorSPX turretMotor = new WPI_VictorSPX(TurretConstants.kTurretMotorPort);
-  public final Encoder turretEncoder = new Encoder(TurretConstants.kTurretEncoderA,
-    TurretConstants.kTurretEncoderB, TurretConstants.kIsEncoderReversed);
+  public final Encoder turretEncoder =
+      new Encoder(
+          TurretConstants.kTurretEncoderA,
+          TurretConstants.kTurretEncoderB,
+          TurretConstants.kIsEncoderReversed);
 
   public TurretSubsystem() {
 
@@ -22,7 +24,6 @@ public class TurretSubsystem extends SubsystemBase {
     turretMotor.setNeutralMode(TurretConstants.kTurretMotorMode);
 
     turretEncoder.setDistancePerPulse(1.0 / (TurretConstants.kTurretEncoderPPR));
-
   }
 
   @Override
@@ -33,6 +34,5 @@ public class TurretSubsystem extends SubsystemBase {
   public void runTurret(double speed) {
 
     turretMotor.set(speed);
-
   }
 }

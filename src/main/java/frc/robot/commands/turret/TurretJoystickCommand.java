@@ -10,6 +10,7 @@ import frc.robot.subsystems.TurretSubsystem;
 public class TurretJoystickCommand extends CommandBase {
   /** Creates a new TurretJoystickCommand. */
   private final double speed;
+
   private final TurretSubsystem m_turret;
 
   public TurretJoystickCommand(TurretSubsystem _turret, double _speed) {
@@ -17,7 +18,6 @@ public class TurretJoystickCommand extends CommandBase {
     this.speed = _speed;
     this.m_turret = _turret;
     addRequirements(m_turret);
-
   }
 
   // Called when the command is initially scheduled.

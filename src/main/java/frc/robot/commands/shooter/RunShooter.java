@@ -7,10 +7,9 @@ package frc.robot.commands.shooter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ShooterSubsystem;
 
-
 public class RunShooter extends CommandBase {
-    private final double m_speed;
-    private final ShooterSubsystem m_shooter;
+  private final double m_speed;
+  private final ShooterSubsystem m_shooter;
 
   public RunShooter(ShooterSubsystem shooter, double speed) {
     m_speed = speed;
@@ -32,7 +31,6 @@ public class RunShooter extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_shooter.runShooter(0);
-
   }
 
   // Returns true when the command should end.

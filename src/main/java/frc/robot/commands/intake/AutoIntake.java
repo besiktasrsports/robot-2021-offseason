@@ -10,7 +10,9 @@ import frc.robot.subsystems.IntakeSubsystem;
 public class AutoIntake extends CommandBase {
   /** Creates a new AutoIntake. */
   private final IntakeSubsystem m_intake;
+
   private final double m_speed;
+
   public AutoIntake(IntakeSubsystem intake, double speed) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.m_intake = intake;
@@ -31,7 +33,7 @@ public class AutoIntake extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    //This empty because it's using Autonomous
+    // This empty because it's using Autonomous
   }
 
   // Returns true when the command should end.

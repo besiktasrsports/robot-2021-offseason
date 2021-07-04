@@ -13,34 +13,37 @@ import edu.wpi.first.wpilibj2.command.ProfiledPIDCommand;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.DriveSubsytem;
 
-
-/**
- * A command that will turn the robot to the specified angle using a motion
- * profile.
- */
+/** A command that will turn the robot to the specified angle using a motion profile. */
 public class FieldOrientedTurn extends ProfiledPIDCommand {
   /**
    * Turns to robot to the specified angle using a motion profile.
    *
    * @param targetAngleDegrees The angle to turn to
-   * @param drive              The drive subsystem to use
+   * @param drive The drive subsystem to use
    */
-
   DriveSubsytem m_drive;
 
   public FieldOrientedTurn(double targetAngleDegrees, DriveSubsytem drive) {
 
     super(
-        new ProfiledPIDController(DriveConstants.kTurnP, DriveConstants.kTurnI, DriveConstants.kTurnD,
-            new TrapezoidProfile.Constraints(DriveConstants.kMaxTurnRateDegPerS,
+        new ProfiledPIDController(
+            DriveConstants.kTurnP,
+            DriveConstants.kTurnI,
+            DriveConstants.kTurnD,
+            new TrapezoidProfile.Constraints(
+                DriveConstants.kMaxTurnRateDegPerS,
                 DriveConstants.kMaxTurnAccelerationDegPerSSquared)),
         // Close loop on heading
         drive::getHeadingCW,
         // Set reference to target
         targetAngleDegrees,
         // Pipe output to turn robot
-        (output, setpoint) -> drive.arcadeDrive(0,
-            (output > 0) ? DriveConstants.kMinCommand + output / 12 : -DriveConstants.kMinCommand + output / 12),
+        (output, setpoint) ->
+            drive.arcadeDrive(
+                0,
+                (output > 0)
+                    ? DriveConstants.kMinCommand + output / 12
+                    : -DriveConstants.kMinCommand + output / 12),
         // Require the drive
         drive);
 
@@ -50,10 +53,10 @@ public class FieldOrientedTurn extends ProfiledPIDCommand {
     // Set the controller tolerance - the delta tolerance ensures the robot is
     // stationary at the
     // setpoint before it is considered as having reached the reference
-    getController().setTolerance(DriveConstants.kTurnToleranceDeg, DriveConstants.kTurnRateToleranceDegPerS);
+    getController()
+        .setTolerance(DriveConstants.kTurnToleranceDeg, DriveConstants.kTurnRateToleranceDegPerS);
 
     m_drive = drive;
-
   }
 
   @Override

@@ -9,6 +9,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 
 public class ToggleDropIntake extends CommandBase {
   private final IntakeSubsystem m_intake;
+
   public ToggleDropIntake(IntakeSubsystem intake) {
     m_intake = intake;
     addRequirements(intake);
@@ -23,21 +24,17 @@ public class ToggleDropIntake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(m_intake.intakeState == true){
+    if (m_intake.intakeState == true) {
       m_intake.intakeUp();
-    }
-
-    else {
+    } else {
       m_intake.intakeDown();
     }
-
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    if(m_intake.intakeState == true)
-    {
+    if (m_intake.intakeState == true) {
       m_intake.intakeOff();
     }
   }

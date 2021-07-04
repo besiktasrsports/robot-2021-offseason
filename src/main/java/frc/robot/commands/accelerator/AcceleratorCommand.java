@@ -10,7 +10,9 @@ import frc.robot.subsystems.AcceleratorSubsystem;
 public class AcceleratorCommand extends CommandBase {
   /** Creates a new AccelaratorCommand. */
   private final AcceleratorSubsystem m_accelarator;
+
   private final double m_speed;
+
   public AcceleratorCommand(AcceleratorSubsystem accelarator, double speed) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_accelarator = accelarator;

@@ -26,12 +26,9 @@ public class ToggleCompressor extends CommandBase {
   public void execute() {
     if (m_intake.compressorState == true) {
       m_intake.openCompressor();
-    }
-
-    else {
+    } else {
       m_intake.closeCompressor();
     }
-
   }
 
   // Called once the command ends or is interrupted.

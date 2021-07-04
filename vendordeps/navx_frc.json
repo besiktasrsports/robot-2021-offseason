@@ -1,35 +1,35 @@
 {
-    "fileName": "navx_frc.json",
-    "name": "KauaiLabs_navX_FRC",
-    "version": "4.0.414",
-    "uuid": "cb311d09-36e9-4143-a032-55bb2b94443b",
-    "mavenUrls": [
-        "https://repo1.maven.org/maven2/"
-    ],
-    "jsonUrl": "https://www.kauailabs.com/dist/frc/2021/navx_frc.json",
-    "javaDependencies": [
-        {
-            "groupId": "com.kauailabs.navx.frc",
-            "artifactId": "navx-java",
-            "version": "4.0.414"
-        }
-    ],
-    "jniDependencies": [],
-    "cppDependencies": [
-        {
-            "groupId": "com.kauailabs.navx.frc",
-            "artifactId": "navx-cpp",
-            "version": "4.0.414",
-            "headerClassifier": "headers",
-            "sourcesClassifier": "sources",
-            "sharedLibrary": false,
-            "libName": "navx_frc",
-            "skipInvalidPlatforms": true,
-            "binaryPlatforms": [
-                "linuxathena",
-                "linuxraspbian",
-                "windowsx86-64"
-            ]
-        }
-    ]
+  "cppDependencies": [
+    {
+      "artifactId": "navx-cpp",
+      "binaryPlatforms": [
+        "linuxathena",
+        "linuxraspbian",
+        "windowsx86-64"
+      ],
+      "groupId": "com.kauailabs.navx.frc",
+      "headerClassifier": "headers",
+      "libName": "navx_frc",
+      "sharedLibrary": false,
+      "skipInvalidPlatforms": true,
+      "sourcesClassifier": "sources",
+      "version": "4.0.414"
+    }
+  ],
+  "fileName": "navx_frc.json",
+  "javaDependencies": [
+    {
+      "artifactId": "navx-java",
+      "groupId": "com.kauailabs.navx.frc",
+      "version": "4.0.414"
+    }
+  ],
+  "jniDependencies": [],
+  "jsonUrl": "https://www.kauailabs.com/dist/frc/2021/navx_frc.json",
+  "mavenUrls": [
+    "https://repo1.maven.org/maven2/"
+  ],
+  "name": "KauaiLabs_navX_FRC",
+  "uuid": "cb311d09-36e9-4143-a032-55bb2b94443b",
+  "version": "4.0.414"
 }

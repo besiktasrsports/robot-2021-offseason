@@ -4,17 +4,19 @@
 
 package frc.robot.commands.drivetrain;
 
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsytem;
+import java.util.function.DoubleSupplier;
 
 public class JoystickDriveCommand extends CommandBase {
   /** Creates a new JoystickDriveCommand. */
   private final DriveSubsytem m_drive;
+
   private final DoubleSupplier m_forward;
   private final DoubleSupplier m_rotation;
-  public JoystickDriveCommand(DriveSubsytem drive, DoubleSupplier forward, DoubleSupplier rotation) {
+
+  public JoystickDriveCommand(
+      DriveSubsytem drive, DoubleSupplier forward, DoubleSupplier rotation) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_drive = drive;
     m_forward = forward;

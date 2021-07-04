@@ -5,13 +5,14 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.AcceleratorConstants;
 
 public class AcceleratorSubsystem extends SubsystemBase {
   /** Creates a new AcceleratorSubsystem. */
-  private final WPI_VictorSPX AcceleratorMotor = new WPI_VictorSPX(AcceleratorConstants.kAcceleratorMotorPort);
+  private final WPI_VictorSPX AcceleratorMotor =
+      new WPI_VictorSPX(AcceleratorConstants.kAcceleratorMotorPort);
+
   public AcceleratorSubsystem() {}
 
   @Override
@@ -19,11 +20,11 @@ public class AcceleratorSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void runAccelerator(double speed){
+  public void runAccelerator(double speed) {
     AcceleratorMotor.set(speed);
   }
 
-  public void stopAccelerator(){
+  public void stopAccelerator() {
     AcceleratorMotor.set(0);
   }
 }

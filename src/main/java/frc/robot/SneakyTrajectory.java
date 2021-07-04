@@ -17,59 +17,58 @@ import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.DriveSubsytem;
 
-/**
- * Add your docs here.
- */
+/** Add your docs here. */
 public class SneakyTrajectory {
 
   private DriveSubsytem m_drive;
 
+  public SneakyTrajectory(DriveSubsytem drive) {
 
-  public SneakyTrajectory(DriveSubsytem drive){
-
-        m_drive = drive;
-        var autoVoltageConstraint =
+    m_drive = drive;
+    var autoVoltageConstraint =
         new DifferentialDriveVoltageConstraint(
-            new SimpleMotorFeedforward(DriveConstants.ksVolts,
-                                       DriveConstants.kvVoltSecondsPerMeter,
-                                       DriveConstants.kaVoltSecondsSquaredPerMeter),
+            new SimpleMotorFeedforward(
+                DriveConstants.ksVolts,
+                DriveConstants.kvVoltSecondsPerMeter,
+                DriveConstants.kaVoltSecondsSquaredPerMeter),
             DriveConstants.kDriveKinematics,
             DriveConstants.kMaxAutoVoltage);
-            TrajectoryConfig configForward =
-   new TrajectoryConfig(DriveConstants.kMaxSpeedMetersPerSecond,
-     DriveConstants.kMaxAccelerationMetersPerSecondSquared)
-      // Add kinematics to ensure max speed is actually obeyed
-    .setKinematics(DriveConstants.kDriveKinematics)
-     // Apply the voltage constraint
-     .addConstraint(autoVoltageConstraint);
+    TrajectoryConfig configForward =
+        new TrajectoryConfig(
+                DriveConstants.kMaxSpeedMetersPerSecond,
+                DriveConstants.kMaxAccelerationMetersPerSecondSquared)
+            // Add kinematics to ensure max speed is actually obeyed
+            .setKinematics(DriveConstants.kDriveKinematics)
+            // Apply the voltage constraint
+            .addConstraint(autoVoltageConstraint);
     configForward.setReversed(false);
-     TrajectoryConfig configBackward =
-   new TrajectoryConfig(DriveConstants.kMaxSpeedMetersPerSecond,
-     DriveConstants.kMaxAccelerationMetersPerSecondSquared)
-      // Add kinematics to ensure max speed is actually obeyed
-    .setKinematics(DriveConstants.kDriveKinematics)
-     // Apply the voltage constraint
-     .addConstraint(autoVoltageConstraint);
-     configBackward.setReversed(true);
-    }
-    public RamseteCommand getRamsete(Trajectory trajectory ){
+    TrajectoryConfig configBackward =
+        new TrajectoryConfig(
+                DriveConstants.kMaxSpeedMetersPerSecond,
+                DriveConstants.kMaxAccelerationMetersPerSecondSquared)
+            // Add kinematics to ensure max speed is actually obeyed
+            .setKinematics(DriveConstants.kDriveKinematics)
+            // Apply the voltage constraint
+            .addConstraint(autoVoltageConstraint);
+    configBackward.setReversed(true);
+  }
 
-        return new RamseteCommand(
+  public RamseteCommand getRamsete(Trajectory trajectory) {
+
+    return new RamseteCommand(
         trajectory,
         m_drive::getPose,
         new RamseteController(DriveConstants.kRamseteB, DriveConstants.kRamseteZeta),
-        new SimpleMotorFeedforward(DriveConstants.ksVolts,
-                                   DriveConstants.kvVoltSecondsPerMeter,
-                                   DriveConstants.kaVoltSecondsSquaredPerMeter),
+        new SimpleMotorFeedforward(
+            DriveConstants.ksVolts,
+            DriveConstants.kvVoltSecondsPerMeter,
+            DriveConstants.kaVoltSecondsSquaredPerMeter),
         DriveConstants.kDriveKinematics,
         m_drive::getWheelSpeeds,
         new PIDController(DriveConstants.kPDriveVel, 0, 0),
         new PIDController(DriveConstants.kPDriveVel, 0, 0),
         // RamseteCommand passes volts to the callback
         m_drive::tankDriveVolts,
-        m_drive
-    );
-    }
-
-
+        m_drive);
+  }
 }

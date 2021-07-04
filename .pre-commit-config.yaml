@@ -13,24 +13,26 @@
 # See https://github.com/pre-commit/pre-commit
 
 repos:
--   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.0.1
-    hooks:
-    -    id: check-added-large-files
-    -    id: check-case-conflict
-    -    id: check-json
-    -    id: check-merge-conflict
-    -    id: check-symlinks
-    -    id: check-toml
-    -    id: check-yaml
-    -    id: debug-statements
-    -    id: destroyed-symlinks
-    -    id: detect-private-key
-    -    id: end-of-file-fixer
-    -    id: mixed-line-ending
-    -    id: pretty-format-json
-    -    id: trailing-whitespace
-# -   repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
-#     rev: v2.1.0
-#     hooks:
-#     -   id: pretty-format-java
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v4.0.1
+  hooks:
+    - id: check-added-large-files
+    - id: check-case-conflict
+    - id: check-json
+    - id: check-merge-conflict
+    - id: check-symlinks
+    - id: check-toml
+    - id: check-yaml
+    - id: debug-statements
+    - id: destroyed-symlinks
+    - id: detect-private-key
+    - id: end-of-file-fixer
+    - id: mixed-line-ending
+    - id: pretty-format-json
+      args: [--autofix]
+    - id: trailing-whitespace
+- repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
+  rev: v2.1.0
+  hooks:
+    - id: pretty-format-java
+      args: [--autofix]
