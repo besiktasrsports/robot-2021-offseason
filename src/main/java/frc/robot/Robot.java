@@ -5,8 +5,6 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.geometry.Pose2d;
-import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -36,15 +34,6 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
 
     autoChooser.setDefaultOption("Default Auto", 0);
-    autoChooser.addOption("Path A Red", 1);
-    autoChooser.addOption("Path A Blue", 2);
-    autoChooser.addOption("Path A Blue and Red together ", 3);
-    autoChooser.addOption("Path B Red", 4);
-    autoChooser.addOption("Path B Blue", 5);
-    autoChooser.addOption("Path B Blue and Red together", 6);
-    autoChooser.addOption("BarrelRacingPath", 7);
-    autoChooser.addOption("BouncePath", 8);
-    
   }
 
   /**
@@ -76,37 +65,7 @@ public class Robot extends TimedRobot {
     
     m_robotContainer.m_robotDrive.resetEncoders();
     m_robotContainer.m_robotDrive.zeroHeading();
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand(autoChooser.getSelected());
-
-    if(autoChooser.getSelected() == 1 ){
-      m_robotContainer.m_robotDrive.m_odometry.resetPosition(m_robotContainer.s_trajectory.PathARed[0].getInitialPose(), new Rotation2d(0));
-    }
-    if(autoChooser.getSelected() == 2){
-      m_robotContainer.m_robotDrive.m_odometry.resetPosition(m_robotContainer.s_trajectory.PathABlue[0].getInitialPose(), new Rotation2d(0));
-    }
-    if(autoChooser.getSelected() == 3){
-      m_robotContainer.m_robotDrive.m_odometry.resetPosition(m_robotContainer.s_trajectory.PathATogether[0].getInitialPose(), new Rotation2d(0));
-    }
-    if(autoChooser.getSelected() == 4){
-      m_robotContainer.m_robotDrive.m_odometry.resetPosition(m_robotContainer.s_trajectory.PathBRed[0].getInitialPose(), new Rotation2d(0));
-    }
-    if(autoChooser.getSelected() == 5){
-      m_robotContainer.m_robotDrive.m_odometry.resetPosition(m_robotContainer.s_trajectory.PathBBlue[0].getInitialPose(), new Rotation2d(0));
-    }
-    if(autoChooser.getSelected() == 6){
-      m_robotContainer.m_robotDrive.m_odometry.resetPosition(m_robotContainer.s_trajectory.PathBTogether[0].getInitialPose(), new Rotation2d(0));
-    }
-    if(autoChooser.getSelected() == 7){
-      m_robotContainer.m_robotDrive.m_odometry.resetPosition(m_robotContainer.s_trajectory.BarrelRacingPath[0].getInitialPose(), new Rotation2d(0));
-    }
-    if(autoChooser.getSelected() == 8){
-      m_robotContainer.m_robotDrive.m_odometry.resetPosition(m_robotContainer.s_trajectory.BouncePath[0].getInitialPose(), new Rotation2d(0));
-    }
-
-
-    //m_robotContainer.m_robotDrive.m_odometry.resetPosition(new Pose2d(0,0, null), new Rotation2d(0));
-    
-
+    m_autonomousCommand = m_robotContainer.getAutonomousCommand(autoChooser.getSelected());    
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();

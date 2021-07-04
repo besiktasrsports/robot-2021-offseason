@@ -4,10 +4,7 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.TurretConstants;
@@ -16,8 +13,6 @@ public class TurretSubsystem extends SubsystemBase {
   
 
   private final WPI_VictorSPX turretMotor = new WPI_VictorSPX(TurretConstants.kTurretMotorPort);
-  private final DigitalInput turretHallEffectSensor = new DigitalInput(TurretConstants.kTurretHallEffect1Port);
-  private final DigitalInput turretHallEffectSensor2 = new DigitalInput(TurretConstants.kTurretHallEffect2Port);
   public final Encoder turretEncoder = new Encoder(TurretConstants.kTurretEncoderA, 
     TurretConstants.kTurretEncoderB, TurretConstants.kIsEncoderReversed);
 

@@ -27,8 +27,6 @@ public class DriveSubsytem extends SubsystemBase {
 
   public final DifferentialDriveOdometry m_odometry;
   public final AHRS m_gyro = new AHRS(SPI.Port.kMXP);
-  private boolean gyroState;
-  private double angular_velocity;
   private double target;
   
   
@@ -52,8 +50,6 @@ public class DriveSubsytem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    gyroState = m_gyro.isConnected();
-    angular_velocity = m_gyro.getRate();
     m_odometry.update(Rotation2d.fromDegrees(getHeading()), getLeftEncoderDistance(), getRightEncoderDistance());
   }
 

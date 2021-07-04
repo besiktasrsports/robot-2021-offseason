@@ -13,8 +13,8 @@ import frc.robot.commands.intake.RunIntake;
 import frc.robot.commands.intake.ToggleCompressor;
 import frc.robot.commands.intake.ToggleDropIntake;
 import frc.robot.commands.shooter.RunShooter;
-import frc.robot.commands.Autonomous.GalacticSearch.*;
 import frc.robot.commands.accelerator.AcceleratorCommand;
+import frc.robot.commands.auto.DefaultAuto;
 import frc.robot.commands.drivetrain.JoystickDriveCommand;
 import frc.robot.commands.turret.TurretJoystickCommand;
 import frc.robot.subsystems.FunnelSubsystem;
@@ -75,28 +75,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand(Integer auto) {
     // An ExampleCommand will run in autonomous
-  
-    switch(auto){
-      case 1:
-       return new PathARed(s_trajectory, m_robotDrive, m_intake);
-      case 2:
-      return new PathABlue(s_trajectory, m_robotDrive, m_intake);
-      case 3:
-      return new PathATogether(s_trajectory, m_robotDrive, m_intake);
-      case 4:
-       return new PathBRed(s_trajectory, m_robotDrive, m_intake);
-      case 5:
-      return new PathBBlue(s_trajectory, m_robotDrive, m_intake);
-      case 6:
-      return new PathBTogether(s_trajectory, m_robotDrive, m_intake);
-      case 7:
-      return new BarrelRacingPath(s_trajectory, m_robotDrive);
-      case 8:
-      return new BouncePath(s_trajectory, m_robotDrive);
-
-      
-       default:
-      return new DefaultAuto(s_trajectory, m_robotDrive); 
-  }
+    return new DefaultAuto(m_robotDrive, m_shooter);
 }
 }
