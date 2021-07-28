@@ -112,5 +112,9 @@ public final class Constants {
     public static final boolean kShooterInvertedMode2 = true;
   }
 
-  public static final class MiscConstants {}
+  public static final class MiscConstants {
+    public static final int kLedRelayPort = 9;
+    public static final int kStatusLEDPort = 0;
+    public static final int KStatusLEDLength = 0;
+  }
 }
