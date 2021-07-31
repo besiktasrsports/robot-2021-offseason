@@ -17,12 +17,15 @@ import frc.robot.commands.intake.ToggleCompressor;
 import frc.robot.commands.intake.ToggleDropIntake;
 import frc.robot.commands.shooter.RunShooter;
 import frc.robot.commands.turret.TurretJoystickCommand;
+import frc.robot.commands.visionLed.CloseLED;
+import frc.robot.commands.visionLed.ToggleLED;
 import frc.robot.subsystems.AcceleratorSubsystem;
 import frc.robot.subsystems.DriveSubsytem;
 import frc.robot.subsystems.FunnelSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.TurretSubsystem;
+import frc.robot.subsystems.VisionLED;
 
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
@@ -35,6 +38,7 @@ public class RobotContainer {
   public final ShooterSubsystem m_shooter = new ShooterSubsystem();
   public final AcceleratorSubsystem m_accelerator = new AcceleratorSubsystem();
   public final DriveSubsytem m_robotDrive = new DriveSubsytem();
+  public final VisionLED m_VisionLED = new VisionLED();
   public final SneakyTrajectory s_trajectory = new SneakyTrajectory(m_robotDrive);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -67,6 +71,10 @@ public class RobotContainer {
 
     // Misc Commands
     new JoystickButton(m_operatorController, 2).whileHeld(new ToggleCompressor(m_intake));
+    new JoystickButton(m_driverController, 10).whenPressed(new ToggleLED(m_VisionLED));
+
+    // Vision Drive
+    new JoystickButton(m_driverController, 3).whileHeld(new CloseLED(m_VisionLED));
   }
 
   /**
