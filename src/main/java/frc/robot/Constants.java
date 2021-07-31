@@ -18,19 +18,19 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 public final class Constants {
   public static final class JoystickConstants {
     public static final int kDriverControllerPort = 0;
-    public static final int kOperatorControllerPort = 0;
+    public static final int kOperatorControllerPort = 1;
   }
   // Drive
 
   public static final class DriveConstants {
-    public static final int kLeftRearMotor = 10;
-    public static final int kLeftFrontMotor = 11;
-    public static final int kRightRearMotor = 12;
-    public static final int kRightFrontMotor = 13;
-    public static final boolean kLeftRearMotorInverted = false;
-    public static final boolean kLeftFrontMotorInverted = false;
-    public static final boolean kRightRearMotorInverted = false;
-    public static final boolean kRightFrontMotorInverted = false;
+    public static final int kLeftRearMotor = 11;
+    public static final int kLeftFrontMotor = 12;
+    public static final int kRightRearMotor = 13;
+    public static final int kRightFrontMotor = 10;
+    public static final boolean kLeftRearMotorInverted = true;
+    public static final boolean kLeftFrontMotorInverted = true;
+    public static final boolean kRightRearMotorInverted = true;
+    public static final boolean kRightFrontMotorInverted = true;
 
     public static final double ksVolts = 0.22;
     public static final double kvVoltSecondsPerMeter = 1.98;
