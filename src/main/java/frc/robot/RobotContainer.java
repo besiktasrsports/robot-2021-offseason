@@ -38,7 +38,7 @@ public class RobotContainer {
   public final ShooterSubsystem m_shooter = new ShooterSubsystem();
   public final AcceleratorSubsystem m_accelerator = new AcceleratorSubsystem();
   public final DriveSubsytem m_robotDrive = new DriveSubsytem();
-  public final VisionLED m_VisionLED =new VisionLED();
+  public final VisionLED m_VisionLED = new VisionLED();
   public final SneakyTrajectory s_trajectory = new SneakyTrajectory(m_robotDrive);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -74,7 +74,7 @@ public class RobotContainer {
     new JoystickButton(m_driverController, 10).whenPressed(new ToggleLED(m_VisionLED));
 
     // Vision Drive
-    new JoystickButton(m_driverController, 3).whileHeld(new CloseLED(m_VisionLED)); 
+    new JoystickButton(m_driverController, 3).whileHeld(new CloseLED(m_VisionLED));
   }
 
   /**

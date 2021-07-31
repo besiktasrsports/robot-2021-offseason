@@ -4,15 +4,14 @@
 
 package frc.robot;
 
-import org.photonvision.PhotonCamera;
-import org.photonvision.PhotonPipelineResult;
-import org.photonvision.PhotonTrackedTarget;
-
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import org.photonvision.PhotonCamera;
+import org.photonvision.PhotonPipelineResult;
+import org.photonvision.PhotonTrackedTarget;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -27,7 +26,7 @@ public class Robot extends TimedRobot {
   public static SendableChooser<Integer> autoChooser = new SendableChooser<>();
   public static PhotonPipelineResult result;
   public static PhotonTrackedTarget target;
-  //adını kamerayla aynı yapacaksın
+  // adını kamerayla aynı yapacaksın
   PhotonCamera camera = new PhotonCamera("photon");
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -39,9 +38,6 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     autoChooser.setDefaultOption("Default Auto", 0);
-    
-    
-    
   }
 
   /**
@@ -72,7 +68,7 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    
+
     m_robotContainer.m_robotDrive.resetEncoders();
     m_robotContainer.m_robotDrive.zeroHeading();
     m_autonomousCommand = m_robotContainer.getAutonomousCommand(autoChooser.getSelected());
@@ -111,11 +107,11 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {}
 
-  public static double getVisonYawAngle(){
+  public static double getVisonYawAngle() {
     return target.getYaw();
   }
-  public static boolean isValidAngle(){
+
+  public static boolean isValidAngle() {
     return result.hasTargets();
   }
-
 }

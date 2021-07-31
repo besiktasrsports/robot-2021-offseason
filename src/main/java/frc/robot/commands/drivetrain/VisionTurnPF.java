@@ -6,8 +6,8 @@ package frc.robot.commands.drivetrain;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
-import frc.robot.Robot;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Robot;
 import frc.robot.subsystems.DriveSubsytem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -16,6 +16,7 @@ import frc.robot.subsystems.DriveSubsytem;
 public class VisionTurnPF extends PIDCommand {
   /** Creates a new VisionTurnPF. */
   private DriveSubsytem m_drive;
+
   public VisionTurnPF(DriveSubsytem drive) {
     super(
         // The controller that the command will use
@@ -26,19 +27,24 @@ public class VisionTurnPF extends PIDCommand {
         () -> 0,
         // This uses the output
         output -> {
-          drive.arcadeDrive(0, 
-              (Robot.isValidAngle()) ? ((output > 0) ? -DriveConstants.kVisionMinCommand  - output : DriveConstants.kVisionMinCommand - output ) : 0);
+          drive.arcadeDrive(
+              0,
+              (Robot.isValidAngle())
+                  ? ((output > 0)
+                      ? -DriveConstants.kVisionMinCommand - output
+                      : DriveConstants.kVisionMinCommand - output)
+                  : 0);
         });
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
-      m_drive = drive;
-      addRequirements(m_drive);
-      getController().setTolerance(DriveConstants.kTurnToleranceDeg);
+    m_drive = drive;
+    addRequirements(m_drive);
+    getController().setTolerance(DriveConstants.kTurnToleranceDeg);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (Robot.isValidAngle()&&getController().atSetpoint());
+    return (Robot.isValidAngle() && getController().atSetpoint());
   }
 }

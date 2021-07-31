@@ -12,7 +12,9 @@ import frc.robot.Constants.MiscConstants;
 public class VisionLED extends SubsystemBase {
   /** Creates a new VisionLED. */
   private boolean ledState;
+
   public final DigitalOutput m_relay = new DigitalOutput(MiscConstants.kLedRelayPort);
+
   public VisionLED() {
     toggleRelay(true);
   }
