@@ -4,6 +4,11 @@
 
 package frc.robot;
 
+import org.photonvision.PhotonCamera;
+import org.photonvision.PhotonPipelineResult;
+import org.photonvision.PhotonTrackedTarget;
+
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -16,11 +21,14 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * project.
  */
 public class Robot extends TimedRobot {
+  NetworkTableInstance photoncam = NetworkTableInstance.create();
   private Command m_autonomousCommand;
-
   private RobotContainer m_robotContainer;
   public static SendableChooser<Integer> autoChooser = new SendableChooser<>();
-
+  public static PhotonPipelineResult result;
+  public static PhotonTrackedTarget target;
+  //adını kamerayla aynı yapacaksın
+  PhotonCamera camera = new PhotonCamera("photon");
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -30,8 +38,10 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-
     autoChooser.setDefaultOption("Default Auto", 0);
+    
+    
+    
   }
 
   /**
@@ -48,6 +58,8 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    result = camera.getLatestResult();
+    target = result.getBestTarget();
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -60,7 +72,7 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-
+    
     m_robotContainer.m_robotDrive.resetEncoders();
     m_robotContainer.m_robotDrive.zeroHeading();
     m_autonomousCommand = m_robotContainer.getAutonomousCommand(autoChooser.getSelected());
@@ -98,4 +110,12 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during test mode. */
   @Override
   public void testPeriodic() {}
+
+  public static double getVisonYawAngle(){
+    return target.getYaw();
+  }
+  public static boolean isValidAngle(){
+    return result.hasTargets();
+  }
+
 }

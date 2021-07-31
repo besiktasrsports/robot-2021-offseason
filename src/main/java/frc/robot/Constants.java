@@ -59,6 +59,9 @@ public final class Constants {
     public static final double kMaxTurnAccelerationDegPerSSquared = 300;
     public static final double kTurnToleranceDeg = 0.5;
     public static final double kTurnRateToleranceDegPerS = 8;
+
+    public static final double kVisionTurnP = 0;
+    public static final double kVisionMinCommand = 0;
   }
   // Intake
 
