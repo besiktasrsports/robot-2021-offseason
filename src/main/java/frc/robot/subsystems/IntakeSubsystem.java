@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
 
-public class IntakeSubsystem extends SubsystemBase {
+public class IntakeSubsystem extends SubsystemBase implements AutoCloseable {
   private final WPI_VictorSPX intakeMotor = new WPI_VictorSPX(IntakeConstants.kIntakeMotorPort);
   private final Compressor compressor = new Compressor(IntakeConstants.kCompressorPort);
   private final DoubleSolenoid intakeSolenoid =
@@ -51,5 +51,10 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public void intakeOff() {
     intakeSolenoid.set(Value.kOff);
+  }
+
+  @Override
+  public void close() throws Exception{
+    intakeSolenoid.close();
   }
 }
