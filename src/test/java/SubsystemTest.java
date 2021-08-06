@@ -1,6 +1,7 @@
 import static org.junit.Assert.*;
 
 import edu.wpi.first.hal.HAL;
+import edu.wpi.first.wpilibj.simulation.PWMSim;
 import frc.robot.subsystems.TurretSubsystem;
 import com.ctre.phoenix.motorcontrol.VictorSPXSimCollection;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
@@ -12,12 +13,15 @@ import org.junit.Test;
 public class SubsystemTest {
 
     TurretSubsystem m_turretSubsystem;
+    PWMSim m_testPWM;
+    public static final double DELTA = 1e-2;
 
     @Before
     public void setup(){
-    assert HAL.initialize(500, 0);
-    m_turretSubsystem = new TurretSubsystem();
+    assert HAL.initialize(500, 0); // 500ms timeout for HAL to initialize.
 
+    m_turretSubsystem = new TurretSubsystem();
+    m_testPWM = new PWMSim(0);
 
     }
 
@@ -28,6 +32,7 @@ public class SubsystemTest {
 
     @Test
     public void testTurret(){
-        assertEquals("Hello, test!", m_turretSubsystem.turretTestMethod());
+        m_turretSubsystem.turretTestMethod(0.5);
+        assertEquals(0.5, m_testPWM.getSpeed(), DELTA);
     }
 }
