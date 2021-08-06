@@ -18,13 +18,13 @@ import frc.robot.Constants.IntakeConstants;
 /** Add your docs here. */
 public class Intaketest {
 
-    
+
     IntakeSubsystem intake;
     DoubleSolenoidSim piston;
 
     @Before
     public void setup(){
-        
+
         assert HAL.initialize(500, 0);
         intake = new IntakeSubsystem();
         piston = new DoubleSolenoidSim(IntakeConstants.kIntakeDoubleSolenoidPort1, IntakeConstants.kIntakeDoubleSolenoidPort2);
