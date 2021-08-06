@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.TurretConstants;
 
-public class TurretSubsystem extends SubsystemBase {
+public class TurretSubsystem extends SubsystemBase implements AutoCloseable {
 
   private final WPI_VictorSPX turretMotor = new WPI_VictorSPX(TurretConstants.kTurretMotorPort);
   public final Encoder turretEncoder =
@@ -34,5 +34,15 @@ public class TurretSubsystem extends SubsystemBase {
   public void runTurret(double speed) {
 
     turretMotor.set(speed);
+  }
+
+  public String turretTestMethod(){
+
+    return "Hello, test!";
+  }
+  @Override
+  public void close() throws Exception {
+    // TODO Auto-generated method stub
+
   }
 }
