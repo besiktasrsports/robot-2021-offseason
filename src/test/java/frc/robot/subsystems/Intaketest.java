@@ -25,7 +25,7 @@ public class Intaketest {
     @Before
     public void setup(){
 
-        assert HAL.initialize(500, 0);
+        assert HAL.initialize(500, 0); // 500ms timeout for HAL to initialize.
         intake = new IntakeSubsystem();
         piston = new DoubleSolenoidSim(IntakeConstants.kIntakeDoubleSolenoidPort1, IntakeConstants.kIntakeDoubleSolenoidPort2);
     }
@@ -36,13 +36,13 @@ public class Intaketest {
     }
 
     @Test
-    public void intakeup() {
+    public void testintakeUp() {
         intake.intakeUp();
         assertEquals(DoubleSolenoid.Value.kReverse, piston.get());
     }
 
     @Test
-    public void intakedown(){
+    public void testintakeDown(){
         intake.intakeDown();
         assertEquals(DoubleSolenoid.Value.kForward, piston.get());
     }
