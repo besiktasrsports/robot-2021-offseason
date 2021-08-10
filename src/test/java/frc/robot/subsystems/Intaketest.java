@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.simulation.DoubleSolenoidSim;
 import frc.robot.Constants.IntakeConstants;
 
 /** Add your docs here. */
-public class Intaketest {
+public class IntakeTest {
 
 
     IntakeSubsystem intake;
@@ -36,13 +36,13 @@ public class Intaketest {
     }
 
     @Test
-    public void testintakeUp() {
+    public void testIntakeUp() {
         intake.intakeUp();
         assertEquals(DoubleSolenoid.Value.kReverse, piston.get());
     }
 
     @Test
-    public void testintakeDown(){
+    public void testIntakeDown(){
         intake.intakeDown();
         assertEquals(DoubleSolenoid.Value.kForward, piston.get());
     }
