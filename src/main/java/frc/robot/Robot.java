@@ -26,7 +26,7 @@ public class Robot extends TimedRobot {
   public static SendableChooser<Integer> autoChooser = new SendableChooser<>();
   public static PhotonPipelineResult result;
   public static PhotonTrackedTarget target;
-  // adını kamerayla aynı yapacaksın
+  // TODO: Change this name to be the actual camera name
   PhotonCamera camera = new PhotonCamera("photon");
   /**
    * This function is run when the robot is first started up and should be used for any
