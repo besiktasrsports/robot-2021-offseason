@@ -3,8 +3,6 @@ import static org.junit.Assert.*;
 import edu.wpi.first.hal.HAL;
 import edu.wpi.first.wpilibj.simulation.PWMSim;
 import frc.robot.subsystems.TurretSubsystem;
-import com.ctre.phoenix.motorcontrol.VictorSPXSimCollection;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import org.junit.After;
 import org.junit.Before;
