@@ -36,13 +36,4 @@ public class TurretSubsystem extends SubsystemBase {
     turretMotor.set(speed);
   }
 
-  public void turretTestMethod(double speed){
-
-    testMotorUT.set(speed);
-  }
-  @Override
-  public void close() throws Exception {
-    // TODO Auto-generated method stub
-
-  }
 }
