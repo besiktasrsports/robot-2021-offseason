@@ -20,8 +20,7 @@ public class LogSubsystem {
     public String m_subsystemName;
     private static LogSubsystem INSTANCE = new LogSubsystem();
     public String m_level;
-    public static final String RED = "\033[0;31m";     // RED
-    public static final String BLUE = "\033[0;34m";    // BLUE
+   
     
     public static LogSubsystem getInstance() {
         return INSTANCE;
@@ -78,9 +77,9 @@ public class LogSubsystem {
         }
     }
  
-    public void addSource(String name, String subsystemName, Supplier<Object> supplier) {
+    public void addSource(Level level,String name, String subsystemName, Supplier<Object> supplier) {
     
-        dataSources.add(new LogSource(name,  subsystemName,supplier));
+        dataSources.add(new LogSource( level , name,  subsystemName,supplier));
     }
  
     public void saveLogs() {
@@ -113,38 +112,35 @@ public class LogSubsystem {
         return dataSources.stream().map(s -> s.supplier.get()).map(Object::toString).collect(Collectors.joining(","));
     }
     
-    public String setLevel(Level level){
-        
- 
-        // Turn enum level into string
-        switch (level) {
-        case kInfo:
-            m_level = "INFO: ";
-            break;
-        case kWarning:
-             m_level = "WARNING: ";
-            break;
-        case kRobot:
-             m_level = "ROBOT: ";
-            break;
-        case kLibrary:
-            m_level = "LIBRARY: ";
-            break;
-        default:
-            m_level = "UNK: ";
-            break;
-        }
-        
-        return m_level;
-    }
+    
     private class LogSource {
         private final String name;
         private final Supplier<Object> supplier;
         
-        public LogSource(String name, String subsystemName,Supplier<Object> supplier) {
+        public LogSource(Level level,String name, String subsystemName,Supplier<Object> supplier) {
             this.name = name;
             this.supplier = supplier;
             m_subsystemName = subsystemName;
+
+            
+        // Turn enum level into string
+        switch (level) {
+            case kInfo:
+                m_level = "INFO: ";
+                break;
+            case kWarning:
+                 m_level = "WARNING: ";
+                break;
+            case kRobot:
+                 m_level = "ROBOT: ";
+                break;
+            case kLibrary:
+                m_level = "LIBRARY: ";
+                break;
+            default:
+                m_level = "UNK: ";
+                break;
+            }
         }
    }
    
