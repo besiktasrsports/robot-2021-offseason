@@ -60,6 +60,10 @@ public class DriveSubsytem extends SubsystemBase {
     m_drive.arcadeDrive(fwd, rot, true);
   }
 
+  public void tankDrive(double l, double r) {
+    m_drive.tankDrive(l, r, true);
+  }
+
   public DifferentialDriveWheelSpeeds getWheelSpeeds() {
     return new DifferentialDriveWheelSpeeds(
         10.0

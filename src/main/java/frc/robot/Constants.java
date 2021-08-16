@@ -18,19 +18,19 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 public final class Constants {
   public static final class JoystickConstants {
     public static final int kDriverControllerPort = 0;
-    public static final int kOperatorControllerPort = 0;
+    public static final int kOperatorControllerPort = 1;
   }
   // Drive
 
   public static final class DriveConstants {
-    public static final int kLeftRearMotor = 10;
-    public static final int kLeftFrontMotor = 11;
-    public static final int kRightRearMotor = 12;
-    public static final int kRightFrontMotor = 13;
-    public static final boolean kLeftRearMotorInverted = false;
-    public static final boolean kLeftFrontMotorInverted = false;
-    public static final boolean kRightRearMotorInverted = false;
-    public static final boolean kRightFrontMotorInverted = false;
+    public static final int kLeftRearMotor = 11;
+    public static final int kLeftFrontMotor = 12;
+    public static final int kRightRearMotor = 13;
+    public static final int kRightFrontMotor = 10;
+    public static final boolean kLeftRearMotorInverted = true;
+    public static final boolean kLeftFrontMotorInverted = true;
+    public static final boolean kRightRearMotorInverted = true;
+    public static final boolean kRightFrontMotorInverted = true;
 
     public static final double ksVolts = 0.22;
     public static final double kvVoltSecondsPerMeter = 1.98;
@@ -59,6 +59,9 @@ public final class Constants {
     public static final double kMaxTurnAccelerationDegPerSSquared = 300;
     public static final double kTurnToleranceDeg = 0.5;
     public static final double kTurnRateToleranceDegPerS = 8;
+
+    public static final double kVisionTurnP = 0;
+    public static final double kVisionMinCommand = 0;
   }
   // Intake
 
@@ -112,5 +115,9 @@ public final class Constants {
     public static final boolean kShooterInvertedMode2 = true;
   }
 
-  public static final class MiscConstants {}
+  public static final class MiscConstants {
+    public static final int kLedRelayPort = 9;
+    public static final int kStatusLEDPort = 0;
+    public static final int KStatusLEDLength = 0;
+  }
 }
