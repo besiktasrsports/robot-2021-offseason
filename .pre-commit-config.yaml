@@ -31,8 +31,8 @@ repos:
     - id: pretty-format-json
       args: [--autofix]
     - id: trailing-whitespace
-# - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
-#   rev: v2.1.0
-#   hooks:
-#     - id: pretty-format-java
-#       args: [--autofix]
+- repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
+  rev: v2.1.0
+  hooks:
+    - id: pretty-format-java
+      args: [--autofix]
