@@ -31,12 +31,3 @@ repos:
     - id: pretty-format-json
       args: [--autofix]
     - id: trailing-whitespace
-# - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
-#   rev: v2.1.0
-#   hooks:
-#     - id: pretty-format-java
-#       args: [--autofix]
-# - repo: https://github.com/jguttman94/pre-commit-gradle
-#   rev: v0.3.0
-#   hooks:
-#     - id: gradle-spotless
