@@ -6,32 +6,32 @@ package frc.robot.subsystems;
 
 import static org.junit.Assert.*;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
 import edu.wpi.first.hal.HAL;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.simulation.DoubleSolenoidSim;
 import frc.robot.Constants.IntakeConstants;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 /** Add your docs here. */
 public class IntakeTest {
-
 
     IntakeSubsystem intake;
     DoubleSolenoidSim piston;
 
     @Before
-    public void setup(){
+    public void setup() {
 
         assert HAL.initialize(500, 0); // 500ms timeout for HAL to initialize.
         intake = new IntakeSubsystem();
-        piston = new DoubleSolenoidSim(IntakeConstants.kIntakeDoubleSolenoidPort1, IntakeConstants.kIntakeDoubleSolenoidPort2);
+        piston =
+                new DoubleSolenoidSim(
+                        IntakeConstants.kIntakeDoubleSolenoidPort1, IntakeConstants.kIntakeDoubleSolenoidPort2);
     }
 
     @After
-    public void shutdown() throws Exception{
+    public void shutdown() throws Exception {
         intake.close();
     }
 
@@ -42,7 +42,7 @@ public class IntakeTest {
     }
 
     @Test
-    public void testIntakeDown(){
+    public void testIntakeDown() {
         intake.intakeDown();
         assertEquals(DoubleSolenoid.Value.kForward, piston.get());
     }

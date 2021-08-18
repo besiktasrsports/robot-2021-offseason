@@ -12,49 +12,49 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
 
 public class IntakeSubsystem extends SubsystemBase implements AutoCloseable {
-  private final WPI_VictorSPX intakeMotor = new WPI_VictorSPX(IntakeConstants.kIntakeMotorPort);
-  private final Compressor compressor = new Compressor(IntakeConstants.kCompressorPort);
-  private final DoubleSolenoid intakeSolenoid =
-      new DoubleSolenoid(
-          IntakeConstants.kIntakeDoubleSolenoidPort1, IntakeConstants.kIntakeDoubleSolenoidPort2);
-  public boolean compressorState = false;
-  public boolean intakeState = false;
+    private final WPI_VictorSPX intakeMotor = new WPI_VictorSPX(IntakeConstants.kIntakeMotorPort);
+    private final Compressor compressor = new Compressor(IntakeConstants.kCompressorPort);
+    private final DoubleSolenoid intakeSolenoid =
+            new DoubleSolenoid(
+                    IntakeConstants.kIntakeDoubleSolenoidPort1, IntakeConstants.kIntakeDoubleSolenoidPort2);
+    public boolean compressorState = false;
+    public boolean intakeState = false;
 
-  public IntakeSubsystem() {
-    compressor.setClosedLoopControl(false);
-  }
+    public IntakeSubsystem() {
+        compressor.setClosedLoopControl(false);
+    }
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+    @Override
+    public void periodic() {
+        // This method will be called once per scheduler run
+    }
 
-  public void runIntake(double m_speed) {
-    intakeMotor.set(m_speed);
-  }
+    public void runIntake(double m_speed) {
+        intakeMotor.set(m_speed);
+    }
 
-  public void openCompressor() {
-    compressor.setClosedLoopControl(true);
-  }
+    public void openCompressor() {
+        compressor.setClosedLoopControl(true);
+    }
 
-  public void closeCompressor() {
-    compressor.setClosedLoopControl(false);
-  }
+    public void closeCompressor() {
+        compressor.setClosedLoopControl(false);
+    }
 
-  public void intakeUp() {
-    intakeSolenoid.set(Value.kReverse);
-  }
+    public void intakeUp() {
+        intakeSolenoid.set(Value.kReverse);
+    }
 
-  public void intakeDown() {
-    intakeSolenoid.set(Value.kForward);
-  }
+    public void intakeDown() {
+        intakeSolenoid.set(Value.kForward);
+    }
 
-  public void intakeOff() {
-    intakeSolenoid.set(Value.kOff);
-  }
+    public void intakeOff() {
+        intakeSolenoid.set(Value.kOff);
+    }
 
-  @Override
-  public void close() throws Exception{
-    intakeSolenoid.close();
-  }
+    @Override
+    public void close() throws Exception {
+        intakeSolenoid.close();
+    }
 }

@@ -10,23 +10,23 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.MiscConstants;
 
 public class VisionLED extends SubsystemBase {
-  /** Creates a new VisionLED. */
-  private boolean ledState;
+    /** Creates a new VisionLED. */
+    private boolean ledState;
 
-  public final DigitalOutput m_relay = new DigitalOutput(MiscConstants.kLedRelayPort);
+    public final DigitalOutput m_relay = new DigitalOutput(MiscConstants.kLedRelayPort);
 
-  public VisionLED() {
-    toggleRelay(true);
-  }
+    public VisionLED() {
+        toggleRelay(true);
+    }
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-    ledState = !m_relay.get();
-    SmartDashboard.putBoolean("led/state", ledState);
-  }
+    @Override
+    public void periodic() {
+        // This method will be called once per scheduler run
+        ledState = !m_relay.get();
+        SmartDashboard.putBoolean("led/state", ledState);
+    }
 
-  public void toggleRelay(boolean _status) {
-    m_relay.set(_status);
-  }
+    public void toggleRelay(boolean _status) {
+        m_relay.set(_status);
+    }
 }
