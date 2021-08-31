@@ -1,6 +1,7 @@
 plugins {
     id "java"
     id "edu.wpi.first.GradleRIO" version "2021.3.1"
+    id "com.diffplug.gradle.spotless" version "3.28.0"
 }
 
 sourceCompatibility = JavaVersion.VERSION_11
@@ -80,4 +81,17 @@ jar {
 
 test {
    useJUnit()
+}
+
+spotless {
+    java {
+        googleJavaFormat()
+        paddedCell()
+        indentWithTabs(2)
+        indentWithSpaces(4)
+        removeUnusedImports()
+    }
+    java {
+        target "**/*.java"
+    }
 }
