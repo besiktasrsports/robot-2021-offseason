@@ -16,3 +16,9 @@ Then under root directory install the git hooks like this:
 With this pre-commit will automatically run and check a list of styling including clang-format, end of files and trailing whitespaces whenever you run `git commit`. To run pre-commit any time other than `git commit`:
 
     pre-commit run -a
+
+**Formatting with spotless**
+
+The formatting of the Java code will be checked with every CI build. Run the following command to fix formatting errors:
+
+    ./gradlew spotlessApply

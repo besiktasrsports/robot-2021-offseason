@@ -8,36 +8,36 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IntakeSubsystem;
 
 public class ToggleCompressor extends CommandBase {
-  private final IntakeSubsystem m_intake;
+    private final IntakeSubsystem m_intake;
 
-  public ToggleCompressor(IntakeSubsystem intake) {
-    m_intake = intake;
-    addRequirements(m_intake);
-  }
-
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-    m_intake.compressorState = !m_intake.compressorState;
-  }
-
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    if (m_intake.compressorState == true) {
-      m_intake.openCompressor();
-    } else {
-      m_intake.closeCompressor();
+    public ToggleCompressor(IntakeSubsystem intake) {
+        m_intake = intake;
+        addRequirements(m_intake);
     }
-  }
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {}
+    // Called when the command is initially scheduled.
+    @Override
+    public void initialize() {
+        m_intake.compressorState = !m_intake.compressorState;
+    }
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+    // Called every time the scheduler runs while the command is scheduled.
+    @Override
+    public void execute() {
+        if (m_intake.compressorState == true) {
+            m_intake.openCompressor();
+        } else {
+            m_intake.closeCompressor();
+        }
+    }
+
+    // Called once the command ends or is interrupted.
+    @Override
+    public void end(boolean interrupted) {}
+
+    // Returns true when the command should end.
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
 }
