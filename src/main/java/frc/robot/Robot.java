@@ -71,11 +71,13 @@ public class Robot extends TimedRobot {
 
         m_robotContainer.m_robotDrive.resetEncoders();
         m_robotContainer.m_robotDrive.zeroHeading();
+        /*
         m_autonomousCommand = m_robotContainer.getAutonomousCommand(autoChooser.getSelected());
         // schedule the autonomous command (example)
         if (m_autonomousCommand != null) {
             m_autonomousCommand.schedule();
         }
+        */
     }
 
     /** This function is called periodically during autonomous. */
@@ -95,7 +97,9 @@ public class Robot extends TimedRobot {
 
     /** This function is called periodically during operator control. */
     @Override
-    public void teleopPeriodic() {}
+    public void teleopPeriodic() {
+        
+    }
 
     @Override
     public void testInit() {

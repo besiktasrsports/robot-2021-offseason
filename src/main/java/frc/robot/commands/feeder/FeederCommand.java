@@ -2,18 +2,18 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.accelerator;
+package frc.robot.commands.feeder;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.AcceleratorSubsystem;
+import frc.robot.subsystems.FeederSubsystem;
 
-public class AcceleratorCommand extends CommandBase {
+public class FeederCommand extends CommandBase {
     /** Creates a new AccelaratorCommand. */
-    private final AcceleratorSubsystem m_accelarator;
+    private final FeederSubsystem m_accelarator;
 
     private final double m_speed;
 
-    public AcceleratorCommand(AcceleratorSubsystem accelarator, double speed) {
+    public FeederCommand(FeederSubsystem accelarator, double speed) {
         // Use addRequirements() here to declare subsystem dependencies.
         m_accelarator = accelarator;
         m_speed = speed;
@@ -27,13 +27,13 @@ public class AcceleratorCommand extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        m_accelarator.runAccelerator(m_speed);
+        m_accelarator.runFeeder(m_speed);
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        m_accelarator.stopAccelerator();
+        m_accelarator.stopFeeder();
     }
 
     // Returns true when the command should end.

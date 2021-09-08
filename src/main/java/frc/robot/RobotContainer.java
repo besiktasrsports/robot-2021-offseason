@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.JoystickConstants;
-import frc.robot.commands.accelerator.AcceleratorCommand;
+import frc.robot.commands.feeder.FeederCommand;
 import frc.robot.commands.auto.DefaultAuto;
 import frc.robot.commands.drivetrain.JoystickDriveCommand;
 import frc.robot.commands.funnel.FunnelCommand;
@@ -19,7 +19,7 @@ import frc.robot.commands.shooter.RunShooter;
 import frc.robot.commands.turret.TurretJoystickCommand;
 import frc.robot.commands.visionLed.CloseLED;
 import frc.robot.commands.visionLed.ToggleLED;
-import frc.robot.subsystems.AcceleratorSubsystem;
+import frc.robot.subsystems.FeederSubsystem;
 import frc.robot.subsystems.DriveSubsytem;
 import frc.robot.subsystems.FunnelSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -36,7 +36,7 @@ public class RobotContainer {
     public final TurretSubsystem m_turret = new TurretSubsystem();
     public final IntakeSubsystem m_intake = new IntakeSubsystem();
     public final ShooterSubsystem m_shooter = new ShooterSubsystem();
-    public final AcceleratorSubsystem m_accelerator = new AcceleratorSubsystem();
+    public final FeederSubsystem m_Feeder = new FeederSubsystem();
     public final DriveSubsytem m_robotDrive = new DriveSubsytem();
     public final VisionLED m_VisionLED = new VisionLED();
     public final SneakyTrajectory s_trajectory = new SneakyTrajectory(m_robotDrive);
@@ -48,7 +48,7 @@ public class RobotContainer {
                 new JoystickDriveCommand(
                         m_robotDrive,
                         () -> -m_driverController.getRawAxis(1),
-                        () -> -m_driverController.getRawAxis(5)));
+                        () -> -m_driverController.getRawAxis(0)));
     }
 
     private void configureButtonBindings() {
@@ -57,24 +57,25 @@ public class RobotContainer {
         new JoystickButton(m_driverController, 1).whileHeld(new TurretJoystickCommand(m_turret, 0.3));
 
         // Funnel Commands
-        new JoystickButton(m_driverController, 2).whileHeld(new FunnelCommand(m_funnel, 0.5, 0.3));
+        new JoystickButton(m_driverController, 3).whileHeld(new FunnelCommand(m_funnel, 0.5, -0.5));
+        new JoystickButton(m_driverController, 5).whileHeld(new FunnelCommand(m_funnel, -0.5, 0.5));
 
         // Intake Commands
-        new JoystickButton(m_driverController, 3).whileHeld(new RunIntake(m_intake, 0.5));
-        new JoystickButton(m_operatorController, 1).whileHeld(new ToggleDropIntake(m_intake));
+        new JoystickButton(m_driverController, 0).whileHeld(new RunIntake(m_intake, 0.5));
+       // new JoystickButton(m_operatorController, 1).whileHeld(new ToggleDropIntake(m_intake));
 
         // Shooter Commands
-        new JoystickButton(m_driverController, 4).whileHeld(new RunShooter(m_shooter, 0.75));
+        new JoystickButton(m_driverController, 2).whileHeld(new RunShooter(m_shooter, 0.3));
 
-        // Accelerator Commands
-        new JoystickButton(m_driverController, 5).whileHeld(new AcceleratorCommand(m_accelerator, 0.3));
+        // Feeder Commands
+        new JoystickButton(m_driverController, 4).whileHeld(new FeederCommand(m_Feeder, 0.3));
 
         // Misc Commands
-        new JoystickButton(m_operatorController, 2).whileHeld(new ToggleCompressor(m_intake));
+        //new JoystickButton(m_operatorController, 2).whileHeld(new ToggleCompressor(m_intake));
         new JoystickButton(m_driverController, 10).whenPressed(new ToggleLED(m_VisionLED));
 
         // Vision Drive
-        new JoystickButton(m_driverController, 3).whileHeld(new CloseLED(m_VisionLED));
+        //new JoystickButton(m_driverController, 3).whileHeld(new CloseLED(m_VisionLED));
     }
 
     /**

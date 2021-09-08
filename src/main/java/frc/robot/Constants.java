@@ -23,10 +23,10 @@ public final class Constants {
     // Drive
 
     public static final class DriveConstants {
-        public static final int kLeftRearMotor = 11;
-        public static final int kLeftFrontMotor = 12;
-        public static final int kRightRearMotor = 13;
-        public static final int kRightFrontMotor = 10;
+        public static final int kLeftRearMotor = 13;
+        public static final int kLeftFrontMotor = 14;
+        public static final int kRightRearMotor = 10;
+        public static final int kRightFrontMotor = 11;
         public static final boolean kLeftRearMotorInverted = true;
         public static final boolean kLeftFrontMotorInverted = true;
         public static final boolean kRightRearMotorInverted = true;
@@ -66,7 +66,7 @@ public final class Constants {
     // Intake
 
     public static final class IntakeConstants {
-        public static final int kIntakeMotorPort = 40;
+        public static final int kIntakeMotorPort = 20;
         public static final int kCompressorPort = 0;
         public static final int kPCMPort = 0;
         public static final int kIntakeDoubleSolenoidPort1 = 0;
@@ -75,12 +75,12 @@ public final class Constants {
     // Funnel
     public static final class FunnelConstants {
 
-        public static final int kFunnelRightMotor = 20;
-        public static final int kFunnelLeftMotor = 21;
+        public static final int kFunnelRightMotor = 31;
+        public static final int kFunnelLeftMotor = 32;
     }
-    // Accelerator
-    public static final class AcceleratorConstants {
-        public static final int kAcceleratorMotorPort = 50;
+    // Feeder
+    public static final class FeederConstants {
+        public static final int kFeederMotorPort = 40;
     }
     // Turret
 
