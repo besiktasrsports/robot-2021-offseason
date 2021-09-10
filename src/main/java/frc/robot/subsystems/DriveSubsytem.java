@@ -34,10 +34,11 @@ public class DriveSubsytem extends SubsystemBase {
     leftRearMotor.setInverted(DriveConstants.kLeftRearMotorInverted);
     rightFrontMotor.setInverted(DriveConstants.kRightFrontMotorInverted);
     rightRearMotor.setInverted(DriveConstants.kRightRearMotorInverted);
-
     leftFrontMotor.follow(leftRearMotor);
     rightFrontMotor.follow(rightRearMotor);
 
+
+    LogSubsystem.getInstance().addSource("ERROR","DRIVETRAIN LEFT VOLTAGE","driveSubsystem", leftRearMotor::getMotorOutputVoltage);
     m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
     zeroHeading();
     resetEncoders();

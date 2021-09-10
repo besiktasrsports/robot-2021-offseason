@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 import edu.wpi.first.wpilibj.DriverStation;
 
  
+
 public class LogSubsystem {
     public String m_subsystemName;
     private static LogSubsystem INSTANCE = new LogSubsystem();
@@ -28,17 +29,12 @@ public class LogSubsystem {
         return INSTANCE;
     }
  
- 
+    
     private final List<LogSource> dataSources = new ArrayList<>();
     private final List<LevelSource> levelData = new ArrayList<>();
     private Path file;
 
-    private LogSubsystem() {
-        
-    
-         
-    }
- 
+   
     private void createLogDirectory() throws IOException {
         File logDirectory = new File(loggingLocation);
         if (!logDirectory.exists()) {
@@ -46,6 +42,7 @@ public class LogSubsystem {
         }
     }
  
+
     private void createFile() {
         Writer output = null;
         try {
@@ -74,14 +71,11 @@ public class LogSubsystem {
         }
     }
  
+
     public void addSource( String level,String name, String subsystemName, Supplier<Object> supplier) {
-    
         dataSources.add(new LogSource( name,  subsystemName,supplier));
         levelData.add(new LevelSource(level));
-
     }
- 
-  
 
 
     public void saveLogs() {
@@ -92,7 +86,6 @@ public class LogSubsystem {
  
             StringBuilder data = new StringBuilder();
             data.append(Instant.now().toString()).append(",");
-            
             data.append(DriverStation.getInstance().getMatchTime()).append(",");
             data.append(getValues()).append(",");
             data.append(getLevel());
@@ -102,6 +95,7 @@ public class LogSubsystem {
         }
     }
  
+
     private void saveTitles() throws IOException {
         StringBuilder titles = new StringBuilder();
         titles.append("Timestamp,");
@@ -110,28 +104,27 @@ public class LogSubsystem {
         titles.append(dataSources.stream().map(N -> N.name+"_LEVEL").collect(Collectors.joining(","))).append(",");
         Files.write(file, Collections.singletonList(titles.toString()), StandardOpenOption.APPEND);
     }
+
  
     private String getValues() {
         return dataSources.stream().map(s -> s.supplier.get()).map(Object::toString).collect(Collectors.joining(","));
     }
+
     
     public final  String getLevel() {
 
         return (levelData.stream().map(l -> l.level).collect(Collectors.joining(",")));
      }
+
   
     private class LogSource {
         private final String name;
         private final Supplier<Object> supplier;
     
-
         public LogSource(String name, String subsystemName,Supplier<Object> supplier) {
             this.name = name;
             this.supplier = supplier;
-          
             m_subsystemName = subsystemName;
-
-      
         }
    }
    
@@ -143,9 +136,6 @@ public class LogSubsystem {
         public LevelSource( String level) {
             
             this.level=level;
-          
-
-      
         }
 }
 }

@@ -1,13 +1,17 @@
 plugins {
     id "java"
-    id "edu.wpi.first.GradleRIO" version "2021.1.2"
+    id "edu.wpi.first.GradleRIO" version "2021.3.1"
+    id "com.diffplug.gradle.spotless" version "3.28.0"
 }
 
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
 
 def ROBOT_MAIN_CLASS = "frc.robot.Main"
-
+ repositories {
+      jcenter()
+      maven { url "https://jitpack.io" }
+   }
 // Define my targets (RoboRIO) and artifacts (deployable files)
 // This is added by GradleRIO's backing project EmbeddedTools.
 deploy {
@@ -46,7 +50,7 @@ dependencies {
     implementation wpi.deps.wpilib()
     nativeZip wpi.deps.wpilibJni(wpi.platforms.roborio)
     nativeDesktopZip wpi.deps.wpilibJni(wpi.platforms.desktop)
-
+    compile 'com.github.TripleHelixProgramming:HelixUtilities:v2020.1'
 
     implementation wpi.deps.vendor.java()
     nativeZip wpi.deps.vendor.jni(wpi.platforms.roborio)
@@ -76,4 +80,21 @@ sim {
 jar {
     from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
     manifest edu.wpi.first.gradlerio.GradleRIOPlugin.javaManifest(ROBOT_MAIN_CLASS)
+}
+
+test {
+   useJUnit()
+}
+
+spotless {
+    java {
+        googleJavaFormat()
+        paddedCell()
+        indentWithTabs(2)
+        indentWithSpaces(4)
+        removeUnusedImports()
+    }
+    java {
+        target "**/*.java"
+    }
 }
