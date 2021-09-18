@@ -10,8 +10,7 @@ import frc.robot.Constants.FeederConstants;
 
 public class FeederSubsystem extends SubsystemBase {
     /** Creates a new FeederSubsystem. */
-    private final WPI_VictorSPX FeederMotor =
-            new WPI_VictorSPX(FeederConstants.kFeederMotorPort);
+    private final WPI_VictorSPX FeederMotor = new WPI_VictorSPX(FeederConstants.kFeederMotorPort);
 
     public FeederSubsystem() {}
 
