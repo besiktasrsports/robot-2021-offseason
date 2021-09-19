@@ -11,18 +11,23 @@ import frc.robot.subsystems.IntakeSubsystem;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ActivateIntakeCG extends ParallelCommandGroup {
-  /** Creates a new ActivateIntakeCG. */
-  private final IntakeSubsystem m_intake;
-  public ActivateIntakeCG(IntakeSubsystem intake) {
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
-    m_intake = intake;
-    addCommands(new DropIntake(m_intake).withTimeout(.2).andThen(new OffIntake(m_intake).withTimeout(.2)).andThen(new RunIntake(m_intake, 0.7)));
-  }
+    /** Creates a new ActivateIntakeCG. */
+    private final IntakeSubsystem m_intake;
 
-  @Override
-  public void end(boolean interrupted) {
-    
-    super.end(interrupted);
-  }
+    public ActivateIntakeCG(IntakeSubsystem intake) {
+        // Add your commands in the addCommands() call, e.g.
+        // addCommands(new FooCommand(), new BarCommand());
+        m_intake = intake;
+        addCommands(
+                new DropIntake(m_intake)
+                        .withTimeout(.2)
+                        .andThen(new OffIntake(m_intake).withTimeout(.2))
+                        .andThen(new RunIntake(m_intake, 0.7)));
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+
+        super.end(interrupted);
+    }
 }

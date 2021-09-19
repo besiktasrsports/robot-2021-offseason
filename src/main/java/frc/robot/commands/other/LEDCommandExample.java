@@ -5,15 +5,19 @@
 package frc.robot.commands.other;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.ShooterSubsystem;
 import frc.sneakylib.drivers.WS2812LEDDriver;
 
 public class LEDCommandExample extends CommandBase {
     /** Creates a new LEDCommandExample. */
-    static WS2812LEDDriver m_ledDriver;
+    private static WS2812LEDDriver m_ledDriver;
 
-    public LEDCommandExample() {
+    private static ShooterSubsystem m_shooter;
+
+    public LEDCommandExample(ShooterSubsystem shooter) {
         // Use addRequirements() here to declare subsystem dependencies.
         m_ledDriver = new WS2812LEDDriver(0, 40);
+        m_shooter = shooter;
     }
 
     // Called when the command is initially scheduled.
@@ -24,7 +28,7 @@ public class LEDCommandExample extends CommandBase {
     @Override
     public void execute() {
 
-        // bla bla run shooter here
+        m_shooter.runShooter(0.5); // This is an example command, can be replaced.
         m_ledDriver.setColor("Red");
         m_ledDriver.setMode("blink");
     }

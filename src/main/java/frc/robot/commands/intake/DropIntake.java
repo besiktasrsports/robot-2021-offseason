@@ -8,33 +8,32 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IntakeSubsystem;
 
 public class DropIntake extends CommandBase {
-  private final IntakeSubsystem m_intake;
-  public DropIntake(IntakeSubsystem intake) {
-    m_intake = intake;
-    addRequirements(intake);
-    
-    // Use addRequirements() here to declare subsystem dependencies.
-  }
+    private final IntakeSubsystem m_intake;
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-    
-  }
+    public DropIntake(IntakeSubsystem intake) {
+        m_intake = intake;
+        addRequirements(intake);
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    m_intake.intakeUp();
-  }
+        // Use addRequirements() here to declare subsystem dependencies.
+    }
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {}
+    // Called when the command is initially scheduled.
+    @Override
+    public void initialize() {}
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+    // Called every time the scheduler runs while the command is scheduled.
+    @Override
+    public void execute() {
+        m_intake.intakeUp();
+    }
+
+    // Called once the command ends or is interrupted.
+    @Override
+    public void end(boolean interrupted) {}
+
+    // Returns true when the command should end.
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
 }

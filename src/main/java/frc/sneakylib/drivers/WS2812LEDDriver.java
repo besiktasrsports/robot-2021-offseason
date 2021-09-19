@@ -60,18 +60,18 @@ public class WS2812LEDDriver extends SubsystemBase {
     public void run() {
 
         if (mode.toLowerCase() == "blink") {
-            int blinkFreq = 250; // miliseconds
+            int blinkDelay = 250; // miliseconds
             double startTime = Timer.getFPGATimestamp();
             m_led.setData(m_ledBuffer);
             m_led.start();
-            if (Timer.getFPGATimestamp() - blinkFreq / 1000 > startTime) {
+            if (Timer.getFPGATimestamp() - blinkDelay / 1000 > startTime) {
                 setColor("Off");
                 m_led.setData(m_ledBuffer);
             }
-        } else if (mode.toLowerCase() == "fade") {
-
+        } else if (mode.toLowerCase() == "fade") { // TODO: Add these two modes.
+            System.err.println("Error! Modes 'fade' and 'snake' are still work in progress.");
         } else if (mode.toLowerCase() == "snake") {
-
+            System.err.println("Error! Modes 'fade' and 'snake' are still work in progress.");
         } else if (mode.toLowerCase() == "rainbow") {
             // For every pixel
 

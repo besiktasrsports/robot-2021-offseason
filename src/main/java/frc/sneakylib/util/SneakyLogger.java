@@ -63,7 +63,7 @@ public class SneakyLogger {
                                         + DriverStation.getInstance().getMatchNumber()
                                         + ".csv");
             } else {
-                file = Paths.get(loggingLocation + "test.csv");
+                file = Paths.get(loggingLocation + "last_workshop_run.csv");
             }
             if (Files.exists(file)) {
                 Files.delete(file);
@@ -95,7 +95,7 @@ public class SneakyLogger {
             StringBuilder data = new StringBuilder();
             data.append(Instant.now().toString()).append(",");
             data.append(DriverStation.getInstance().getMatchTime()).append(",");
-            data.append(getLevels());
+            // data.append(getLevels());
             data.append(getValues());
 
             Files.write(file, Collections.singletonList(data.toString()), StandardOpenOption.APPEND);

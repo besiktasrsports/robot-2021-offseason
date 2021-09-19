@@ -50,21 +50,18 @@ public class DriveSubsytem extends SubsystemBase {
         m_odometry.update(
                 Rotation2d.fromDegrees(getHeading()), getLeftEncoderDistance(), getRightEncoderDistance());
 
-               //System.out.println("Heading : " + getHeading());
-               //System.out.println("Pose : " + getPose());
-               //System.out.println("Left Encoder Pos : " + getLeftEncoderDistance());
-               //System.out.println("Right Encoder Pos : " + getRightEncoderDistance());
-            }
-            
+        // System.out.println("Heading : " + getHeading());
+        // System.out.println("Pose : " + getPose());
+        // System.out.println("Left Encoder Pos : " + getLeftEncoderDistance());
+        // System.out.println("Right Encoder Pos : " + getRightEncoderDistance());
+    }
 
     public void tankDriveVolts(double leftVolts, double rightVolts) {
         leftRearMotor.setVoltage(leftVolts);
-        if(rightVolts >= 0){
+        if (rightVolts >= 0) {
             rightVolts = rightVolts + 1;
-        }
-        else{
+        } else {
             rightVolts = rightVolts - 1;
-
         }
         rightRearMotor.setVoltage(-rightVolts);
         m_drive.feed();

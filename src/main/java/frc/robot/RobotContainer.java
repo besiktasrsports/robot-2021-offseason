@@ -8,16 +8,12 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.JoystickConstants;
-import frc.robot.commands.auto.DefaultAuto;
 import frc.robot.commands.auto.TestAuto;
 import frc.robot.commands.drivetrain.JoystickDriveCommand;
 import frc.robot.commands.feeder.FeederCommand;
 import frc.robot.commands.funnel.FunnelCommand;
 import frc.robot.commands.intake.ActivateIntakeCG;
-import frc.robot.commands.intake.DisableIntakeCG;
-import frc.robot.commands.intake.RunIntake;
 import frc.robot.commands.intake.ToggleCompressor;
-import frc.robot.commands.intake.ToggleDropIntake;
 import frc.robot.commands.shooter.RunShooter;
 import frc.robot.commands.shooter.SetShooterRPMPF;
 import frc.robot.commands.turret.TurretBangBangControl;
@@ -70,14 +66,16 @@ public class RobotContainer {
 
         // Shooter Commands
         new JoystickButton(m_driverController, 3).whileHeld(new RunShooter(m_shooter, -0.65));
-        new JoystickButton(m_driverController, 6).toggleWhenPressed(new SetShooterRPMPF(2550, m_shooter, false)); //2450 2750
+        new JoystickButton(m_driverController, 6)
+                .toggleWhenPressed(new SetShooterRPMPF(2550, m_shooter, false)); // 2450 2750
 
         // Feeder Commands
         new JoystickButton(m_driverController, 5).whileHeld(new FeederCommand(m_Feeder, -0.8));
-        //new JoystickButton(m_driverController, 6).whenPressed(new FeederCommand(m_Feeder, -0.8).withTimeout(0.2));
+        // new JoystickButton(m_driverController, 6).whenPressed(new FeederCommand(m_Feeder,
+        // -0.8).withTimeout(0.2));
         // Misc Commands
         new JoystickButton(m_driverController, 8).whileHeld(new ToggleCompressor(m_intake));
-        //new JoystickButton(m_driverController, 7).whenPressed(new DisableIntakeCG(m_intake));
+        // new JoystickButton(m_driverController, 7).whenPressed(new DisableIntakeCG(m_intake));
         // new JoystickButton(m_driverController, 10).whenPressed(new ToggleLED(m_VisionLED));
 
         // Vision Drive

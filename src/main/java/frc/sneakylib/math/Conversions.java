@@ -8,7 +8,7 @@ public class Conversions {
     * @param radians radians to convert
     */
     public static double radiansToDegrees(double radians) {
-        double degrees;
+        final double degrees;
         degrees = radians * (180 / Math.PI);
         return degrees;
     }
@@ -19,7 +19,7 @@ public class Conversions {
     * @param feet feets to convert
     */
     public static double feetToMeters(double feet) {
-        double meters;
+        final double meters;
         meters = feet / 3.2808;
         return meters;
     }
@@ -30,7 +30,7 @@ public class Conversions {
     * @param inches inches to convert
     */
     public static double inchesToMeters(double inches) {
-        double meters;
+        final double meters;
         meters = inches / 39.370;
         return meters;
     }
