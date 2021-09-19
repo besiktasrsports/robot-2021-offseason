@@ -40,8 +40,8 @@ public class Robot extends TimedRobot {
         m_robotContainer = new RobotContainer();
         autoChooser.setDefaultOption("Default Auto", 0);
         m_robotContainer.m_robotDrive.zeroHeading();
-        
-    
+
+
     }
 
     /**
@@ -113,9 +113,9 @@ public class Robot extends TimedRobot {
     /** This function is called periodically during operator control. */
     @Override
     public void teleopPeriodic() {
-        
-       
-        
+
+
+
     }
 
     @Override

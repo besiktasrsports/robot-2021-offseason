@@ -21,7 +21,7 @@ public class TestAuto extends SequentialCommandGroup {
     super(new DriveStraightMeters(m_drivetrain, -4.1, 0,1).raceWith(new RunIntake(m_intake, 0.8)).andThen(new DriveStraightMeters(m_drivetrain, 4.1, 0,5)));
   }
     /*
-  
+
     super(s_trajectory.getRamsete(s_trajectory.testAuto[0]).raceWith(new RunIntake(m_intake, 0.7))
     );
   }

@@ -40,7 +40,7 @@ public class DriveStraightMeters extends CommandBase {
     m_drive.resetEncoders();
     m_drive.zeroHeading();
     m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(m_drive.getHeading()));
-    
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -72,7 +72,7 @@ public class DriveStraightMeters extends CommandBase {
         turnPower = posePower;
       }
       */
-      leftPower = posePower - turnPower; 
+      leftPower = posePower - turnPower;
       rightPower = posePower;
       if(leftPower >=  0){
         leftPower += Constants.DriveConstants.kStraightDriveMinVolts;
@@ -105,7 +105,7 @@ public class DriveStraightMeters extends CommandBase {
         rightPower = -Constants.DriveConstants.kStraightDriveMaxVolts;
       }
       m_drive.tankDriveVolts(leftPower, rightPower);
-      
+
       System.out.println(m_odometry.getPoseMeters());
       System.out.print("PXE : " + poseXError);
       System.out.print(" PYE : " + angularError);
