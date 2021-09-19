@@ -18,8 +18,13 @@ public class TestAuto extends SequentialCommandGroup {
   public TestAuto(SneakyTrajectory s_trajectory, DriveSubsytem m_drivetrain, IntakeSubsystem m_intake) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
+    super(new DriveStraightMeters(m_drivetrain, -4.1, 0,1).raceWith(new RunIntake(m_intake, 0.8)).andThen(new DriveStraightMeters(m_drivetrain, 4.1, 0,5)));
+  }
+    /*
+  
     super(s_trajectory.getRamsete(s_trajectory.testAuto[0]).raceWith(new RunIntake(m_intake, 0.7))
     );
   }
+  */
   // .andThen(s_trajectory.getRamsete(s_trajectory.testAuto[1]).raceWith(new RunIntake(m_intake, 0)).andThen(()-> m_drivetrain.tankDriveVolts(0, 0)))
 }

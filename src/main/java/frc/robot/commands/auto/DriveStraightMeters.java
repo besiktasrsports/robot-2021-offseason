@@ -9,29 +9,37 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.DriveSubsytem;
+import frc.robot.subsystems.IntakeSubsystem;
 
 public class DriveStraightMeters extends CommandBase {
   /** Creates a new DriveStraightMeters. */
-  private double m_meters;
+  private double m_x_meters;
+  private double m_goalAngle;
   private DriveSubsytem m_drive;
   private double poseXError;
+  private double m_kP;
   private double lastPoseXError;
-  private double poseYError;
-  private double lastPoseYError;
+  private double angularError;
+  private double lastAngularError;
+  private double leftPower;
+  private double rightPower;
   private DifferentialDriveOdometry m_odometry;
-  public DriveStraightMeters(DriveSubsytem drive, double meters) {
+  public DriveStraightMeters(DriveSubsytem drive, double x_meters, double goalAngle, double kP) {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(drive);
     m_drive = drive;
-    m_meters = meters;
+    m_x_meters = x_meters;
+    m_goalAngle = goalAngle;
+    m_kP = kP;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
 
-    m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(m_drive.getHeading()));
     m_drive.resetEncoders();
     m_drive.zeroHeading();
+    m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(m_drive.getHeading()));
     
   }
 
@@ -44,29 +52,69 @@ public class DriveStraightMeters extends CommandBase {
     m_odometry.update(
       Rotation2d.fromDegrees(m_drive.getHeading()), m_drive.getLeftEncoderDistance(), m_drive.getRightEncoderDistance());
 
-      poseXError = m_meters - m_odometry.getPoseMeters().getX();
-      poseYError = -m_odometry.getPoseMeters().getY();
+      poseXError = m_x_meters - m_odometry.getPoseMeters().getX();
+      double current_heading = m_drive.getHeading();
+      if(current_heading > 180)
+      {
+        current_heading = current_heading - 360;
+      }
+      angularError = m_goalAngle - current_heading;
 
-      if(poseXError >= 0){
-         posePower = (Constants.DriveConstants.kStraightDriveP*poseXError + (Constants.DriveConstants.kStraightDriveD*(lastPoseXError-poseXError)));
-
+      posePower = 0;
+      turnPower = 0;
+      posePower = (m_kP*poseXError + (Constants.DriveConstants.kStraightDriveD*(poseXError-lastPoseXError)));
+      turnPower = (Constants.DriveConstants.kStraightDriveTurnP*angularError) + (Constants.DriveConstants.kStraightDriveTurnD*(angularError-lastAngularError));
+      leftPower = 0;
+      rightPower = 0;
+      /*
+      if (turnPower > posePower)
+      {
+        turnPower = posePower;
+      }
+      */
+      leftPower = posePower - turnPower; 
+      rightPower = posePower;
+      if(leftPower >=  0){
+        leftPower += Constants.DriveConstants.kStraightDriveMinVolts;
       }
       else{
-        posePower = -((Constants.DriveConstants.kStraightDriveP*poseXError + (Constants.DriveConstants.kStraightDriveD*(lastPoseXError-poseXError))));
-
+        leftPower -= Constants.DriveConstants.kStraightDriveMinVolts;
       }
 
-      if(poseYError >= 0){
-        turnPower = (Constants.DriveConstants.kStraightDriveTurnP*poseYError) + (Constants.DriveConstants.kStraightDriveTurnD*(lastPoseYError-poseYError));
-        m_drive.tankDriveVolts(posePower-turnPower, -posePower);
+      if(rightPower >=  0){
+        rightPower += Constants.DriveConstants.kStraightDriveMinVolts;
       }
       else{
-        turnPower = -((Constants.DriveConstants.kStraightDriveTurnP*poseYError) + (Constants.DriveConstants.kStraightDriveTurnD*(lastPoseYError-poseYError)));
-        m_drive.tankDriveVolts(posePower, -posePower-turnPower);
+        rightPower -= Constants.DriveConstants.kStraightDriveMinVolts;
       }
 
+      if (leftPower > Constants.DriveConstants.kStraightDriveMaxVolts)
+      {
+        leftPower = Constants.DriveConstants.kStraightDriveMaxVolts;
+      }
+      else if (leftPower < -Constants.DriveConstants.kStraightDriveMaxVolts)
+      {
+        leftPower = -Constants.DriveConstants.kStraightDriveMaxVolts;
+      }
+      if (rightPower > Constants.DriveConstants.kStraightDriveMaxVolts)
+      {
+        rightPower = Constants.DriveConstants.kStraightDriveMaxVolts;
+      }
+      else if (rightPower < -Constants.DriveConstants.kStraightDriveMaxVolts)
+      {
+        rightPower = -Constants.DriveConstants.kStraightDriveMaxVolts;
+      }
+      m_drive.tankDriveVolts(leftPower, rightPower);
       
+      System.out.println(m_odometry.getPoseMeters());
+      System.out.print("PXE : " + poseXError);
+      System.out.print(" PYE : " + angularError);
+      System.out.print(" PoseP : " + posePower);
+      System.out.print(" TurnP : " + turnPower);
+      System.out.print(" RightP : " + rightPower);
+      System.out.println(" LeftP : " + leftPower);
       lastPoseXError = poseXError;
+      lastAngularError = angularError;
     }
 
   // Called once the command ends or is interrupted.
@@ -79,7 +127,7 @@ public class DriveStraightMeters extends CommandBase {
   @Override
   public boolean isFinished() {
     if(poseXError >= -Constants.DriveConstants.kStraightDriveAccuracy && poseXError <= Constants.DriveConstants.kStraightDriveAccuracy &&
-    poseYError >= -Constants.DriveConstants.kStraightDriveTurnAccuracy && poseYError <= Constants.DriveConstants.kStraightDriveTurnAccuracy){
+    angularError >= -Constants.DriveConstants.kStraightDriveTurnAccuracy && angularError <= Constants.DriveConstants.kStraightDriveTurnAccuracy){
       return true;
     }
     return false;

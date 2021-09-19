@@ -50,7 +50,7 @@ public class DriveSubsytem extends SubsystemBase {
         m_odometry.update(
                 Rotation2d.fromDegrees(getHeading()), getLeftEncoderDistance(), getRightEncoderDistance());
 
-               System.out.println("Heading : " + getHeading());
+               //System.out.println("Heading : " + getHeading());
                //System.out.println("Pose : " + getPose());
                //System.out.println("Left Encoder Pos : " + getLeftEncoderDistance());
                //System.out.println("Right Encoder Pos : " + getRightEncoderDistance());

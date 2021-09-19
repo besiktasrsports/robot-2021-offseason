@@ -50,15 +50,18 @@ public final class Constants {
         public static final double kEncoderCPR = 4096;
         public static final double kWheelDiameterMeters = 0.1524;
 
-        public static final double kStraightDriveP = 0;
+        public static final double kStraightDriveP = 1;
         public static final double kStraightDriveI = 0;
         public static final double kStraightDriveD = 0;
-        public static final double kStraightDriveAccuracy = 0;
+        public static final double kStraightDriveAccuracy = 0.1;
 
-        public static final double kStraightDriveTurnP = 0;
+        public static final double kStraightDriveTurnP = 1;
         public static final double kStraightDriveTurnI = 0;
         public static final double kStraightDriveTurnD = 0;
-        public static final double kStraightDriveTurnAccuracy = 0;
+        public static final double kStraightDriveTurnAccuracy = 2;
+        public static final double kStraightDriveMaxVolts = 10;
+        public static final double kStraightDriveMinVolts = 2;
+
     }
     // Intake
 
