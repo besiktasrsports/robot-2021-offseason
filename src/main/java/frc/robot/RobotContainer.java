@@ -76,18 +76,18 @@ public class RobotContainer {
         // Misc Commands
         new JoystickButton(m_driverController, 8).whileHeld(new ToggleCompressor(m_intake));
         // new JoystickButton(m_driverController, 7).whenPressed(new DisableIntakeCG(m_intake));
-        //new JoystickButton(m_driverController, 10).whenPressed(new ToggleLED(m_VisionLED));
+        // new JoystickButton(m_driverController, 10).whenPressed(new ToggleLED(m_VisionLED));
 
         // Vision Drive
         // new JoystickButton(m_driverController, 3).whileHeld(new CloseLED(m_VisionLED));
-    
 
-    /**
-    * Use this to pass the autonomous command to the main {@link Robot} class.
-    *
-    * @return the command to run in autonomous
-    */
+        /**
+        * Use this to pass the autonomous command to the main {@link Robot} class.
+        *
+        * @return the command to run in autonomous
+        */
     }
+
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
         return new TestAuto(s_trajectory, m_robotDrive, m_intake);
