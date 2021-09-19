@@ -23,70 +23,69 @@ public final class Constants {
     // Drive
 
     public static final class DriveConstants {
-        public static final int kLeftRearMotor = 11;
-        public static final int kLeftFrontMotor = 12;
-        public static final int kRightRearMotor = 13;
-        public static final int kRightFrontMotor = 10;
+        public static final int kLeftRearMotor = 13;
+        public static final int kLeftFrontMotor = 14;
+        public static final int kRightRearMotor = 10;
+        public static final int kRightFrontMotor = 11;
         public static final boolean kLeftRearMotorInverted = true;
         public static final boolean kLeftFrontMotorInverted = true;
         public static final boolean kRightRearMotorInverted = true;
         public static final boolean kRightFrontMotorInverted = true;
 
-        public static final double ksVolts = 0.22;
+        public static final double ksVolts = 2.2;
         public static final double kvVoltSecondsPerMeter = 1.98;
-        public static final double kaVoltSecondsSquaredPerMeter = 0.2;
-        public static final double kMaxSpeedMetersPerSecond = 3;
-        public static final double kMaxAccelerationMetersPerSecondSquared = 3;
+        public static final double kaVoltSecondsSquaredPerMeter = 0.414;
+        public static final double kMaxSpeedMetersPerSecond = 2;
+        public static final double kMaxAccelerationMetersPerSecondSquared = 1.5;
         public static final double kRamseteB = 2;
-        public static final double kPDriveVel = 8.5;
+        public static final double kPDriveVel = 0.935;
         public static final double kRamseteZeta = 0.7;
-        public static final double kTrackwidthMeters = 0.69;
-        public static final double kMaxAutoVoltage = 10;
+        public static final double kTrackwidthMeters = 0.8;
+        public static final double kMaxAutoVoltage = 7;
 
         public static final DifferentialDriveKinematics kDriveKinematics =
                 new DifferentialDriveKinematics(kTrackwidthMeters);
-        public static final boolean kGyroReversed = true;
+        public static final boolean kGyroReversed = false;
 
         public static final double kEncoderCPR = 4096;
         public static final double kWheelDiameterMeters = 0.1524;
 
-        public static final double kTurnP = 0.94;
-        public static final double kTurnI = 0.00;
-        public static final double kTurnD = 0.04;
-        public static final double kMinCommand = 0.07;
+        public static final double kStraightDriveP = 1;
+        public static final double kStraightDriveI = 0;
+        public static final double kStraightDriveD = 0;
+        public static final double kStraightDriveAccuracy = 0.1;
 
-        public static final double kMaxTurnRateDegPerS = 120;
-        public static final double kMaxTurnAccelerationDegPerSSquared = 300;
-        public static final double kTurnToleranceDeg = 0.5;
-        public static final double kTurnRateToleranceDegPerS = 8;
-
-        public static final double kVisionTurnP = 0;
-        public static final double kVisionMinCommand = 0;
+        public static final double kStraightDriveTurnP = 1;
+        public static final double kStraightDriveTurnI = 0;
+        public static final double kStraightDriveTurnD = 0;
+        public static final double kStraightDriveTurnAccuracy = 2;
+        public static final double kStraightDriveMaxVolts = 10;
+        public static final double kStraightDriveMinVolts = 2;
     }
     // Intake
 
     public static final class IntakeConstants {
-        public static final int kIntakeMotorPort = 40;
+        public static final int kIntakeMotorPort = 20;
         public static final int kCompressorPort = 0;
         public static final int kPCMPort = 0;
-        public static final int kIntakeDoubleSolenoidPort1 = 0;
-        public static final int kIntakeDoubleSolenoidPort2 = 1;
+        public static final int kIntakeDoubleSolenoidPort1 = 2;
+        public static final int kIntakeDoubleSolenoidPort2 = 3;
     }
     // Funnel
     public static final class FunnelConstants {
 
-        public static final int kFunnelRightMotor = 20;
-        public static final int kFunnelLeftMotor = 21;
+        public static final int kFunnelRightMotor = 31;
+        public static final int kFunnelLeftMotor = 32;
     }
-    // Accelerator
-    public static final class AcceleratorConstants {
-        public static final int kAcceleratorMotorPort = 50;
+    // Feeder
+    public static final class FeederConstants {
+        public static final int kFeederMotorPort = 40;
     }
     // Turret
 
     public static final class TurretConstants {
 
-        public static final byte kTurretMotorPort = 0;
+        public static final byte kTurretMotorPort = 60;
         public static final byte kTurretEncoderA = 2;
         public static final byte kTurretEncoderB = 3;
         public static final int kTurretEncoderPPR = 2048; // AMT-103
@@ -109,10 +108,23 @@ public final class Constants {
     // Shooter
 
     public static final class ShooterConstants {
-        public static final int kShooterMotor1Port = 30;
-        public static final int kShooterMotor2Port = 31;
+        public static final int kShooterMotor1Port = 51;
+        public static final int kShooterMotor2Port = 52;
         public static final boolean kShooterInvertedMode1 = true;
         public static final boolean kShooterInvertedMode2 = true;
+        public static final byte kShooterEncoderA = 0;
+        public static final byte kShooterEncoderB = 1;
+        public static final boolean kShooterEncoderIsReversed = false;
+        public static final double kShootP = 0.005;
+        public static final double kShootI = 0.000;
+        public static final double kShootD = 0.000;
+
+        public static final double kS = 0.656;
+        public static final double kV = 0.00202;
+        public static final double kA = 0.000494;
+
+        public static final int kShooterEncoderPPR = 2048; // AMT-103
+        public static final byte kToleranceInDegrees = 0;
     }
 
     public static final class MiscConstants {

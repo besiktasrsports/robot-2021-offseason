@@ -33,11 +33,7 @@ public class ToggleDropIntake extends CommandBase {
 
     // Called once the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {
-        if (m_intake.intakeState == true) {
-            m_intake.intakeOff();
-        }
-    }
+    public void end(boolean interrupted) {}
 
     // Returns true when the command should end.
     @Override

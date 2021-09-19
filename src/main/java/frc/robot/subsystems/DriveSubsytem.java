@@ -18,11 +18,12 @@ import frc.robot.Constants.DriveConstants;
 
 public class DriveSubsytem extends SubsystemBase {
     /** Creates a new DriveTrain. */
-    private final WPI_VictorSPX leftRearMotor = new WPI_VictorSPX(DriveConstants.kLeftRearMotor);
+    private final WPI_TalonSRX leftRearMotor = new WPI_TalonSRX(DriveConstants.kLeftRearMotor);
 
-    private final WPI_VictorSPX rightRearMotor = new WPI_VictorSPX(DriveConstants.kRightRearMotor);
-    private final WPI_TalonSRX leftFrontMotor = new WPI_TalonSRX(DriveConstants.kLeftFrontMotor);
-    private final WPI_TalonSRX rightFrontMotor = new WPI_TalonSRX(DriveConstants.kRightFrontMotor);
+    private final WPI_TalonSRX rightRearMotor = new WPI_TalonSRX(DriveConstants.kRightRearMotor);
+    private final WPI_VictorSPX leftFrontMotor = new WPI_VictorSPX(DriveConstants.kLeftFrontMotor);
+    private final WPI_VictorSPX rightFrontMotor = new WPI_VictorSPX(DriveConstants.kRightFrontMotor);
+
     private final DifferentialDrive m_drive = new DifferentialDrive(leftRearMotor, rightRearMotor);
 
     public final DifferentialDriveOdometry m_odometry;
@@ -48,10 +49,20 @@ public class DriveSubsytem extends SubsystemBase {
         // This method will be called once per scheduler run
         m_odometry.update(
                 Rotation2d.fromDegrees(getHeading()), getLeftEncoderDistance(), getRightEncoderDistance());
+
+        // System.out.println("Heading : " + getHeading());
+        // System.out.println("Pose : " + getPose());
+        // System.out.println("Left Encoder Pos : " + getLeftEncoderDistance());
+        // System.out.println("Right Encoder Pos : " + getRightEncoderDistance());
     }
 
     public void tankDriveVolts(double leftVolts, double rightVolts) {
         leftRearMotor.setVoltage(leftVolts);
+        if (rightVolts >= 0) {
+            rightVolts = rightVolts + 1;
+        } else {
+            rightVolts = rightVolts - 1;
+        }
         rightRearMotor.setVoltage(-rightVolts);
         m_drive.feed();
     }
@@ -67,11 +78,11 @@ public class DriveSubsytem extends SubsystemBase {
     public DifferentialDriveWheelSpeeds getWheelSpeeds() {
         return new DifferentialDriveWheelSpeeds(
                 10.0
-                        * leftFrontMotor.getSelectedSensorVelocity()
+                        * leftRearMotor.getSelectedSensorVelocity()
                         * (1.0 / DriveConstants.kEncoderCPR)
-                        * (Math.PI * DriveConstants.kWheelDiameterMeters),
+                        * (-Math.PI * DriveConstants.kWheelDiameterMeters),
                 10.0
-                        * rightFrontMotor.getSelectedSensorVelocity()
+                        * rightRearMotor.getSelectedSensorVelocity()
                         * (1.0 / DriveConstants.kEncoderCPR)
                         * (Math.PI * DriveConstants.kWheelDiameterMeters));
     }
@@ -85,8 +96,8 @@ public class DriveSubsytem extends SubsystemBase {
     }
 
     public void resetEncoders() {
-        rightFrontMotor.setSelectedSensorPosition(0);
-        leftFrontMotor.setSelectedSensorPosition(0);
+        rightRearMotor.setSelectedSensorPosition(0);
+        leftRearMotor.setSelectedSensorPosition(0);
     }
 
     public double getTurnRate() {
@@ -117,15 +128,15 @@ public class DriveSubsytem extends SubsystemBase {
     }
 
     public double getRightEncoderDistance() {
-        return rightFrontMotor.getSelectedSensorPosition()
+        return rightRearMotor.getSelectedSensorPosition()
                 * (1.0 / DriveConstants.kEncoderCPR)
                 * (Math.PI * DriveConstants.kWheelDiameterMeters);
     }
 
     public double getLeftEncoderDistance() {
-        return leftFrontMotor.getSelectedSensorPosition()
+        return leftRearMotor.getSelectedSensorPosition()
                 * (1.0 / DriveConstants.kEncoderCPR)
-                * (Math.PI * DriveConstants.kWheelDiameterMeters);
+                * (-Math.PI * DriveConstants.kWheelDiameterMeters);
     }
 
     public double getAverageEncoderDistance() {

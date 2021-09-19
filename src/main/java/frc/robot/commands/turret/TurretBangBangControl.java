@@ -5,18 +5,21 @@
 package frc.robot.commands.turret;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
 import frc.robot.subsystems.TurretSubsystem;
 
-public class TurretJoystickCommand extends CommandBase {
-    // Creates a new TurretJoystickCommand.
-    private final double speed;
+public class TurretBangBangControl extends CommandBase {
 
     private final TurretSubsystem m_turret;
-
-    public TurretJoystickCommand(TurretSubsystem _turret, double _speed) {
+    private double error;
+    private double yaw;
+    private double goal;
+    private int accuracy;
+    private double x;
+    /** Creates a new TurretBangBangControl. */
+    public TurretBangBangControl(TurretSubsystem turret) {
         // Use addRequirements() here to declare subsystem dependencies.
-        this.speed = _speed;
-        this.m_turret = _turret;
+        this.m_turret = turret;
         addRequirements(m_turret);
     }
 
@@ -27,8 +30,24 @@ public class TurretJoystickCommand extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        if (Robot.isValidAngle()) {
+            yaw = Robot.getVisionYawAngle();
+            error = goal - yaw;
 
-        m_turret.runTurret(speed);
+            if (error < 0) {
+                m_turret.runTurret(0.3);
+                if (error > -10) {
+                    m_turret.runTurret(0.2);
+                }
+            } else if (error > 0) {
+                m_turret.runTurret(-0.3);
+                if (error < 10) {
+                    m_turret.runTurret(-0.2);
+                }
+            } else {
+                m_turret.runTurret(0);
+            }
+        }
     }
 
     // Called once the command ends or is interrupted.
@@ -40,6 +59,9 @@ public class TurretJoystickCommand extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
+        if (Robot.isValidAngle() == true && error >= -2 && error <= 2) {
+            return true;
+        }
         return false;
     }
 }

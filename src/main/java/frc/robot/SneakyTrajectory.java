@@ -10,17 +10,23 @@ package frc.robot;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.RamseteController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.DriveSubsytem;
+import java.util.List;
 
 /** Add your docs here. */
 public class SneakyTrajectory {
 
     private DriveSubsytem m_drive;
+    public Trajectory[] testAuto = new Trajectory[2];
 
     public SneakyTrajectory(DriveSubsytem drive) {
 
@@ -51,6 +57,20 @@ public class SneakyTrajectory {
                         // Apply the voltage constraint
                         .addConstraint(autoVoltageConstraint);
         configBackward.setReversed(true);
+
+        testAuto[0] =
+                TrajectoryGenerator.generateTrajectory(
+                        new Pose2d(0, 0, new Rotation2d(0)),
+                        List.of(new Translation2d(-1, 0)),
+                        new Pose2d(-4, 0, new Rotation2d(0)),
+                        configBackward);
+
+        testAuto[1] =
+                TrajectoryGenerator.generateTrajectory(
+                        new Pose2d(-4, 0, new Rotation2d(0)),
+                        List.of(new Translation2d(-2, -0.5)),
+                        new Pose2d(-0.5, -1, new Rotation2d(Math.toRadians(0))),
+                        configForward);
     }
 
     public RamseteCommand getRamsete(Trajectory trajectory) {

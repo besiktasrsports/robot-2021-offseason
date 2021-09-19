@@ -27,6 +27,7 @@ public class IntakeSubsystem extends SubsystemBase implements AutoCloseable {
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
+        // System.out.println(compressor.getPressureSwitchValue());
     }
 
     public void runIntake(double m_speed) {
@@ -41,11 +42,11 @@ public class IntakeSubsystem extends SubsystemBase implements AutoCloseable {
         compressor.setClosedLoopControl(false);
     }
 
-    public void intakeUp() {
+    public void intakeDown() {
         intakeSolenoid.set(Value.kReverse);
     }
 
-    public void intakeDown() {
+    public void intakeUp() {
         intakeSolenoid.set(Value.kForward);
     }
 

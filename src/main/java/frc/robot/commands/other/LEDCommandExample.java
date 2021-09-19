@@ -2,22 +2,22 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.turret;
+package frc.robot.commands.other;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.TurretSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
+import frc.sneakylib.drivers.WS2812LEDDriver;
 
-public class TurretJoystickCommand extends CommandBase {
-    // Creates a new TurretJoystickCommand.
-    private final double speed;
+public class LEDCommandExample extends CommandBase {
+    /** Creates a new LEDCommandExample. */
+    private static WS2812LEDDriver m_ledDriver;
 
-    private final TurretSubsystem m_turret;
+    private static ShooterSubsystem m_shooter;
 
-    public TurretJoystickCommand(TurretSubsystem _turret, double _speed) {
+    public LEDCommandExample(ShooterSubsystem shooter) {
         // Use addRequirements() here to declare subsystem dependencies.
-        this.speed = _speed;
-        this.m_turret = _turret;
-        addRequirements(m_turret);
+        m_ledDriver = new WS2812LEDDriver(0, 40);
+        m_shooter = shooter;
     }
 
     // Called when the command is initially scheduled.
@@ -28,14 +28,14 @@ public class TurretJoystickCommand extends CommandBase {
     @Override
     public void execute() {
 
-        m_turret.runTurret(speed);
+        m_shooter.runShooter(0.5); // This is an example command, can be replaced.
+        m_ledDriver.setColor("Red");
+        m_ledDriver.setMode("blink");
     }
 
     // Called once the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {
-        m_turret.runTurret(0);
-    }
+    public void end(boolean interrupted) {}
 
     // Returns true when the command should end.
     @Override
