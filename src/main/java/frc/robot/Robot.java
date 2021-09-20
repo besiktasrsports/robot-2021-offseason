@@ -29,6 +29,7 @@ public class Robot extends TimedRobot {
     public static SendableChooser<Integer> autoChooser = new SendableChooser<>();
     public static PhotonPipelineResult result;
     public static PhotonTrackedTarget target;
+    private static AdaptivePurePursuitController m_appc;
 
     PhotonCamera camera = new PhotonCamera("Lifecam");
     /**
@@ -40,6 +41,8 @@ public class Robot extends TimedRobot {
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
         m_robotContainer = new RobotContainer();
+        m_appc = new AdaptivePurePursuitController(m_robotContainer.m_robotDrive);
+        
         autoChooser.setDefaultOption("Default Auto", 0);
         m_robotContainer.m_robotDrive.zeroHeading();
 
@@ -115,7 +118,7 @@ public class Robot extends TimedRobot {
     /** This function is called periodically during operator control. */
     @Override
     public void teleopPeriodic() {
-        System.out.println(m_robotContainer.s_trajectory.testAuto[1].getStates().get(1));
+       
     }
 
     @Override
