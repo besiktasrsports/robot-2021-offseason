@@ -71,9 +71,7 @@ public class SneakyTrajectory {
                         List.of(new Translation2d(-2, -0.5)),
                         new Pose2d(-0.5, -1, new Rotation2d(Math.toRadians(0))),
                         configForward);
-        
     }
-
 
     public RamseteCommand getRamsete(Trajectory trajectory) {
 
