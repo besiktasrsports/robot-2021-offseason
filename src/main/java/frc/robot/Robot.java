@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.sneakylib.auto.AdaptivePurePursuitController;
+
 import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonPipelineResult;
 import org.photonvision.PhotonTrackedTarget;
@@ -113,9 +115,7 @@ public class Robot extends TimedRobot {
     /** This function is called periodically during operator control. */
     @Override
     public void teleopPeriodic() {
-
-
-
+        System.out.println(m_robotContainer.s_trajectory.testAuto[1].getStates().get(1));
     }
 
     @Override
