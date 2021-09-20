@@ -8,48 +8,49 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import frc.robot.Constants;
-import frc.robot.subsystems.DriveSubsytem;
-import frc.sneakylib.math.Conversions;
 
 /** Add your docs here. */
 public class AdaptivePurePursuitController {
-    private static DriveSubsytem m_drive;
     private static int m_lastClosestPointIndex;
 
-    public AdaptivePurePursuitController(DriveSubsytem drive) {
-        m_drive = drive;
-    }
+    public AdaptivePurePursuitController() {}
 
-    public double[] update(Trajectory trajectory, Pose2d currentRobotPose, boolean reversed) {
-        double heading = Math.toRadians(m_drive.getHeading());
+    public double[] update(
+            Trajectory trajectory, Pose2d currentRobotPose, double heading, boolean reversed) {
+
         final double epsilon = 1E-10;
-        if(heading == 0.0){
+        if (heading == 0.0) {
             heading = epsilon;
         }
         Translation2d lookahead = calculateLookahead(trajectory, currentRobotPose);
         double curvature = calculateCurvature(currentRobotPose, lookahead, heading);
         double targetVel = getPointVelocity(trajectory, m_lastClosestPointIndex);
         byte negate = 1;
-        if(reversed == true){
+        if (reversed == true) {
             negate = -1;
         }
         double[] velocityArray = new double[2];
-        double leftVel = negate * (targetVel * (2.0 + (curvature*Conversions.metersToInches(Constants.DriveConstants.kTrackwidthMeters)) / 2.0) );
-        double rightVel = negate * (targetVel * (2.0 - (curvature*Conversions.metersToInches(Constants.DriveConstants.kTrackwidthMeters)) / 2.0 ) );
+        double leftVel =
+                negate
+                        * (targetVel * (2.0 + (curvature * Constants.DriveConstants.kTrackwidthMeters)) / 2.0);
+        double rightVel =
+                negate
+                        * (targetVel * (2.0 - (curvature * Constants.DriveConstants.kTrackwidthMeters)) / 2.0);
         velocityArray[0] = leftVel;
         velocityArray[1] = rightVel;
-        return velocityArray;   
+        return velocityArray;
     }
 
-    public static void reset(){
+    public void reset() {
         m_lastClosestPointIndex = 0;
     }
-    
+
     public static Translation2d calculateLookahead(Trajectory trajectory, Pose2d currentRobotPose) {
         m_lastClosestPointIndex =
                 findClosestPointIndex(trajectory, currentRobotPose, m_lastClosestPointIndex);
         Translation2d lookahead = null;
         for (int i = m_lastClosestPointIndex; i < trajectory.getStates().size() - 2; i++) {
+
             Translation2d startPos = getPointPose(trajectory, i).getTranslation();
             Translation2d finishPos = getPointPose(trajectory, i + 1).getTranslation();
             Translation2d d = finishPos.minus(startPos);
@@ -69,18 +70,22 @@ public class AdaptivePurePursuitController {
                 if (t1 >= 0 && t1 <= 1) {
                     Translation2d temp = d.times(t1);
                     lookahead = startPos.plus(temp);
+                    System.out.println("t1 lookahead : " + lookahead);
                     break;
                 } else if (t2 >= 0 && t2 <= 1) {
                     Translation2d temp = d.times(t2);
                     lookahead = startPos.plus(temp);
+                    System.out.println("t2 lookahead : " + lookahead);
                     break;
                 }
             }
         }
         if (lookahead == null) {
+
             lookahead =
                     trajectory.getStates().get(trajectory.getStates().size() - 1).poseMeters.getTranslation();
         } else {
+
             double distToEnd =
                     currentRobotPose
                             .getTranslation()
@@ -106,18 +111,23 @@ public class AdaptivePurePursuitController {
         return firstVec.getX() * secondVec.getX() + firstVec.getY() * secondVec.getY();
     }
 
-    private static double calculateCurvature(Pose2d currentRobotPose, Translation2d lookahead, double heading) {
-        double a = 1/Math.tan(heading);
-        byte b = -1;
-        double c = -a * currentRobotPose.getTranslation().getY() + currentRobotPose.getTranslation().getX();
-        double x = Math.abs(a*lookahead.getY() + b* lookahead.getX() + c) / ((Math.sqrt(a * a + b * b)));
-        double curvature = (2.0 * x) / (Math.pow(Constants.DriveConstants.kPurePursuitLookAheadDistance, 2.0));
-        double side = Math.signum(
-            Math.sin(heading) * (lookahead.getX() - currentRobotPose.getTranslation().getX()) -
-            Math.cos(heading) * (lookahead.getY() - currentRobotPose.getTranslation().getY())
-        );
-
-        return curvature*side;
+    private static double calculateCurvature(
+            Pose2d currentRobotPose, Translation2d lookahead, double heading) {
+        double a = -Math.tan(heading);
+        byte b = 1;
+        double c =
+                -a * currentRobotPose.getTranslation().getX() - currentRobotPose.getTranslation().getY();
+        double x =
+                Math.abs(a * lookahead.getX() + b * lookahead.getY() + c) / ((Math.sqrt(a * a + b * b)));
+        double curvature =
+                (2.0 * x) / (Math.pow(Constants.DriveConstants.kPurePursuitLookAheadDistance, 2.0));
+        double side =
+                Math.signum(
+                        Math.sin(heading) * (lookahead.getX() - currentRobotPose.getTranslation().getX())
+                                - Math.cos(heading)
+                                        * (lookahead.getY() - currentRobotPose.getTranslation().getY()));
+        System.out.println("CURV : " + curvature * side);
+        return curvature * side;
     }
 
     public static int findClosestPointIndex(Trajectory trajectory, Pose2d point, int lastIndex) {
@@ -151,6 +161,4 @@ public class AdaptivePurePursuitController {
 
         return trajectory.getStates().get(index).velocityMetersPerSecond;
     }
-
-    
 }

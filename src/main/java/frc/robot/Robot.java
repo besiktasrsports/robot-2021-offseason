@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -41,8 +42,8 @@ public class Robot extends TimedRobot {
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
         m_robotContainer = new RobotContainer();
-        m_appc = new AdaptivePurePursuitController(m_robotContainer.m_robotDrive);
-        
+        m_appc = new AdaptivePurePursuitController();
+
         autoChooser.setDefaultOption("Default Auto", 0);
         m_robotContainer.m_robotDrive.zeroHeading();
 
@@ -113,11 +114,15 @@ public class Robot extends TimedRobot {
         }
         m_robotContainer.m_robotDrive.resetEncoders();
         m_robotContainer.m_robotDrive.zeroHeading();
+        m_robotContainer.m_robotDrive.m_odometry
+          .resetPosition(m_robotContainer.s_trajectory.testAuto[0].getInitialPose(), new Rotation2d(0));
+          m_appc.reset();
     }
 
     /** This function is called periodically during operator control. */
     @Override
     public void teleopPeriodic() {
+        System.out.println(m_appc.update(m_robotContainer.s_trajectory.testAuto[0],m_robotContainer.m_robotDrive.getPose(),Math.toRadians(m_robotContainer.m_robotDrive.getHeading()) ,false)[0]);
 
     }
 

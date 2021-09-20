@@ -62,9 +62,7 @@ public final class Constants {
         public static final double kStraightDriveMaxVolts = 10;
         public static final double kStraightDriveMinVolts = 2;
 
-
-        public static final double kPurePursuitLookAheadDistance = 0;
-
+        public static final double kPurePursuitLookAheadDistance = 0.8;
     }
     // Intake
 

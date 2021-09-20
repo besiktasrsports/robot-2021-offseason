@@ -60,11 +60,8 @@ public class SneakyTrajectory {
 
         testAuto[0] =
                 TrajectoryGenerator.generateTrajectory(
-                        new Pose2d(0, 0, new Rotation2d(0)),
-                        List.of(new Translation2d(-1, 0)),
-                        new Pose2d(-4, 0, new Rotation2d(0)),
-                        configBackward);
-
+                        List.of(new Pose2d(3, 6, new Rotation2d(0)), new Pose2d(5, 7.5, new Rotation2d(0))),
+                        configForward);
         testAuto[1] =
                 TrajectoryGenerator.generateTrajectory(
                         new Pose2d(-4, 0, new Rotation2d(0)),
