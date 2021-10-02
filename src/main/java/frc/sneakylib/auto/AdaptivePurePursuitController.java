@@ -13,7 +13,9 @@ import frc.robot.Constants;
 public class AdaptivePurePursuitController {
     private static int m_lastClosestPointIndex;
 
-    public AdaptivePurePursuitController() {}
+    public AdaptivePurePursuitController() {
+
+    }
 
     public double[] update(
             Trajectory trajectory, Pose2d currentRobotPose, double heading, boolean reversed) {
@@ -27,17 +29,18 @@ public class AdaptivePurePursuitController {
         double targetVel = getPointVelocity(trajectory, m_lastClosestPointIndex);
         byte negate = 1;
         if (reversed == true) {
-            negate = -1;
+            negate = 1;
         }
         double[] velocityArray = new double[2];
         double leftVel =
                 negate
-                        * (targetVel * (2.0 + (curvature * Constants.DriveConstants.kTrackwidthMeters)) / 2.0);
+                        * (targetVel * (2.0 + (curvature * 0.71)) / 2.0); // Robot width
         double rightVel =
                 negate
-                        * (targetVel * (2.0 - (curvature * Constants.DriveConstants.kTrackwidthMeters)) / 2.0);
+                        * (targetVel * (2.0 - (curvature * 0.71)) / 2.0);
         velocityArray[0] = leftVel;
         velocityArray[1] = rightVel;
+        System.out.println("APPC Target Vel " + targetVel + " Left Vel: " + leftVel + " Right Vel: " + rightVel);
         return velocityArray;
     }
 
@@ -70,12 +73,12 @@ public class AdaptivePurePursuitController {
                 if (t1 >= 0 && t1 <= 1) {
                     Translation2d temp = d.times(t1);
                     lookahead = startPos.plus(temp);
-                    System.out.println("t1 lookahead : " + lookahead);
+                    // System.out.println("t1 lookahead : " + lookahead);
                     break;
                 } else if (t2 >= 0 && t2 <= 1) {
                     Translation2d temp = d.times(t2);
                     lookahead = startPos.plus(temp);
-                    System.out.println("t2 lookahead : " + lookahead);
+                    // System.out.println("t2 lookahead : " + lookahead);
                     break;
                 }
             }
@@ -125,7 +128,7 @@ public class AdaptivePurePursuitController {
                 Math.signum(
                         Math.sin(heading) * (lookahead.getX() - currentRobotPose.getTranslation().getX())
                                 - Math.cos(heading)
-                                        * (lookahead.getY() - currentRobotPose.getTranslation().getY()));
+                                * (lookahead.getY() - currentRobotPose.getTranslation().getY()));
         System.out.println("CURV : " + curvature * side);
         return curvature * side;
     }
@@ -139,7 +142,7 @@ public class AdaptivePurePursuitController {
                     point
                             .getTranslation()
                             .getDistance(trajectory.getStates().get(i).poseMeters.getTranslation());
-            if (tempDist < minDistance) {
+            if (tempDist < minDistance|| index ==0) {
                 index = i;
                 minDistance = tempDist;
             }
@@ -158,7 +161,7 @@ public class AdaptivePurePursuitController {
     }
 
     public static double getPointVelocity(Trajectory trajectory, int index) {
-
+        System.out.println("Index: " + index + " Pose: " + trajectory.getStates().get(index).poseMeters + " Point Vel: " + trajectory.getStates().get(index).velocityMetersPerSecond);
         return trajectory.getStates().get(index).velocityMetersPerSecond;
     }
 }
