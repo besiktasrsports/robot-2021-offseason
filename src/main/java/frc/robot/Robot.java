@@ -120,6 +120,7 @@ public class Robot extends TimedRobot {
         //System.out.println(m_appc.update(m_robotContainer.s_trajectory.testAuto[0],m_robotContainer.m_robotDrive.getPose(),Math.toRadians(m_robotContainer.m_robotDrive.getHeading()) ,false)[0]);
         //System.out.println("Left Velocity : "+ m_robotContainer.m_robotDrive.getLeftWheelVelocity() + " Right Velocity : "+m_robotContainer.m_robotDrive.getRightWheelVelocity());
         //System.out.println("hello");
+        System.out.println(m_robotContainer.m_shooter.isAtSetpoint);
     }
 
     @Override

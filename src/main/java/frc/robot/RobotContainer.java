@@ -77,7 +77,7 @@ public class RobotContainer {
 
         // Feeder Commands
         new JoystickButton(m_driverController, 5)
-                .toggleWhenPressed(new FeedCG(m_shooter, m_Feeder, m_intake));
+                .whileHeld(new FeedCG(m_shooter, m_Feeder, m_intake, m_funnel));
         // new JoystickButton(m_driverController, 6).whenPressed(new FeederCommand(m_Feeder,
         // -0.8).withTimeout(0.2));
         // Misc Commands
