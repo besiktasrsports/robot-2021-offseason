@@ -23,7 +23,7 @@ public class WS2812LEDDriver extends SubsystemBase {
 
     @Override
     public void periodic() {
-        runDefault();
+       // runDefault();
     }
 
     public void setBufferColor(int r, int g, int b) {

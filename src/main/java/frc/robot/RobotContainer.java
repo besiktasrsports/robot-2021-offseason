@@ -36,7 +36,7 @@ public class RobotContainer {
     public Joystick m_operatorController = new Joystick(JoystickConstants.kOperatorControllerPort);
     public final FunnelSubsystem m_funnel = new FunnelSubsystem();
     public final TurretSubsystem m_turret = new TurretSubsystem();
-    //public final AdaptivePurePursuitController m_appc = new AdaptivePurePursuitController();
+    public final AdaptivePurePursuitController m_appc = new AdaptivePurePursuitController();
     public final IntakeSubsystem m_intake = new IntakeSubsystem();
     public final ShooterSubsystem m_shooter = new ShooterSubsystem();
     public final DriveSubsystem m_robotDrive = new DriveSubsystem();
@@ -82,7 +82,7 @@ public class RobotContainer {
         // -0.8).withTimeout(0.2));
         // Misc Commands
         new JoystickButton(m_driverController, 8).whileHeld(new ToggleCompressor(m_intake));
-        //new JoystickButton(m_driverController, 7).toggleWhenPressed(new APPCPathFollowerLeft(m_robotDrive,m_appc,s_trajectory.testAuto[0],false));
+        new JoystickButton(m_driverController, 7).toggleWhenPressed(new APPCPathFollowerLeft(m_robotDrive,m_appc,s_trajectory.testAuto[0],false));
         // new JoystickButton(m_driverController, 10).whenPressed(new ToggleLED(m_VisionLED));
 
         // Vision Drive

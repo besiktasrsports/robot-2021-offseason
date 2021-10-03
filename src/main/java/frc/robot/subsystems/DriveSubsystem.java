@@ -81,11 +81,11 @@ public class DriveSubsystem extends SubsystemBase {
     public DifferentialDriveWheelSpeeds getWheelSpeeds() {
         return new DifferentialDriveWheelSpeeds(
                 10.0
-                        * leftRearMotor.getSelectedSensorVelocity()
-                        * (1.0 / DriveConstants.kEncoderCPR)
-                        * (-Math.PI * DriveConstants.kWheelDiameterMeters),
-                10.0
                         * rightRearMotor.getSelectedSensorVelocity()
+                        * (1.0 / DriveConstants.kEncoderCPR)
+                        * (Math.PI * DriveConstants.kWheelDiameterMeters),
+                10.0
+                        * leftRearMotor.getSelectedSensorVelocity()
                         * (1.0 / DriveConstants.kEncoderCPR)
                         * (Math.PI * DriveConstants.kWheelDiameterMeters));
     }
