@@ -10,8 +10,6 @@ public class WS2812LEDDriver extends SubsystemBase {
     private static AddressableLED m_led;
     private static AddressableLEDBuffer m_ledBuffer;
     private Timer m_timer;
-   
-
 
     public WS2812LEDDriver(int dataPort, int ledLength) {
         m_led = new AddressableLED(dataPort);
@@ -22,8 +20,9 @@ public class WS2812LEDDriver extends SubsystemBase {
         setBufferColor(0, 0, 0);
         m_led.start();
     }
+
     @Override
-    public void periodic(){
+    public void periodic() {
         runDefault();
     }
 
@@ -35,61 +34,51 @@ public class WS2812LEDDriver extends SubsystemBase {
         m_led.setData(m_ledBuffer);
     }
 
-    public void turnOff(){
+    public void turnOff() {
         setBufferColor(0, 0, 0);
         m_led.setData(m_ledBuffer);
     }
 
-    public void runDefault(){
-        
-        
-        for(int i = 0; i<m_ledBuffer.getLength(); i+=0){
-            
-            m_ledBuffer.setRGB(i,0,255,0);
+    public void runDefault() {
+
+        for (int i = 0; i < m_ledBuffer.getLength(); i += 0) {
+
+            m_ledBuffer.setRGB(i, 0, 255, 0);
             m_led.setData(m_ledBuffer);
             final double startTime = Timer.getFPGATimestamp();
-            if(Timer.getFPGATimestamp() - startTime >= 0.08){
+            if (Timer.getFPGATimestamp() - startTime >= 0.08) {
                 i++;
             }
-            
-            }
+        }
 
-        for(int i = 0; i<m_ledBuffer.getLength(); i+=0){
-        
-            m_ledBuffer.setRGB(i,0,0,0);
+        for (int i = 0; i < m_ledBuffer.getLength(); i += 0) {
+
+            m_ledBuffer.setRGB(i, 0, 0, 0);
             m_led.setData(m_ledBuffer);
             final double startTime = Timer.getFPGATimestamp();
-            if(Timer.getFPGATimestamp() - startTime >= 0.1){
+            if (Timer.getFPGATimestamp() - startTime >= 0.1) {
                 i++;
             }
-            
-            }
-         
-        for(int i = m_ledBuffer.getLength()-1; i>=0; i-=0){
-        
-            m_ledBuffer.setRGB(i,0,255,0);
+        }
+
+        for (int i = m_ledBuffer.getLength() - 1; i >= 0; i -= 0) {
+
+            m_ledBuffer.setRGB(i, 0, 255, 0);
             m_led.setData(m_ledBuffer);
             final double startTime = Timer.getFPGATimestamp();
-            if(Timer.getFPGATimestamp() - startTime >= 0.08){
+            if (Timer.getFPGATimestamp() - startTime >= 0.08) {
                 i--;
             }
-            }
+        }
 
-        for(int i = m_ledBuffer.getLength()-1; i>=0; i-=0){
-    
-            m_ledBuffer.setRGB(i,0,0,0);
+        for (int i = m_ledBuffer.getLength() - 1; i >= 0; i -= 0) {
+
+            m_ledBuffer.setRGB(i, 0, 0, 0);
             m_led.setData(m_ledBuffer);
             final double startTime = Timer.getFPGATimestamp();
-            if(Timer.getFPGATimestamp() - startTime >= 0.1){
+            if (Timer.getFPGATimestamp() - startTime >= 0.1) {
                 i--;
             }
-            
-            }
-           
-
-        
-    
-    
+        }
     }
-
 }

@@ -13,6 +13,7 @@ public class FeederCommand extends CommandBase {
 
     private final double m_speed;
     private final boolean m_checkSensor;
+
     public FeederCommand(FeederSubsystem accelarator, double speed, boolean checkSensor) {
         // Use addRequirements() here to declare subsystem dependencies.
         m_accelarator = accelarator;
@@ -40,10 +41,9 @@ public class FeederCommand extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        if(m_checkSensor){
-        return m_accelarator.getSensorStatus();
+        if (m_checkSensor) {
+            return m_accelarator.getSensorStatus();
         }
         return false;
-        
     }
 }

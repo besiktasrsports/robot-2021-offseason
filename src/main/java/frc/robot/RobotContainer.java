@@ -11,7 +11,6 @@ import frc.robot.Constants.JoystickConstants;
 import frc.robot.commands.auto.TestAuto;
 import frc.robot.commands.drivetrain.JoystickDriveCommand;
 import frc.robot.commands.feeder.FeedCG;
-import frc.robot.commands.feeder.FeederCommand;
 import frc.robot.commands.funnel.FunnelCommand;
 import frc.robot.commands.intake.ActivateIntakeCG;
 import frc.robot.commands.intake.ToggleCompressor;
@@ -64,7 +63,8 @@ public class RobotContainer {
         // new JoystickButton(m_driverController, 6).whileHeld(new FunnelCommand(m_funnel, -0.5, 0.5));
 
         // Intake Commands
-        new JoystickButton(m_driverController, 1).toggleWhenPressed(new ActivateIntakeCG(m_intake, m_Feeder));
+        new JoystickButton(m_driverController, 1)
+                .toggleWhenPressed(new ActivateIntakeCG(m_intake, m_Feeder));
         // new JoystickButton(m_operatorController, 1).whileHeld(new ToggleDropIntake(m_intake));
 
         // Shooter Commands
@@ -73,7 +73,8 @@ public class RobotContainer {
                 .toggleWhenPressed(new SetShooterRPMPF(2550, m_shooter, false)); // 2450 2750
 
         // Feeder Commands
-        new JoystickButton(m_driverController, 5).toggleWhenPressed(new FeedCG(m_shooter, m_Feeder,m_intake));
+        new JoystickButton(m_driverController, 5)
+                .toggleWhenPressed(new FeedCG(m_shooter, m_Feeder, m_intake));
         // new JoystickButton(m_driverController, 6).whenPressed(new FeederCommand(m_Feeder,
         // -0.8).withTimeout(0.2));
         // Misc Commands
@@ -83,7 +84,6 @@ public class RobotContainer {
 
         // Vision Drive
         // new JoystickButton(m_driverController, 3).whileHeld(new CloseLED(m_VisionLED));
-
 
         /**
         * Use this to pass the autonomous command to the main {@link Robot} class.

@@ -58,7 +58,6 @@ public class SetShooterRPMPF extends PIDCommand {
     public void execute() {
         super.execute();
         m_shooter.isAtSetpoint = getController().atSetpoint();
-        
     }
 
     // Returns true when the command should end.

@@ -124,8 +124,8 @@ public class AdaptivePurePursuitController {
                         Math.sin(heading) * (lookahead.getX() - currentRobotPose.getTranslation().getX())
                                 - Math.cos(heading)
                                         * (lookahead.getY() - currentRobotPose.getTranslation().getY()));
-        
-        if(curvature >= 15 || curvature <= -15){
+
+        if (curvature >= 15 || curvature <= -15) {
             curvature = 0;
         }
         System.out.println("CURV : " + curvature * side);

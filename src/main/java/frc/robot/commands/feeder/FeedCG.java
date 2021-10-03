@@ -14,21 +14,26 @@ import frc.robot.subsystems.ShooterSubsystem;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class FeedCG extends SequentialCommandGroup {
-  /** Creates a new FeedCG. */
-  private ShooterSubsystem m_shooter;
-  private FeederSubsystem m_feeder;
-  private IntakeSubsystem m_intake;
-  public FeedCG(ShooterSubsystem shooter, FeederSubsystem feeder, IntakeSubsystem intake) {
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
-    m_intake = intake;
-    m_feeder = feeder;
-    m_shooter = shooter;
-    if(m_shooter.isAtSetpoint){
-    addCommands(
-      new FeederCommand(m_feeder, -0.8, false).withTimeout(1).andThen(new RunIntake(m_intake, 0.7)).withTimeout(3).alongWith(new FeederCommand(m_feeder, -0.8, false))
-    );
+    /** Creates a new FeedCG. */
+    private ShooterSubsystem m_shooter;
+
+    private FeederSubsystem m_feeder;
+    private IntakeSubsystem m_intake;
+
+    public FeedCG(ShooterSubsystem shooter, FeederSubsystem feeder, IntakeSubsystem intake) {
+        // Add your commands in the addCommands() call, e.g.
+        // addCommands(new FooCommand(), new BarCommand());
+        m_intake = intake;
+        m_feeder = feeder;
+        m_shooter = shooter;
+        if (m_shooter.isAtSetpoint) {
+            addCommands(
+                    new FeederCommand(m_feeder, -0.8, false)
+                            .withTimeout(1)
+                            .andThen(new RunIntake(m_intake, 0.7))
+                            .withTimeout(3)
+                            .alongWith(new FeederCommand(m_feeder, -0.8, false)));
+        }
+        addCommands();
     }
-    addCommands();
-  }
 }

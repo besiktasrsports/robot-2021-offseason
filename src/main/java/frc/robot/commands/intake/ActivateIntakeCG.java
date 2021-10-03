@@ -15,6 +15,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 public class ActivateIntakeCG extends SequentialCommandGroup {
     /** Creates a new ActivateIntakeCG. */
     private final IntakeSubsystem m_intake;
+
     private final FeederSubsystem m_feeder;
 
     public ActivateIntakeCG(IntakeSubsystem intake, FeederSubsystem feeder) {
@@ -27,9 +28,7 @@ public class ActivateIntakeCG extends SequentialCommandGroup {
                         .withTimeout(.2)
                         .andThen(new OffIntake(m_intake).withTimeout(.1))
                         .andThen(new RunIntake(m_intake, 0.7))
-                        .alongWith(new FeederCommand(m_feeder, -0.6, true))
-                        
-                        );
+                        .alongWith(new FeederCommand(m_feeder, -0.6, true)));
     }
 
     @Override
