@@ -43,4 +43,10 @@ public class Conversions {
     public static double inchesToCentimeters(double inches) {
         return inchesToMeters(inches) * 100;
     }
+
+    public static double metersToInches(double meters) {
+        final double inches;
+        inches = meters * 39.370;
+        return inches;
+    }
 }
