@@ -4,25 +4,32 @@
 
 package frc.robot.commands.intake;
 
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.feeder.FeederCommand;
+import frc.robot.subsystems.FeederSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ActivateIntakeCG extends ParallelCommandGroup {
+public class ActivateIntakeCG extends SequentialCommandGroup {
     /** Creates a new ActivateIntakeCG. */
     private final IntakeSubsystem m_intake;
+    private final FeederSubsystem m_feeder;
 
-    public ActivateIntakeCG(IntakeSubsystem intake) {
+    public ActivateIntakeCG(IntakeSubsystem intake, FeederSubsystem feeder) {
         // Add your commands in the addCommands() call, e.g.
         // addCommands(new FooCommand(), new BarCommand());
         m_intake = intake;
+        m_feeder = feeder;
         addCommands(
                 new DropIntake(m_intake)
                         .withTimeout(.2)
-                        .andThen(new OffIntake(m_intake).withTimeout(.2))
-                        .andThen(new RunIntake(m_intake, 0.7)));
+                        .andThen(new OffIntake(m_intake).withTimeout(.1))
+                        .andThen(new RunIntake(m_intake, 0.7))
+                        .alongWith(new FeederCommand(m_feeder, -0.6, true))
+                        
+                        );
     }
 
     @Override

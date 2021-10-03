@@ -13,9 +13,7 @@ import frc.robot.Constants;
 public class AdaptivePurePursuitController {
     private static int m_lastClosestPointIndex;
 
-    public AdaptivePurePursuitController() {
-
-    }
+    public AdaptivePurePursuitController() {}
 
     public double[] update(
             Trajectory trajectory, Pose2d currentRobotPose, double heading, boolean reversed) {
@@ -32,15 +30,12 @@ public class AdaptivePurePursuitController {
             negate = 1;
         }
         double[] velocityArray = new double[2];
-        double leftVel =
-                negate
-                        * (targetVel * (2.0 + (curvature * 0.71)) / 2.0); // Robot width
-        double rightVel =
-                negate
-                        * (targetVel * (2.0 - (curvature * 0.71)) / 2.0);
+        double leftVel = negate * (targetVel * (2.0 + (curvature * 0.71)) / 2.0); // Robot width
+        double rightVel = negate * (targetVel * (2.0 - (curvature * 0.71)) / 2.0);
         velocityArray[0] = leftVel;
         velocityArray[1] = rightVel;
-        System.out.println("APPC Target Vel " + targetVel + " Left Vel: " + leftVel + " Right Vel: " + rightVel);
+        System.out.println(
+                "APPC Target Vel " + targetVel + " Left Vel: " + leftVel + " Right Vel: " + rightVel);
         return velocityArray;
     }
 
@@ -128,7 +123,11 @@ public class AdaptivePurePursuitController {
                 Math.signum(
                         Math.sin(heading) * (lookahead.getX() - currentRobotPose.getTranslation().getX())
                                 - Math.cos(heading)
-                                * (lookahead.getY() - currentRobotPose.getTranslation().getY()));
+                                        * (lookahead.getY() - currentRobotPose.getTranslation().getY()));
+        
+        if(curvature >= 15 || curvature <= -15){
+            curvature = 0;
+        }
         System.out.println("CURV : " + curvature * side);
         return curvature * side;
     }
@@ -142,7 +141,7 @@ public class AdaptivePurePursuitController {
                     point
                             .getTranslation()
                             .getDistance(trajectory.getStates().get(i).poseMeters.getTranslation());
-            if (tempDist < minDistance|| index ==0) {
+            if (tempDist < minDistance || index == 0) {
                 index = i;
                 minDistance = tempDist;
             }
@@ -161,7 +160,13 @@ public class AdaptivePurePursuitController {
     }
 
     public static double getPointVelocity(Trajectory trajectory, int index) {
-        System.out.println("Index: " + index + " Pose: " + trajectory.getStates().get(index).poseMeters + " Point Vel: " + trajectory.getStates().get(index).velocityMetersPerSecond);
+        System.out.println(
+                "Index: "
+                        + index
+                        + " Pose: "
+                        + trajectory.getStates().get(index).poseMeters
+                        + " Point Vel: "
+                        + trajectory.getStates().get(index).velocityMetersPerSecond);
         return trajectory.getStates().get(index).velocityMetersPerSecond;
     }
 }
