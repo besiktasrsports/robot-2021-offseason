@@ -8,14 +8,14 @@ import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.DriveSubsytem;
+import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
 public class DriveStraightMeters extends CommandBase {
   /** Creates a new DriveStraightMeters. */
   private double m_x_meters;
   private double m_goalAngle;
-  private DriveSubsytem m_drive;
+  private DriveSubsystem m_drive;
   private double poseXError;
   private double m_kP;
   private double lastPoseXError;
@@ -24,7 +24,7 @@ public class DriveStraightMeters extends CommandBase {
   private double leftPower;
   private double rightPower;
   private DifferentialDriveOdometry m_odometry;
-  public DriveStraightMeters(DriveSubsytem drive, double x_meters, double goalAngle, double kP) {
+  public DriveStraightMeters(DriveSubsystem drive, double x_meters, double goalAngle, double kP) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drive);
     m_drive = drive;

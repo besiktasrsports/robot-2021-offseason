@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.JoystickConstants;
+import frc.robot.commands.auto.APPCPathFollowerLeft;
 import frc.robot.commands.auto.TestAuto;
 import frc.robot.commands.drivetrain.JoystickDriveCommand;
 import frc.robot.commands.feeder.FeedCG;
@@ -18,13 +19,14 @@ import frc.robot.commands.shooter.RunShooter;
 import frc.robot.commands.shooter.SetShooterRPMPF;
 import frc.robot.commands.turret.TurretBangBangControl;
 import frc.robot.commands.turret.TurretJoystickCommand;
-import frc.robot.subsystems.DriveSubsytem;
+import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.FeederSubsystem;
 import frc.robot.subsystems.FunnelSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.TurretSubsystem;
 import frc.robot.subsystems.VisionLED;
+import frc.sneakylib.auto.AdaptivePurePursuitController;
 import frc.sneakylib.drivers.WS2812LEDDriver;
 
 public class RobotContainer {
@@ -34,10 +36,11 @@ public class RobotContainer {
     public Joystick m_operatorController = new Joystick(JoystickConstants.kOperatorControllerPort);
     public final FunnelSubsystem m_funnel = new FunnelSubsystem();
     public final TurretSubsystem m_turret = new TurretSubsystem();
+    //public final AdaptivePurePursuitController m_appc = new AdaptivePurePursuitController();
     public final IntakeSubsystem m_intake = new IntakeSubsystem();
     public final ShooterSubsystem m_shooter = new ShooterSubsystem();
+    public final DriveSubsystem m_robotDrive = new DriveSubsystem();
     public final FeederSubsystem m_Feeder = new FeederSubsystem();
-    public final DriveSubsytem m_robotDrive = new DriveSubsytem();
     public final WS2812LEDDriver m_ledDriver = new WS2812LEDDriver(0, 10);
     public final VisionLED m_VisionLED = new VisionLED();
     public final SneakyTrajectory s_trajectory = new SneakyTrajectory(m_robotDrive);
@@ -79,7 +82,7 @@ public class RobotContainer {
         // -0.8).withTimeout(0.2));
         // Misc Commands
         new JoystickButton(m_driverController, 8).whileHeld(new ToggleCompressor(m_intake));
-        // new JoystickButton(m_driverController, 7).whenPressed(new DisableIntakeCG(m_intake));
+        //new JoystickButton(m_driverController, 7).toggleWhenPressed(new APPCPathFollowerLeft(m_robotDrive,m_appc,s_trajectory.testAuto[0],false));
         // new JoystickButton(m_driverController, 10).whenPressed(new ToggleLED(m_VisionLED));
 
         // Vision Drive

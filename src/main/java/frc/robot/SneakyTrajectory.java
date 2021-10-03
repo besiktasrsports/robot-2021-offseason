@@ -19,16 +19,16 @@ import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.subsystems.DriveSubsytem;
+import frc.robot.subsystems.DriveSubsystem;
 import java.util.List;
 
 /** Add your docs here. */
 public class SneakyTrajectory {
 
-    private DriveSubsytem m_drive;
+    private DriveSubsystem m_drive;
     public Trajectory[] testAuto = new Trajectory[2];
 
-    public SneakyTrajectory(DriveSubsytem drive) {
+    public SneakyTrajectory(DriveSubsystem drive) {
 
         m_drive = drive;
         var autoVoltageConstraint =

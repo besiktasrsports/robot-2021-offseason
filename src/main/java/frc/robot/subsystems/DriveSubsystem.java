@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 
-public class DriveSubsytem extends SubsystemBase {
+public class DriveSubsystem extends SubsystemBase {
     /** Creates a new DriveTrain. */
     private final WPI_TalonSRX leftRearMotor = new WPI_TalonSRX(DriveConstants.kLeftRearMotor);
 
@@ -30,7 +30,7 @@ public class DriveSubsytem extends SubsystemBase {
     public final AHRS m_gyro = new AHRS(SPI.Port.kMXP);
     private double target;
 
-    public DriveSubsytem() {
+    public DriveSubsystem() {
         leftFrontMotor.setInverted(DriveConstants.kLeftFrontMotorInverted);
         leftRearMotor.setInverted(DriveConstants.kLeftRearMotorInverted);
         rightFrontMotor.setInverted(DriveConstants.kRightFrontMotorInverted);
@@ -40,6 +40,8 @@ public class DriveSubsytem extends SubsystemBase {
         rightFrontMotor.follow(rightRearMotor);
 
         m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
+
+       
         zeroHeading();
         resetEncoders();
     }
@@ -54,6 +56,7 @@ public class DriveSubsytem extends SubsystemBase {
         // System.out.println("Pose : " + getPose());
         // System.out.println("Left Encoder Pos : " + getLeftEncoderDistance());
         // System.out.println("Right Encoder Pos : " + getRightEncoderDistance());
+        
     }
 
     public void tankDriveVolts(double leftVolts, double rightVolts) {
@@ -86,7 +89,14 @@ public class DriveSubsytem extends SubsystemBase {
                         * (1.0 / DriveConstants.kEncoderCPR)
                         * (Math.PI * DriveConstants.kWheelDiameterMeters));
     }
+    
+    public double getLeftWheelVelocity(){
+        return getWheelSpeeds().leftMetersPerSecond;
+    }
 
+    public double getRightWheelVelocity(){
+        return getWheelSpeeds().rightMetersPerSecond;
+    }
     public double getHeading() {
         return Math.IEEEremainder(m_gyro.getAngle(), 360) * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
     }
@@ -142,7 +152,7 @@ public class DriveSubsytem extends SubsystemBase {
     public double getAverageEncoderDistance() {
         return (getRightEncoderDistance() + getLeftEncoderDistance()) / (2.0);
     }
-
+    
     public void setMaxOutput(double maxOutput) {
         m_drive.setMaxOutput(maxOutput);
     }
@@ -150,4 +160,5 @@ public class DriveSubsytem extends SubsystemBase {
     public Pose2d getPose() {
         return m_odometry.getPoseMeters();
     }
+
 }
