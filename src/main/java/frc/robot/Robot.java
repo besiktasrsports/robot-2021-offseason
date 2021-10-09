@@ -17,31 +17,35 @@ import org.photonvision.PhotonPipelineResult;
 import org.photonvision.PhotonTrackedTarget;
 
 /**
-* The VM is configured to automatically run this class, and to call the functions corresponding to
-* each mode, as described in the TimedRobot documentation. If you change the name of this class or
-* the package after creating this project, you must also update the build.gradle file in the
-* project.
-*/
+ * The VM is configured to automatically run this class, and to call the
+ * functions corresponding to each mode, as described in the TimedRobot
+ * documentation. If you change the name of this class or the package after
+ * creating this project, you must also update the build.gradle file in the
+ * project.
+ */
 public class Robot extends TimedRobot {
     NetworkTableInstance photoncam = NetworkTableInstance.create();
     private Command m_autonomousCommand;
-    private RobotContainer m_robotContainer;
+    public static RobotContainer m_robotContainer;
     public static SendableChooser<Integer> autoChooser = new SendableChooser<>();
-    public static PhotonPipelineResult result;
+    //public static PhotonPipelineResult result;
     public static PhotonTrackedTarget target;
+    public static boolean ledCanStart = false;
+    private static PhotonCamera camera= new PhotonCamera("microsoftlifecam");; 
 
 
-    PhotonCamera camera = new PhotonCamera("Lifecam");
     /**
-    * This function is run when the robot is first started up and should be used for any
-    * initialization code.
-    */
+     * This function is run when the robot is first started up and should be used
+     * for any initialization code.
+     */
     @Override
     public void robotInit() {
-        // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
+        // Instantiate our RobotContainer. This will perform all our button bindings,
+        // and put our
         // autonomous chooser on the dashboard.
         m_robotContainer = new RobotContainer();
-
+        
+        
         autoChooser.setDefaultOption("Default Auto", 0);
         m_robotContainer.m_robotDrive.zeroHeading();
 
@@ -62,7 +66,9 @@ public class Robot extends TimedRobot {
         // and running subsystem periodic() methods.  This must be called from the robot's periodic
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
-        result = camera.getLatestResult();
+        
+        var result = camera.getLatestResult();
+        ledCanStart = true;
         if(isValidAngle()){
         target = result.getBestTarget();
         }
@@ -112,15 +118,20 @@ public class Robot extends TimedRobot {
         }
         m_robotContainer.m_robotDrive.resetEncoders();
         m_robotContainer.m_robotDrive.zeroHeading();
+        
+       
+       
     }
 
     /** This function is called periodically during operator control. */
     @Override
     public void teleopPeriodic() {
+   
         //System.out.println(m_appc.update(m_robotContainer.s_trajectory.testAuto[0],m_robotContainer.m_robotDrive.getPose(),Math.toRadians(m_robotContainer.m_robotDrive.getHeading()) ,false)[0]);
         //System.out.println("Left Velocity : "+ m_robotContainer.m_robotDrive.getLeftWheelVelocity() + " Right Velocity : "+m_robotContainer.m_robotDrive.getRightWheelVelocity());
         //System.out.println("hello");
-        System.out.println(m_robotContainer.m_shooter.isAtSetpoint);
+        //System.out.println(m_robotContainer.m_shooter.isAtSetpoint);
+       
     }
 
     @Override
@@ -138,6 +149,7 @@ public class Robot extends TimedRobot {
     }
 
     public static boolean isValidAngle() {
+        var result = camera.getLatestResult();
         return result.hasTargets();
     }
 }

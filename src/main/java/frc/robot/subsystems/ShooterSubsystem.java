@@ -42,6 +42,7 @@ public class ShooterSubsystem extends SubsystemBase {
         rpmSum += getRPM();
         i++;
         */
+        //System.out.println(getRPM());
 
     }
 

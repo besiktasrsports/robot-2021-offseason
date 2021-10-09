@@ -18,10 +18,10 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class FeedCG extends SequentialCommandGroup {
     /** Creates a new FeedCG. */
     private ShooterSubsystem m_shooter;
-
     private FeederSubsystem m_feeder;
     private IntakeSubsystem m_intake;
     private FunnelSubsystem m_funnel;
+
 
     public FeedCG(ShooterSubsystem shooter, FeederSubsystem feeder, IntakeSubsystem intake, FunnelSubsystem funnel) {
         // Add your commands in the addCommands() call, e.g.

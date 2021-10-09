@@ -92,13 +92,13 @@ public final class Constants {
 
     public static final class TurretConstants {
 
-        public static final byte kTurretMotorPort = 60;
+        public static final byte kTurretMotorPort = 0;
         public static final byte kTurretEncoderA = 2;
         public static final byte kTurretEncoderB = 3;
         public static final int kTurretEncoderPPR = 2048; // AMT-103
         public static final byte kToleranceInDegrees = 0;
-        public static final byte kTurretHallEffect1Port = 0;
-        public static final byte kTurretHallEffect2Port = 1;
+        public static final byte kTurretHallEffect1Port = 2;
+        public static final byte kTurretHallEffect2Port = 3;
 
         public static NeutralMode kTurretMotorMode = NeutralMode.Brake; // Brake-Coast
 

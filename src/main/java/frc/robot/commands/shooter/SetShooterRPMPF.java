@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.sneakylib.drivers.WS2812LEDDriver;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -19,6 +20,7 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class SetShooterRPMPF extends PIDCommand {
     /** Creates a new ShooterSetRPMPID. */
     private ShooterSubsystem m_shooter;
+  
     // private static double lastOutput = 0;
     private static final SimpleMotorFeedforward m_shooterFeedForward =
             new SimpleMotorFeedforward(ShooterConstants.kS, ShooterConstants.kV, ShooterConstants.kA);
@@ -50,6 +52,7 @@ public class SetShooterRPMPF extends PIDCommand {
 
     @Override
     public void initialize() {
+       
         super.initialize();
         m_motorOutput = 0;
     }
