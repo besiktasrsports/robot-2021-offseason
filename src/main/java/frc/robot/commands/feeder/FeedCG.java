@@ -18,12 +18,16 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class FeedCG extends SequentialCommandGroup {
     /** Creates a new FeedCG. */
     private ShooterSubsystem m_shooter;
+
     private FeederSubsystem m_feeder;
     private IntakeSubsystem m_intake;
     private FunnelSubsystem m_funnel;
 
-
-    public FeedCG(ShooterSubsystem shooter, FeederSubsystem feeder, IntakeSubsystem intake, FunnelSubsystem funnel) {
+    public FeedCG(
+            ShooterSubsystem shooter,
+            FeederSubsystem feeder,
+            IntakeSubsystem intake,
+            FunnelSubsystem funnel) {
         // Add your commands in the addCommands() call, e.g.
         // addCommands(new FooCommand(), new BarCommand());
         m_intake = intake;
@@ -31,14 +35,12 @@ public class FeedCG extends SequentialCommandGroup {
         m_shooter = shooter;
         m_funnel = funnel;
 
-            addCommands(
-                    new FeederCommand(m_feeder, -0.8, false)
-                            .raceWith(new RunIntake(m_intake, 0))
-                            .withTimeout(0.4), new FeederCommand(m_feeder, -0.8, false)
-                            .alongWith(new RunIntake(m_intake, 0.7)).alongWith(new FunnelCommand(m_funnel, -0.5, -0.5))
-                            
-                            );
-        
-        
+        addCommands(
+                new FeederCommand(m_feeder, -0.8, false)
+                        .raceWith(new RunIntake(m_intake, 0))
+                        .withTimeout(0.4),
+                new FeederCommand(m_feeder, -0.8, false)
+                        .alongWith(new RunIntake(m_intake, 0.7))
+                        .alongWith(new FunnelCommand(m_funnel, -0.5, -0.5)));
     }
 }

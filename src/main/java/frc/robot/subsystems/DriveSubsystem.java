@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
@@ -18,9 +19,9 @@ import frc.robot.Constants.DriveConstants;
 
 public class DriveSubsystem extends SubsystemBase {
     /** Creates a new DriveTrain. */
-    private final WPI_TalonSRX leftRearMotor = new WPI_TalonSRX(DriveConstants.kLeftRearMotor);
+    public final WPI_TalonSRX leftRearMotor = new WPI_TalonSRX(DriveConstants.kLeftRearMotor);
 
-    private final WPI_TalonSRX rightRearMotor = new WPI_TalonSRX(DriveConstants.kRightRearMotor);
+    public final WPI_TalonSRX rightRearMotor = new WPI_TalonSRX(DriveConstants.kRightRearMotor);
     private final WPI_VictorSPX leftFrontMotor = new WPI_VictorSPX(DriveConstants.kLeftFrontMotor);
     private final WPI_VictorSPX rightFrontMotor = new WPI_VictorSPX(DriveConstants.kRightFrontMotor);
 
@@ -29,6 +30,7 @@ public class DriveSubsystem extends SubsystemBase {
     public final DifferentialDriveOdometry m_odometry;
     public final AHRS m_gyro = new AHRS(SPI.Port.kMXP);
     private double target;
+    private NeutralMode defaultMode = NeutralMode.Brake;
 
     public DriveSubsystem() {
         leftFrontMotor.setInverted(DriveConstants.kLeftFrontMotorInverted);
@@ -36,12 +38,16 @@ public class DriveSubsystem extends SubsystemBase {
         rightFrontMotor.setInverted(DriveConstants.kRightFrontMotorInverted);
         rightRearMotor.setInverted(DriveConstants.kRightRearMotorInverted);
 
+        leftFrontMotor.setNeutralMode(defaultMode);
+        rightFrontMotor.setNeutralMode(defaultMode);
+        leftRearMotor.setNeutralMode(defaultMode);
+        rightRearMotor.setNeutralMode(defaultMode);
+
         leftFrontMotor.follow(leftRearMotor);
         rightFrontMotor.follow(rightRearMotor);
 
         m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
 
-       
         zeroHeading();
         resetEncoders();
     }
@@ -52,11 +58,12 @@ public class DriveSubsystem extends SubsystemBase {
         m_odometry.update(
                 Rotation2d.fromDegrees(getHeading()), getLeftEncoderDistance(), getRightEncoderDistance());
 
+        // System.out.println("Speeds : " + getWheelSpeeds());
         // System.out.println("Heading : " + getHeading());
         // System.out.println("Pose : " + getPose());
         // System.out.println("Left Encoder Pos : " + getLeftEncoderDistance());
         // System.out.println("Right Encoder Pos : " + getRightEncoderDistance());
-        
+
     }
 
     public void tankDriveVolts(double leftVolts, double rightVolts) {
@@ -87,16 +94,17 @@ public class DriveSubsystem extends SubsystemBase {
                 10.0
                         * leftRearMotor.getSelectedSensorVelocity()
                         * (1.0 / DriveConstants.kEncoderCPR)
-                        * (Math.PI * DriveConstants.kWheelDiameterMeters));
+                        * (-Math.PI * DriveConstants.kWheelDiameterMeters));
     }
-    
-    public double getLeftWheelVelocity(){
+
+    public double getLeftWheelVelocity() {
         return getWheelSpeeds().leftMetersPerSecond;
     }
 
-    public double getRightWheelVelocity(){
+    public double getRightWheelVelocity() {
         return getWheelSpeeds().rightMetersPerSecond;
     }
+
     public double getHeading() {
         return Math.IEEEremainder(m_gyro.getAngle(), 360) * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
     }
@@ -152,7 +160,7 @@ public class DriveSubsystem extends SubsystemBase {
     public double getAverageEncoderDistance() {
         return (getRightEncoderDistance() + getLeftEncoderDistance()) / (2.0);
     }
-    
+
     public void setMaxOutput(double maxOutput) {
         m_drive.setMaxOutput(maxOutput);
     }
@@ -160,5 +168,4 @@ public class DriveSubsystem extends SubsystemBase {
     public Pose2d getPose() {
         return m_odometry.getPoseMeters();
     }
-
 }

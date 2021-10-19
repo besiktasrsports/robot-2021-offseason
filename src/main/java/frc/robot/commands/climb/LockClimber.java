@@ -8,31 +8,32 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ClimbSubsystem;
 
 public class LockClimber extends CommandBase {
-  /** Creates a new LockClimber. */
-  private ClimbSubsystem m_climb;
-  public LockClimber(ClimbSubsystem climb) {
-    m_climb = climb;
-    
-    // Use addRequirements() here to declare subsystem dependencies.
-  }
+    /** Creates a new LockClimber. */
+    private ClimbSubsystem m_climb;
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {}
+    public LockClimber(ClimbSubsystem climb) {
+        m_climb = climb;
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    m_climb.lockClimber();
-  }
+        // Use addRequirements() here to declare subsystem dependencies.
+    }
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {}
+    // Called when the command is initially scheduled.
+    @Override
+    public void initialize() {}
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+    // Called every time the scheduler runs while the command is scheduled.
+    @Override
+    public void execute() {
+        m_climb.lockClimber();
+    }
+
+    // Called once the command ends or is interrupted.
+    @Override
+    public void end(boolean interrupted) {}
+
+    // Returns true when the command should end.
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
 }

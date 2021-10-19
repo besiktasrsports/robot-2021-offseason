@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -31,7 +32,7 @@ public class Robot extends TimedRobot {
     //public static PhotonPipelineResult result;
     public static PhotonTrackedTarget target;
     public static boolean ledCanStart = false;
-    private static PhotonCamera camera= new PhotonCamera("microsoftlifecam");; 
+    private static PhotonCamera camera= new PhotonCamera("microsoftlifecam");;
 
 
     /**
@@ -44,10 +45,11 @@ public class Robot extends TimedRobot {
         // and put our
         // autonomous chooser on the dashboard.
         m_robotContainer = new RobotContainer();
-        
-        
+
+
         autoChooser.setDefaultOption("Default Auto", 0);
         m_robotContainer.m_robotDrive.zeroHeading();
+
 
 
     }
@@ -66,7 +68,7 @@ public class Robot extends TimedRobot {
         // and running subsystem periodic() methods.  This must be called from the robot's periodic
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
-        
+
         var result = camera.getLatestResult();
         ledCanStart = true;
         if(isValidAngle()){
@@ -118,20 +120,21 @@ public class Robot extends TimedRobot {
         }
         m_robotContainer.m_robotDrive.resetEncoders();
         m_robotContainer.m_robotDrive.zeroHeading();
-        
-       
-       
+        m_robotContainer.m_robotDrive.resetOdometry(new Pose2d(0,0, new Rotation2d(0)));
+
+
+
     }
 
     /** This function is called periodically during operator control. */
     @Override
     public void teleopPeriodic() {
-   
+
         //System.out.println(m_appc.update(m_robotContainer.s_trajectory.testAuto[0],m_robotContainer.m_robotDrive.getPose(),Math.toRadians(m_robotContainer.m_robotDrive.getHeading()) ,false)[0]);
         //System.out.println("Left Velocity : "+ m_robotContainer.m_robotDrive.getLeftWheelVelocity() + " Right Velocity : "+m_robotContainer.m_robotDrive.getRightWheelVelocity());
         //System.out.println("hello");
         //System.out.println(m_robotContainer.m_shooter.isAtSetpoint);
-       
+
     }
 
     @Override

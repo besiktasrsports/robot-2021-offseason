@@ -64,8 +64,8 @@ public final class Constants {
 
         public static final double kPurePursuitLookAheadDistance = 0.1;
 
-        public static final double kPathFollowP = 1;
-        public static final double kPathFollowI = 0;
+        public static final double kPathFollowP = 5.0; // 0.1;
+        public static final double kPathFollowI = 0.3; // 1.5;
         public static final double kPathFollowD = 0;
         public static final double kPathFollowVelocityTolerance = 0;
     }
@@ -105,7 +105,7 @@ public final class Constants {
         public static final boolean kIsEncoderReversed = false;
         public static final boolean kIsMotorReversed = false;
 
-        public static final double kP = 0.000;
+        public static final double kP = 0.19;
         public static final double kI = 0.000;
         public static final double kD = 0.000;
         public static final double kS = 0.000;
@@ -122,7 +122,7 @@ public final class Constants {
         public static final byte kShooterEncoderA = 0;
         public static final byte kShooterEncoderB = 1;
         public static final boolean kShooterEncoderIsReversed = false;
-        public static final double kShootP = 0.005;
+        public static final double kShootP = 0.035; // 0.04
         public static final double kShootI = 0.000;
         public static final double kShootD = 0.000;
 

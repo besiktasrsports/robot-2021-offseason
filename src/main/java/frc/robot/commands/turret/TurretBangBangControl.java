@@ -37,13 +37,13 @@ public class TurretBangBangControl extends CommandBase {
         if (Robot.isValidAngle()) {
             yaw = Robot.getVisionYawAngle();
             error = goal - yaw;
-            
+
             if (error < 0) {
                 m_turret.runTurret(0.3);
                 side = "l";
                 if (error > -10) {
                     m_turret.runTurret(0.2);
-                    
+
                 }
             } else if (error > 0) {
                 side = "r";
@@ -59,14 +59,14 @@ public class TurretBangBangControl extends CommandBase {
                 if(side == "r"){
                     m_turret.runTurret(0);
                 }
-                
+
             }
 
             if(!m_turret.turretHallEffect1.get() == true){
                 if(side == "l"){
                     m_turret.runTurret(0);
                 }
-                
+
             }
             if(error >= -2 && error <= 2){
                 m_turret.isAtSetpoint = true;
@@ -74,7 +74,7 @@ public class TurretBangBangControl extends CommandBase {
                 }
 
         }
-       
+
     }
 
     // Called once the command ends or is interrupted.
@@ -82,7 +82,7 @@ public class TurretBangBangControl extends CommandBase {
     public void end(boolean interrupted) {
         m_turret.runTurret(0);
         m_turret.isFollowingTarget = false;
-        
+
     }
 
     // Returns true when the command should end.
