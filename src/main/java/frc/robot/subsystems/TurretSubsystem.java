@@ -4,38 +4,53 @@
 
 package frc.robot.subsystems;
 
-
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.TurretConstants;
 
 public class TurretSubsystem extends SubsystemBase {
 
-    private final WPI_VictorSPX turretMotor = new WPI_VictorSPX(TurretConstants.kTurretMotorPort);
-    /*
-    public final Encoder turretEncoder =
-            new Encoder(
-                    TurretConstants.kTurretEncoderA,
-                    TurretConstants.kTurretEncoderB,
-                    TurretConstants.kIsEncoderReversed);
-                    */
+    private final VictorSP turretMotor = new VictorSP(TurretConstants.kTurretMotorPort);
+    public final DigitalInput turretHallEffect1 =
+            new DigitalInput(TurretConstants.kTurretHallEffect1Port); // right 90
+    public final DigitalInput turretHallEffect2 =
+            new DigitalInput(TurretConstants.kTurretHallEffect2Port); // left 90
+    public boolean isFollowingTarget = false;
+    public boolean isAtSetpoint = false;
 
     public TurretSubsystem() {
-
         turretMotor.setInverted(TurretConstants.kIsMotorReversed);
-        turretMotor.setNeutralMode(TurretConstants.kTurretMotorMode);
-
-        //turretEncoder.setDistancePerPulse(1.0 / (TurretConstants.kTurretEncoderPPR));
     }
 
     @Override
     public void periodic() {
-        // This method will be called once per scheduler run
+        // System.out.println("Hall 1 : " + !turretHallEffect1.get() + "Hall 2 :" +
+        // !turretHallEffect2.get());
     }
 
     public void runTurret(double speed) {
 
         turretMotor.set(speed);
+    }
+
+    public void setTurretVolts(double volts) {
+        turretMotor.setVoltage(volts);
+    }
+
+    public void scanToLeft() {
+        if (!turretHallEffect2.get() != true) {
+            setTurretVolts(-1);
+        } else {
+            setTurretVolts(0);
+        }
+    }
+
+    public void scanToRight() {
+        if (!turretHallEffect1.get() != true) {
+            setTurretVolts(1);
+        } else {
+            setTurretVolts(0);
+        }
     }
 }

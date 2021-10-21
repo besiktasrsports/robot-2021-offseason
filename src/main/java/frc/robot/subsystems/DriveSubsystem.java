@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
@@ -16,11 +17,11 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 
-public class DriveSubsytem extends SubsystemBase {
+public class DriveSubsystem extends SubsystemBase {
     /** Creates a new DriveTrain. */
-    private final WPI_TalonSRX leftRearMotor = new WPI_TalonSRX(DriveConstants.kLeftRearMotor);
+    public final WPI_TalonSRX leftRearMotor = new WPI_TalonSRX(DriveConstants.kLeftRearMotor);
 
-    private final WPI_TalonSRX rightRearMotor = new WPI_TalonSRX(DriveConstants.kRightRearMotor);
+    public final WPI_TalonSRX rightRearMotor = new WPI_TalonSRX(DriveConstants.kRightRearMotor);
     private final WPI_VictorSPX leftFrontMotor = new WPI_VictorSPX(DriveConstants.kLeftFrontMotor);
     private final WPI_VictorSPX rightFrontMotor = new WPI_VictorSPX(DriveConstants.kRightFrontMotor);
 
@@ -29,17 +30,24 @@ public class DriveSubsytem extends SubsystemBase {
     public final DifferentialDriveOdometry m_odometry;
     public final AHRS m_gyro = new AHRS(SPI.Port.kMXP);
     private double target;
+    private NeutralMode defaultMode = NeutralMode.Brake;
 
-    public DriveSubsytem() {
+    public DriveSubsystem() {
         leftFrontMotor.setInverted(DriveConstants.kLeftFrontMotorInverted);
         leftRearMotor.setInverted(DriveConstants.kLeftRearMotorInverted);
         rightFrontMotor.setInverted(DriveConstants.kRightFrontMotorInverted);
         rightRearMotor.setInverted(DriveConstants.kRightRearMotorInverted);
 
+        leftFrontMotor.setNeutralMode(defaultMode);
+        rightFrontMotor.setNeutralMode(defaultMode);
+        leftRearMotor.setNeutralMode(defaultMode);
+        rightRearMotor.setNeutralMode(defaultMode);
+
         leftFrontMotor.follow(leftRearMotor);
         rightFrontMotor.follow(rightRearMotor);
 
         m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
+
         zeroHeading();
         resetEncoders();
     }
@@ -50,10 +58,12 @@ public class DriveSubsytem extends SubsystemBase {
         m_odometry.update(
                 Rotation2d.fromDegrees(getHeading()), getLeftEncoderDistance(), getRightEncoderDistance());
 
+        // System.out.println("Speeds : " + getWheelSpeeds());
         // System.out.println("Heading : " + getHeading());
         // System.out.println("Pose : " + getPose());
         // System.out.println("Left Encoder Pos : " + getLeftEncoderDistance());
         // System.out.println("Right Encoder Pos : " + getRightEncoderDistance());
+
     }
 
     public void tankDriveVolts(double leftVolts, double rightVolts) {
@@ -78,13 +88,21 @@ public class DriveSubsytem extends SubsystemBase {
     public DifferentialDriveWheelSpeeds getWheelSpeeds() {
         return new DifferentialDriveWheelSpeeds(
                 10.0
-                        * leftRearMotor.getSelectedSensorVelocity()
-                        * (1.0 / DriveConstants.kEncoderCPR)
-                        * (-Math.PI * DriveConstants.kWheelDiameterMeters),
-                10.0
                         * rightRearMotor.getSelectedSensorVelocity()
                         * (1.0 / DriveConstants.kEncoderCPR)
-                        * (Math.PI * DriveConstants.kWheelDiameterMeters));
+                        * (Math.PI * DriveConstants.kWheelDiameterMeters),
+                10.0
+                        * leftRearMotor.getSelectedSensorVelocity()
+                        * (1.0 / DriveConstants.kEncoderCPR)
+                        * (-Math.PI * DriveConstants.kWheelDiameterMeters));
+    }
+
+    public double getLeftWheelVelocity() {
+        return getWheelSpeeds().leftMetersPerSecond;
+    }
+
+    public double getRightWheelVelocity() {
+        return getWheelSpeeds().rightMetersPerSecond;
     }
 
     public double getHeading() {

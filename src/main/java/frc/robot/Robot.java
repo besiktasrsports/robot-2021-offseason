@@ -4,17 +4,15 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.sneakylib.auto.AdaptivePurePursuitController;
-
-import org.photonvision.PhotonCamera;
-import org.photonvision.PhotonPipelineResult;
-import org.photonvision.PhotonTrackedTarget;
 
 /**
 * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -23,30 +21,36 @@ import org.photonvision.PhotonTrackedTarget;
 * project.
 */
 public class Robot extends TimedRobot {
-    NetworkTableInstance photoncam = NetworkTableInstance.create();
+    NetworkTableInstance photon = NetworkTableInstance.create();
+    public static NetworkTableEntry angle;
+    public static NetworkTableEntry validAngle;
+    public static NetworkTableInstance inst;
+    NetworkTable table = photon.getTable("photonvision").getSubTable("microsoftlifecam");
     private Command m_autonomousCommand;
-    private RobotContainer m_robotContainer;
+    public static RobotContainer m_robotContainer;
     public static SendableChooser<Integer> autoChooser = new SendableChooser<>();
-    public static PhotonPipelineResult result;
-    public static PhotonTrackedTarget target;
-    private static AdaptivePurePursuitController m_appc;
+    // public static PhotonPipelineResult result;
 
-    PhotonCamera camera = new PhotonCamera("Lifecam");
+    public static boolean ledCanStart = false;
+
     /**
     * This function is run when the robot is first started up and should be used for any
     * initialization code.
     */
     @Override
     public void robotInit() {
-        // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
+        // Instantiate our RobotContainer. This will perform all our button bindings,
+        // and put our
         // autonomous chooser on the dashboard.
         m_robotContainer = new RobotContainer();
-        m_appc = new AdaptivePurePursuitController();
+
+        photon.startClient("10.72.85.12");
+        angle = table.getEntry("targetYaw");
+        validAngle = table.getEntry("hasTarget");
 
         autoChooser.setDefaultOption("Default Auto", 0);
+        autoChooser.addOption("8 Balls Right Side", 1);
         m_robotContainer.m_robotDrive.zeroHeading();
-
-
     }
 
     /**
@@ -63,10 +67,8 @@ public class Robot extends TimedRobot {
         // and running subsystem periodic() methods.  This must be called from the robot's periodic
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
-        result = camera.getLatestResult();
-        if(isValidAngle()){
-        target = result.getBestTarget();
-        }
+
+        ledCanStart = true;
     }
 
     /** This function is called once each time the robot enters Disabled mode. */
@@ -82,20 +84,13 @@ public class Robot extends TimedRobot {
 
         m_robotContainer.m_robotDrive.resetEncoders();
         m_robotContainer.m_robotDrive.zeroHeading();
-        m_robotContainer.m_robotDrive.m_odometry
-          .resetPosition(m_robotContainer.s_trajectory.testAuto[0].getInitialPose(), new Rotation2d(0));
+        m_robotContainer.m_robotDrive.m_odometry.resetPosition(
+                m_robotContainer.s_trajectory.testAuto[0].getInitialPose(), new Rotation2d(0));
 
-          m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-          if (m_autonomousCommand != null) {
-            m_autonomousCommand.schedule();
-          }
-        /*
         m_autonomousCommand = m_robotContainer.getAutonomousCommand(autoChooser.getSelected());
-        // schedule the autonomous command (example)
         if (m_autonomousCommand != null) {
             m_autonomousCommand.schedule();
         }
-        */
     }
 
     /** This function is called periodically during autonomous. */
@@ -108,19 +103,19 @@ public class Robot extends TimedRobot {
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
         // this line or comment it out.
+        CommandScheduler.getInstance().cancelAll();
+
         if (m_autonomousCommand != null) {
             m_autonomousCommand.cancel();
         }
         m_robotContainer.m_robotDrive.resetEncoders();
         m_robotContainer.m_robotDrive.zeroHeading();
+        m_robotContainer.m_robotDrive.resetOdometry(new Pose2d(0, 0, new Rotation2d(0)));
     }
 
     /** This function is called periodically during operator control. */
     @Override
-    public void teleopPeriodic() {
-        //System.out.println(m_appc.update(m_robotContainer.s_trajectory.testAuto[0],m_robotContainer.m_robotDrive.getPose(),Math.toRadians(m_robotContainer.m_robotDrive.getHeading()) ,false)[0]);
-
-    }
+    public void teleopPeriodic() {}
 
     @Override
     public void testInit() {
@@ -133,10 +128,11 @@ public class Robot extends TimedRobot {
     public void testPeriodic() {}
 
     public static double getVisionYawAngle() {
-        return target.getYaw();
+        return angle.getDouble(0);
     }
 
     public static boolean isValidAngle() {
-        return result.hasTargets();
+
+        return validAngle.getBoolean(false);
     }
 }

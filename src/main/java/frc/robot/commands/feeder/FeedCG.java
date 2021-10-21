@@ -5,8 +5,10 @@
 package frc.robot.commands.feeder;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.funnel.FunnelCommand;
 import frc.robot.commands.intake.RunIntake;
 import frc.robot.subsystems.FeederSubsystem;
+import frc.robot.subsystems.FunnelSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
@@ -19,21 +21,26 @@ public class FeedCG extends SequentialCommandGroup {
 
     private FeederSubsystem m_feeder;
     private IntakeSubsystem m_intake;
+    private FunnelSubsystem m_funnel;
 
-    public FeedCG(ShooterSubsystem shooter, FeederSubsystem feeder, IntakeSubsystem intake) {
+    public FeedCG(
+            ShooterSubsystem shooter,
+            FeederSubsystem feeder,
+            IntakeSubsystem intake,
+            FunnelSubsystem funnel) {
         // Add your commands in the addCommands() call, e.g.
         // addCommands(new FooCommand(), new BarCommand());
         m_intake = intake;
         m_feeder = feeder;
         m_shooter = shooter;
-        if (m_shooter.isAtSetpoint) {
-            addCommands(
-                    new FeederCommand(m_feeder, -0.8, false)
-                            .withTimeout(1)
-                            .andThen(new RunIntake(m_intake, 0.7))
-                            .withTimeout(3)
-                            .alongWith(new FeederCommand(m_feeder, -0.8, false)));
-        }
-        addCommands();
+        m_funnel = funnel;
+
+        addCommands(
+                new FeederCommand(m_feeder, -0.8, false)
+                        .raceWith(new RunIntake(m_intake, 0))
+                        .withTimeout(0.4),
+                new FeederCommand(m_feeder, -0.8, false)
+                        .alongWith(new RunIntake(m_intake, 0.7))
+                        .alongWith(new FunnelCommand(m_funnel, -0.5, -0.5)));
     }
 }

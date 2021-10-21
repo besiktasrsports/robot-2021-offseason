@@ -14,6 +14,7 @@ public class TurretBangBangControl extends CommandBase {
     private double error;
     private double yaw;
     private double goal;
+    private String side = "";
     private int accuracy;
     private double x;
     /** Creates a new TurretBangBangControl. */
@@ -25,21 +26,28 @@ public class TurretBangBangControl extends CommandBase {
 
     // Called when the command is initially scheduled.
     @Override
-    public void initialize() {}
+    public void initialize() {
+        m_turret.isFollowingTarget = true;
+    }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        System.out.println("Valid : " + Robot.isValidAngle());
         if (Robot.isValidAngle()) {
             yaw = Robot.getVisionYawAngle();
             error = goal - yaw;
 
             if (error < 0) {
                 m_turret.runTurret(0.3);
+                side = "l";
                 if (error > -10) {
                     m_turret.runTurret(0.2);
+
                 }
             } else if (error > 0) {
+                side = "r";
+
                 m_turret.runTurret(-0.3);
                 if (error < 10) {
                     m_turret.runTurret(-0.2);
@@ -47,21 +55,43 @@ public class TurretBangBangControl extends CommandBase {
             } else {
                 m_turret.runTurret(0);
             }
+            if(!m_turret.turretHallEffect2.get() == true){
+                if(side == "r"){
+                    m_turret.runTurret(0);
+                }
+
+            }
+
+            if(!m_turret.turretHallEffect1.get() == true){
+                if(side == "l"){
+                    m_turret.runTurret(0);
+                }
+
+            }
+            if(error >= -2 && error <= 2){
+                m_turret.isAtSetpoint = true;
+                m_turret.runTurret(0);
+                }
+
         }
+
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
         m_turret.runTurret(0);
+        m_turret.isFollowingTarget = false;
+
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        if (Robot.isValidAngle() == true && error >= -2 && error <= 2) {
-            return true;
-        }
         return false;
     }
 }
+
+/*if (Robot.isValidAngle() == true && error >= -2 && error <= 2) {
+            return true;
+        }*/

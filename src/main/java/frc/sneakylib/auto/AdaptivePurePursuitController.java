@@ -5,42 +5,66 @@
 package frc.sneakylib.auto;
 
 import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Transform2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import frc.robot.Constants;
+import frc.robot.subsystems.DriveSubsystem;
 
 /** Add your docs here. */
 public class AdaptivePurePursuitController {
     private static int m_lastClosestPointIndex;
+    private double translateAccuracy = 0.05;
+    public boolean isAtSetpoint = false;
+    private static Trajectory m_trajectory;
+    private Pose2d m_currentRobotPose;
+    private double m_heading;
+    private DriveSubsystem m_drive;
+    public static int m_index;
 
-    public AdaptivePurePursuitController() {}
+    public AdaptivePurePursuitController(DriveSubsystem drive) {
+        m_drive = drive;
+    }
 
-    public double[] update(
-            Trajectory trajectory, Pose2d currentRobotPose, double heading, boolean reversed) {
+    public void init(Trajectory trajectory) {
+        m_trajectory = trajectory;
+    }
 
+    public double[] update() {
+        double heading = Math.toRadians(m_drive.getHeading());
+        Pose2d currentRobotPose = m_drive.getPose();
         final double epsilon = 1E-10;
         if (heading == 0.0) {
             heading = epsilon;
         }
-        Translation2d lookahead = calculateLookahead(trajectory, currentRobotPose);
+        Translation2d lookahead = calculateLookahead(m_trajectory, currentRobotPose);
         double curvature = calculateCurvature(currentRobotPose, lookahead, heading);
-        double targetVel = getPointVelocity(trajectory, m_lastClosestPointIndex);
+        double targetVel = getPointVelocity(m_trajectory, m_lastClosestPointIndex);
         byte negate = 1;
-        if (reversed == true) {
-            negate = 1;
-        }
         double[] velocityArray = new double[2];
         double leftVel = negate * (targetVel * (2.0 + (curvature * 0.71)) / 2.0); // Robot width
         double rightVel = negate * (targetVel * (2.0 - (curvature * 0.71)) / 2.0);
         velocityArray[0] = leftVel;
         velocityArray[1] = rightVel;
-        System.out.println(
-                "APPC Target Vel " + targetVel + " Left Vel: " + leftVel + " Right Vel: " + rightVel);
+        Transform2d poseDiff =
+                m_trajectory
+                        .getStates()
+                        .get(m_trajectory.getStates().size() - 1)
+                        .poseMeters
+                        .minus(currentRobotPose);
+        if (Math.abs(poseDiff.getX()) < translateAccuracy
+                && Math.abs(poseDiff.getY()) < translateAccuracy
+                && Math.abs(poseDiff.getRotation().getRadians()) < translateAccuracy) {
+            isAtSetpoint = true;
+        }
+        // DriverStation.reportWarning("APPC Target Vel " + targetVel + " Left Vel: " + leftVel + "
+        // Right Vel: " + rightVel, false);
         return velocityArray;
     }
 
     public void reset() {
         m_lastClosestPointIndex = 0;
+        isAtSetpoint = false;
     }
 
     public static Translation2d calculateLookahead(Trajectory trajectory, Pose2d currentRobotPose) {
@@ -128,7 +152,7 @@ public class AdaptivePurePursuitController {
         if (curvature >= 15 || curvature <= -15) {
             curvature = 0;
         }
-        System.out.println("CURV : " + curvature * side);
+        // System.out.println("CURV : " + curvature * side);
         return curvature * side;
     }
 
@@ -136,7 +160,7 @@ public class AdaptivePurePursuitController {
         Translation2d lastPose = getPointPose(trajectory, lastIndex).getTranslation();
         double minDistance = point.getTranslation().getDistance(lastPose);
         int index = lastIndex;
-        for (int i = lastIndex; i < trajectory.getStates().size() - 1; i++) {
+        for (int i = lastIndex; i < trajectory.getStates().size(); i++) {
             double tempDist =
                     point
                             .getTranslation()
@@ -146,6 +170,7 @@ public class AdaptivePurePursuitController {
                 minDistance = tempDist;
             }
         }
+        m_index = index;
         return index;
     }
 
@@ -160,13 +185,11 @@ public class AdaptivePurePursuitController {
     }
 
     public static double getPointVelocity(Trajectory trajectory, int index) {
-        System.out.println(
-                "Index: "
-                        + index
-                        + " Pose: "
-                        + trajectory.getStates().get(index).poseMeters
-                        + " Point Vel: "
-                        + trajectory.getStates().get(index).velocityMetersPerSecond);
         return trajectory.getStates().get(index).velocityMetersPerSecond;
+    }
+
+    public static Pose2d getPointPose() {
+
+        return m_trajectory.getStates().get(m_index).poseMeters;
     }
 }

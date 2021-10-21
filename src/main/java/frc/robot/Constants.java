@@ -62,7 +62,12 @@ public final class Constants {
         public static final double kStraightDriveMaxVolts = 10;
         public static final double kStraightDriveMinVolts = 2;
 
-        public static final double kPurePursuitLookAheadDistance = 0.8;
+        public static final double kPurePursuitLookAheadDistance = 0.1;
+
+        public static final double kPathFollowP = 5.0; // 0.1;
+        public static final double kPathFollowI = 0.3; // 1.5;
+        public static final double kPathFollowD = 0;
+        public static final double kPathFollowVelocityTolerance = 0;
     }
     // Intake
 
@@ -87,20 +92,20 @@ public final class Constants {
 
     public static final class TurretConstants {
 
-        public static final byte kTurretMotorPort = 60;
+        public static final byte kTurretMotorPort = 0;
         public static final byte kTurretEncoderA = 2;
         public static final byte kTurretEncoderB = 3;
         public static final int kTurretEncoderPPR = 2048; // AMT-103
         public static final byte kToleranceInDegrees = 0;
-        public static final byte kTurretHallEffect1Port = 0;
-        public static final byte kTurretHallEffect2Port = 1;
+        public static final byte kTurretHallEffect1Port = 2;
+        public static final byte kTurretHallEffect2Port = 3;
 
         public static NeutralMode kTurretMotorMode = NeutralMode.Brake; // Brake-Coast
 
         public static final boolean kIsEncoderReversed = false;
         public static final boolean kIsMotorReversed = false;
 
-        public static final double kP = 0.000;
+        public static final double kP = 0.22;
         public static final double kI = 0.000;
         public static final double kD = 0.000;
         public static final double kS = 0.000;
@@ -117,7 +122,7 @@ public final class Constants {
         public static final byte kShooterEncoderA = 0;
         public static final byte kShooterEncoderB = 1;
         public static final boolean kShooterEncoderIsReversed = false;
-        public static final double kShootP = 0.005;
+        public static final double kShootP = 0.035; // 0.04
         public static final double kShootI = 0.000;
         public static final double kShootD = 0.000;
 
