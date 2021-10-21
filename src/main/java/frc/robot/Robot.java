@@ -14,14 +14,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
-
 /**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the TimedRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the build.gradle file in the
- * project.
- */
+* The VM is configured to automatically run this class, and to call the functions corresponding to
+* each mode, as described in the TimedRobot documentation. If you change the name of this class or
+* the package after creating this project, you must also update the build.gradle file in the
+* project.
+*/
 public class Robot extends TimedRobot {
     NetworkTableInstance photon = NetworkTableInstance.create();
     public static NetworkTableEntry angle;
@@ -31,16 +29,14 @@ public class Robot extends TimedRobot {
     private Command m_autonomousCommand;
     public static RobotContainer m_robotContainer;
     public static SendableChooser<Integer> autoChooser = new SendableChooser<>();
-    //public static PhotonPipelineResult result;
-    
-    public static boolean ledCanStart = false;
-    
+    // public static PhotonPipelineResult result;
 
+    public static boolean ledCanStart = false;
 
     /**
-     * This function is run when the robot is first started up and should be used
-     * for any initialization code.
-     */
+    * This function is run when the robot is first started up and should be used for any
+    * initialization code.
+    */
     @Override
     public void robotInit() {
         // Instantiate our RobotContainer. This will perform all our button bindings,
@@ -53,10 +49,8 @@ public class Robot extends TimedRobot {
         validAngle = table.getEntry("hasTarget");
 
         autoChooser.setDefaultOption("Default Auto", 0);
+        autoChooser.addOption("8 Balls Right Side", 1);
         m_robotContainer.m_robotDrive.zeroHeading();
-
-
-
     }
 
     /**
@@ -74,9 +68,7 @@ public class Robot extends TimedRobot {
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
 
-        
         ledCanStart = true;
-        
     }
 
     /** This function is called once each time the robot enters Disabled mode. */
@@ -92,14 +84,13 @@ public class Robot extends TimedRobot {
 
         m_robotContainer.m_robotDrive.resetEncoders();
         m_robotContainer.m_robotDrive.zeroHeading();
-        m_robotContainer.m_robotDrive.m_odometry
-          .resetPosition(m_robotContainer.s_trajectory.testAuto[0].getInitialPose(), new Rotation2d(0));
+        m_robotContainer.m_robotDrive.m_odometry.resetPosition(
+                m_robotContainer.s_trajectory.testAuto[0].getInitialPose(), new Rotation2d(0));
 
-          m_autonomousCommand = m_robotContainer.getAutonomousCommand(autoChooser.getSelected());
-          if (m_autonomousCommand != null) {
+        m_autonomousCommand = m_robotContainer.getAutonomousCommand(autoChooser.getSelected());
+        if (m_autonomousCommand != null) {
             m_autonomousCommand.schedule();
-          }
-       
+        }
     }
 
     /** This function is called periodically during autonomous. */
@@ -113,28 +104,18 @@ public class Robot extends TimedRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         CommandScheduler.getInstance().cancelAll();
-        
+
         if (m_autonomousCommand != null) {
             m_autonomousCommand.cancel();
         }
         m_robotContainer.m_robotDrive.resetEncoders();
         m_robotContainer.m_robotDrive.zeroHeading();
-        m_robotContainer.m_robotDrive.resetOdometry(new Pose2d(0,0, new Rotation2d(0)));
-
-
-
+        m_robotContainer.m_robotDrive.resetOdometry(new Pose2d(0, 0, new Rotation2d(0)));
     }
 
     /** This function is called periodically during operator control. */
     @Override
-    public void teleopPeriodic() {
-
-        //System.out.println(m_appc.update(m_robotContainer.s_trajectory.testAuto[0],m_robotContainer.m_robotDrive.getPose(),Math.toRadians(m_robotContainer.m_robotDrive.getHeading()) ,false)[0]);
-        //System.out.println("Left Velocity : "+ m_robotContainer.m_robotDrive.getLeftWheelVelocity() + " Right Velocity : "+m_robotContainer.m_robotDrive.getRightWheelVelocity());
-        //System.out.println("hello");
-        //System.out.println(m_robotContainer.m_shooter.isAtSetpoint);
-
-    }
+    public void teleopPeriodic() {}
 
     @Override
     public void testInit() {
@@ -151,7 +132,7 @@ public class Robot extends TimedRobot {
     }
 
     public static boolean isValidAngle() {
-        
+
         return validAngle.getBoolean(false);
     }
 }

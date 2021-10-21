@@ -15,7 +15,6 @@ import frc.robot.commands.climb.ReleaseClimber;
 import frc.robot.commands.climb.RunClimber;
 import frc.robot.commands.drivetrain.JoystickDriveCommand;
 import frc.robot.commands.feeder.FeedCG;
-import frc.robot.commands.funnel.FunnelCommand;
 import frc.robot.commands.intake.ActivateIntakeCG;
 import frc.robot.commands.intake.ToggleCompressor;
 import frc.robot.commands.shooter.SetShooterRPMPF;
@@ -66,20 +65,19 @@ public class RobotContainer {
                 .toggleWhenPressed(new ActivateIntakeCG(m_intake, m_Feeder));
         // Shooter Commands
         new JoystickButton(m_driverController, 6)
-                .toggleWhenPressed(new SetShooterRPMPF(2900, m_shooter, false)); // 
+                .toggleWhenPressed(new SetShooterRPMPF(2900, m_shooter, false)); //
         // Feeder Commands
         new JoystickButton(m_driverController, 5)
                 .whileHeld(new FeedCG(m_shooter, m_Feeder, m_intake, m_funnel));
         // Misc Commands
         new JoystickButton(m_driverController, 8).whileHeld(new ToggleCompressor(m_intake));
-        
+
         // Climb Commands
         new JoystickButton(m_operatorController, 11).whileHeld(new RunClimber(m_climb, 1));
         new JoystickButton(m_operatorController, 12).whileHeld(new RunClimber(m_climb, -1));
 
         new JoystickButton(m_operatorController, 1).whileHeld(new LockClimber(m_climb));
         new JoystickButton(m_operatorController, 7).whileHeld(new ReleaseClimber(m_climb));
-
 
         /**
         * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -91,14 +89,11 @@ public class RobotContainer {
     public Command getAutonomousCommand(Integer auto) {
         // An ExampleCommand will run in autonomous
         switch (auto) {
-                case 1:
-                        return new Auto8Balls(s_trajectory, m_robotDrive, m_intake,m_turret,m_shooter,m_Feeder,m_funnel);
-                default:
-                        return new DefaultAuto(m_robotDrive, m_shooter, m_Feeder, m_intake, m_funnel);
-                }
-        
+            case 1:
+                return new Auto8Balls(
+                        s_trajectory, m_robotDrive, m_intake, m_turret, m_shooter, m_Feeder, m_funnel);
+            default:
+                return new DefaultAuto(m_robotDrive, m_shooter, m_Feeder, m_intake, m_funnel, m_turret);
         }
-                
-        
     }
-
+}
