@@ -20,7 +20,6 @@ public class TurretSubsystem extends SubsystemBase {
     public boolean isAtSetpoint = false;
 
     public TurretSubsystem() {
-
         turretMotor.setInverted(TurretConstants.kIsMotorReversed);
     }
 

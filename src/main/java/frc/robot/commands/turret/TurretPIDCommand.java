@@ -72,16 +72,16 @@ public class TurretPIDCommand extends CommandBase {
             } else {
                 lookingSide = 'l';
             }
-            System.out.println("Should turn side : " + shouldTurnSide);
-            System.out.println("Error : " + error);
+            //System.out.println("Should turn side : " + shouldTurnSide);
+            //System.out.println("Error : " + error);
 
         } else {
             output = 0;
         }
         if (0 < output && 2 > output) {
-            output += 0.5;
+            output += 1;
         } else if (0 > output && -2 < output) {
-            output -= 0.5;
+            output -= 1;
         }
         m_turret.setTurretVolts(output);
     }

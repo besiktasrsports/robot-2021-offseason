@@ -105,7 +105,7 @@ public final class Constants {
         public static final boolean kIsEncoderReversed = false;
         public static final boolean kIsMotorReversed = false;
 
-        public static final double kP = 0.19;
+        public static final double kP = 0.22;
         public static final double kI = 0.000;
         public static final double kD = 0.000;
         public static final double kS = 0.000;

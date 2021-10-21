@@ -8,13 +8,18 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.JoystickConstants;
-import frc.robot.commands.auto.TestAuto;
+import frc.robot.commands.auto.Auto8Balls;
+import frc.robot.commands.auto.DefaultAuto;
+import frc.robot.commands.climb.LockClimber;
+import frc.robot.commands.climb.ReleaseClimber;
+import frc.robot.commands.climb.RunClimber;
 import frc.robot.commands.drivetrain.JoystickDriveCommand;
 import frc.robot.commands.feeder.FeedCG;
 import frc.robot.commands.funnel.FunnelCommand;
 import frc.robot.commands.intake.ActivateIntakeCG;
 import frc.robot.commands.intake.ToggleCompressor;
 import frc.robot.commands.shooter.SetShooterRPMPF;
+import frc.robot.commands.turret.TurretPIDCommand;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.FeederSubsystem;
@@ -55,48 +60,26 @@ public class RobotContainer {
     private void configureButtonBindings() {
 
         // Turret Commands
-        // new JoystickButton(m_driverController, 6).whileHeld(new TurretPIDCommand(m_turret));
-        // new JoystickButton(m_driverController, 2).whileHeld(new RunClimber(m_climb, 1));
-        // new JoystickButton(m_driverController, 7).whileHeld(new RunClimber(m_climb, -1));
-        // new JoystickButton(m_driverController, 6).whileHeld(new LockClimber(m_climb));
-        // new JoystickButton(m_driverController, 10).whileHeld(new TurretJoystickCommand(m_turret,
-        // -0.2));
-        // Funnel Commands
-        new JoystickButton(m_driverController, 4).whileHeld(new FunnelCommand(m_funnel, -0.5, -0.5));
-        // new JoystickButton(m_driverController, 5).whileHeld(new FeederCommand(m_Feeder, -0.7,
-        // false));
-
-        // new JoystickButton(m_driverController, 5).whileHeld(new ReleaseClimber(m_climb));
-        //  new JoystickButton(m_driverController, 6).whileHeld(new ReleaseClimber(m_climb));
-        // new JoystickButton(m_driverController, 6).whileHeld(new FunnelCommand(m_funnel, -0.5, 0.5));
-
+        new JoystickButton(m_driverController, 3).whileHeld(new TurretPIDCommand(m_turret));
         // Intake Commands
         new JoystickButton(m_driverController, 1)
                 .toggleWhenPressed(new ActivateIntakeCG(m_intake, m_Feeder));
-        // new JoystickButton(m_operatorController, 1).whileHeld(new ToggleDropIntake(m_intake));
-
         // Shooter Commands
-        // new JoystickButton(m_driverController, 3).whileHeld(new RunShooter(m_shooter, -0.65));
         new JoystickButton(m_driverController, 6)
-                .toggleWhenPressed(new SetShooterRPMPF(3000, m_shooter, false)); // 2450 2750 3050
-
+                .toggleWhenPressed(new SetShooterRPMPF(2900, m_shooter, false)); // 
         // Feeder Commands
         new JoystickButton(m_driverController, 5)
                 .whileHeld(new FeedCG(m_shooter, m_Feeder, m_intake, m_funnel));
-        // new JoystickButton(m_driverController, 6).whenPressed(new FeederCommand(m_Feeder,
-        // -0.8).withTimeout(0.2));
         // Misc Commands
         new JoystickButton(m_driverController, 8).whileHeld(new ToggleCompressor(m_intake));
-        // new JoystickButton(m_driverController, 7).whileHeld(new APPCCG(m_robotDrive, m_appc,
-        // s_trajectory.testAuto[0], false));
-        // new JoystickButton(m_driverController, 7).whileHeld(new APPCPathFollower(m_robotDrive,
-        // s_trajectory.testAuto[0]));
-        // new JoystickButton(m_driverController, 7).whileHeld(new APPCPathFollowerRight(m_robotDrive,
-        // m_appc, s_trajectory.testAuto[0], false));
-        // new JoystickButton(m_driverController, 10).whenPressed(new ToggleLED(m_VisionLED));
+        
+        // Climb Commands
+        new JoystickButton(m_operatorController, 11).whileHeld(new RunClimber(m_climb, 1));
+        new JoystickButton(m_operatorController, 12).whileHeld(new RunClimber(m_climb, -1));
 
-        // Vision Drive
-        // new JoystickButton(m_driverController, 3).whileHeld(new CloseLED(m_VisionLED));
+        new JoystickButton(m_operatorController, 1).whileHeld(new LockClimber(m_climb));
+        new JoystickButton(m_operatorController, 7).whileHeld(new ReleaseClimber(m_climb));
+
 
         /**
         * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -105,8 +88,17 @@ public class RobotContainer {
         */
     }
 
-    public Command getAutonomousCommand() {
+    public Command getAutonomousCommand(Integer auto) {
         // An ExampleCommand will run in autonomous
-        return new TestAuto(s_trajectory, m_robotDrive, m_intake);
+        switch (auto) {
+                case 1:
+                        return new Auto8Balls(s_trajectory, m_robotDrive, m_intake,m_turret,m_shooter,m_Feeder,m_funnel);
+                default:
+                        return new DefaultAuto(m_robotDrive, m_shooter, m_Feeder, m_intake, m_funnel);
+                }
+        
+        }
+                
+        
     }
-}
+

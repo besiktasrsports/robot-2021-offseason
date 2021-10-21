@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
+
 
 public class DriveStraightMeters extends CommandBase {
   /** Creates a new DriveStraightMeters. */
@@ -106,6 +106,7 @@ public class DriveStraightMeters extends CommandBase {
       }
       m_drive.tankDriveVolts(leftPower, rightPower);
 
+      /*
       System.out.println(m_odometry.getPoseMeters());
       System.out.print("PXE : " + poseXError);
       System.out.print(" PYE : " + angularError);
@@ -113,6 +114,7 @@ public class DriveStraightMeters extends CommandBase {
       System.out.print(" TurnP : " + turnPower);
       System.out.print(" RightP : " + rightPower);
       System.out.println(" LeftP : " + leftPower);
+      */
       lastPoseXError = poseXError;
       lastAngularError = angularError;
     }

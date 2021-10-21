@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
@@ -11,11 +13,7 @@ import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.sneakylib.auto.AdaptivePurePursuitController;
 
-import org.photonvision.PhotonCamera;
-import org.photonvision.PhotonPipelineResult;
-import org.photonvision.PhotonTrackedTarget;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -25,14 +23,18 @@ import org.photonvision.PhotonTrackedTarget;
  * project.
  */
 public class Robot extends TimedRobot {
-    NetworkTableInstance photoncam = NetworkTableInstance.create();
+    NetworkTableInstance photon = NetworkTableInstance.create();
+    public static NetworkTableEntry angle;
+    public static NetworkTableEntry validAngle;
+    public static NetworkTableInstance inst;
+    NetworkTable table = photon.getTable("photonvision").getSubTable("microsoftlifecam");
     private Command m_autonomousCommand;
     public static RobotContainer m_robotContainer;
     public static SendableChooser<Integer> autoChooser = new SendableChooser<>();
     //public static PhotonPipelineResult result;
-    public static PhotonTrackedTarget target;
+    
     public static boolean ledCanStart = false;
-    private static PhotonCamera camera= new PhotonCamera("microsoftlifecam");;
+    
 
 
     /**
@@ -46,6 +48,9 @@ public class Robot extends TimedRobot {
         // autonomous chooser on the dashboard.
         m_robotContainer = new RobotContainer();
 
+        photon.startClient("10.72.85.12");
+        angle = table.getEntry("targetYaw");
+        validAngle = table.getEntry("hasTarget");
 
         autoChooser.setDefaultOption("Default Auto", 0);
         m_robotContainer.m_robotDrive.zeroHeading();
@@ -69,11 +74,9 @@ public class Robot extends TimedRobot {
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
 
-        var result = camera.getLatestResult();
+        
         ledCanStart = true;
-        if(isValidAngle()){
-        target = result.getBestTarget();
-        }
+        
     }
 
     /** This function is called once each time the robot enters Disabled mode. */
@@ -92,17 +95,11 @@ public class Robot extends TimedRobot {
         m_robotContainer.m_robotDrive.m_odometry
           .resetPosition(m_robotContainer.s_trajectory.testAuto[0].getInitialPose(), new Rotation2d(0));
 
-          m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+          m_autonomousCommand = m_robotContainer.getAutonomousCommand(autoChooser.getSelected());
           if (m_autonomousCommand != null) {
             m_autonomousCommand.schedule();
           }
-        /*
-        m_autonomousCommand = m_robotContainer.getAutonomousCommand(autoChooser.getSelected());
-        // schedule the autonomous command (example)
-        if (m_autonomousCommand != null) {
-            m_autonomousCommand.schedule();
-        }
-        */
+       
     }
 
     /** This function is called periodically during autonomous. */
@@ -115,6 +112,8 @@ public class Robot extends TimedRobot {
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
         // this line or comment it out.
+        CommandScheduler.getInstance().cancelAll();
+        
         if (m_autonomousCommand != null) {
             m_autonomousCommand.cancel();
         }
@@ -148,11 +147,11 @@ public class Robot extends TimedRobot {
     public void testPeriodic() {}
 
     public static double getVisionYawAngle() {
-        return target.getYaw();
+        return angle.getDouble(0);
     }
 
     public static boolean isValidAngle() {
-        var result = camera.getLatestResult();
-        return result.hasTargets();
+        
+        return validAngle.getBoolean(false);
     }
 }
