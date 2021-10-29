@@ -16,8 +16,11 @@ import frc.robot.commands.climb.RunClimber;
 import frc.robot.commands.drivetrain.JoystickDriveCommand;
 import frc.robot.commands.feeder.FeedCG;
 import frc.robot.commands.intake.ActivateIntakeCG;
+import frc.robot.commands.intake.RunIntake;
 import frc.robot.commands.intake.ToggleCompressor;
 import frc.robot.commands.shooter.SetShooterRPMPF;
+import frc.robot.commands.turret.TurretInterruptor;
+import frc.robot.commands.turret.TurretJoystickCommand;
 import frc.robot.commands.turret.TurretPIDCommand;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -26,7 +29,6 @@ import frc.robot.subsystems.FunnelSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.TurretSubsystem;
-import frc.robot.subsystems.VisionLED;
 import frc.sneakylib.drivers.WS2812LEDDriver;
 
 public class RobotContainer {
@@ -43,7 +45,6 @@ public class RobotContainer {
     public final DriveSubsystem m_robotDrive = new DriveSubsystem();
     public final FeederSubsystem m_Feeder = new FeederSubsystem();
     public final WS2812LEDDriver m_ledDriver = new WS2812LEDDriver(1, 21);
-    public final VisionLED m_VisionLED = new VisionLED();
     public final SneakyTrajectory s_trajectory = new SneakyTrajectory(m_robotDrive);
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -58,14 +59,20 @@ public class RobotContainer {
 
     private void configureButtonBindings() {
 
+        new JoystickButton(m_driverController, 4).whileHeld(new RunIntake(m_intake, -0.7));
         // Turret Commands
         new JoystickButton(m_driverController, 3).whileHeld(new TurretPIDCommand(m_turret));
+        new JoystickButton(m_driverController, 2).whileHeld(new TurretInterruptor(m_turret));
+
+        new JoystickButton(m_operatorController, 9).whileHeld(new TurretJoystickCommand(m_turret, 0.3));
+        new JoystickButton(m_operatorController, 10)
+                .whileHeld(new TurretJoystickCommand(m_turret, -0.3));
         // Intake Commands
         new JoystickButton(m_driverController, 1)
-                .toggleWhenPressed(new ActivateIntakeCG(m_intake, m_Feeder));
+                .toggleWhenPressed(new ActivateIntakeCG(m_intake, m_Feeder, 1));
         // Shooter Commands
         new JoystickButton(m_driverController, 6)
-                .toggleWhenPressed(new SetShooterRPMPF(2900, m_shooter, false)); //
+                .toggleWhenPressed(new SetShooterRPMPF(2900, m_shooter, false)); // 2900
         // Feeder Commands
         new JoystickButton(m_driverController, 5)
                 .whileHeld(new FeedCG(m_shooter, m_Feeder, m_intake, m_funnel));
@@ -90,10 +97,10 @@ public class RobotContainer {
         // An ExampleCommand will run in autonomous
         switch (auto) {
             case 1:
+                return new DefaultAuto(m_robotDrive, m_shooter, m_Feeder, m_intake, m_funnel, m_turret);
+            default:
                 return new Auto8Balls(
                         s_trajectory, m_robotDrive, m_intake, m_turret, m_shooter, m_Feeder, m_funnel);
-            default:
-                return new DefaultAuto(m_robotDrive, m_shooter, m_Feeder, m_intake, m_funnel, m_turret);
         }
     }
 }

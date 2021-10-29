@@ -25,6 +25,7 @@ public class LockClimber extends CommandBase {
     @Override
     public void execute() {
         m_climb.lockClimber();
+        m_climb.isLocked = true;
     }
 
     // Called once the command ends or is interrupted.

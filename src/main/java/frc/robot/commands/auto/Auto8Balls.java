@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.SneakyTrajectory;
 import frc.robot.commands.feeder.FeedCG;
 import frc.robot.commands.intake.ActivateIntakeCG;
+import frc.robot.commands.intake.DropIntake;
 import frc.robot.commands.shooter.SetShooterRPMPF;
 import frc.robot.commands.turret.TurretPIDCommand;
 import frc.robot.subsystems.DriveSubsystem;
@@ -25,9 +26,10 @@ public class Auto8Balls extends SequentialCommandGroup {
   public Auto8Balls(SneakyTrajectory s_trajectory, DriveSubsystem m_drivetrain, IntakeSubsystem m_intake, TurretSubsystem m_turret, ShooterSubsystem m_shooter, FeederSubsystem m_feeder, FunnelSubsystem m_funnel) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    super(new TurretPIDCommand(m_turret).withTimeout(1).alongWith(new SetShooterRPMPF(2900, m_shooter, true)),new FeedCG(m_shooter, m_feeder, m_intake, m_funnel).withTimeout(2).raceWith(new SetShooterRPMPF(2900, m_shooter, false)),
-    new DriveStraightMeters(m_drivetrain, -5.1, 0,2).raceWith(new ActivateIntakeCG(m_intake, m_feeder)).andThen(new DriveStraightMeters(m_drivetrain, 5, 0,5)),
-    new TurretPIDCommand(m_turret).withTimeout(1).alongWith(new SetShooterRPMPF(2900, m_shooter, true)),new FeedCG(m_shooter,m_feeder,m_intake,m_funnel).withTimeout(5).raceWith(new SetShooterRPMPF(2900, m_shooter, false)));
+    super(new TurretPIDCommand(m_turret).withTimeout(1).alongWith(new SetShooterRPMPF(2900, m_shooter, true)).raceWith(new DropIntake(m_intake))
+    , new FeedCG(m_shooter, m_feeder, m_intake, m_funnel).withTimeout(2).raceWith(new SetShooterRPMPF(2900, m_shooter, false))
+    , new DriveStraightMeters(m_drivetrain, -5.8, 0,1).raceWith(new ActivateIntakeCG(m_intake, m_feeder,1)).andThen(new DriveStraightMeters(m_drivetrain, 5.4, 0,5))
+    , new TurretPIDCommand(m_turret).withTimeout(1).alongWith(new SetShooterRPMPF(2900, m_shooter, true)),new FeedCG(m_shooter,m_feeder,m_intake,m_funnel).withTimeout(5).raceWith(new SetShooterRPMPF(2900, m_shooter, false)));
   }
     /*
 

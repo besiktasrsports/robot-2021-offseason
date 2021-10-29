@@ -19,6 +19,7 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class SetShooterRPMPF extends PIDCommand {
     /** Creates a new ShooterSetRPMPID. */
     private ShooterSubsystem m_shooter;
+    
 
     // private static double lastOutput = 0;
     private static final SimpleMotorFeedforward m_shooterFeedForward =
@@ -59,6 +60,7 @@ public class SetShooterRPMPF extends PIDCommand {
     @Override
     public void execute() {
         super.execute();
+        m_shooter.isRunning = true;
         m_shooter.isAtSetpoint = getController().atSetpoint();
     }
 
@@ -78,6 +80,7 @@ public class SetShooterRPMPF extends PIDCommand {
         if (!isInterruptable) {
             m_shooter.runShooterVoltage(0);
             m_shooter.isAtSetpoint = false;
+            m_shooter.isRunning = false;
         }
     }
 }

@@ -106,15 +106,7 @@ public class DriveStraightMeters extends CommandBase {
       }
       m_drive.tankDriveVolts(leftPower, rightPower);
 
-      /*
-      System.out.println(m_odometry.getPoseMeters());
-      System.out.print("PXE : " + poseXError);
-      System.out.print(" PYE : " + angularError);
-      System.out.print(" PoseP : " + posePower);
-      System.out.print(" TurnP : " + turnPower);
-      System.out.print(" RightP : " + rightPower);
-      System.out.println(" LeftP : " + leftPower);
-      */
+     
       lastPoseXError = poseXError;
       lastAngularError = angularError;
     }
