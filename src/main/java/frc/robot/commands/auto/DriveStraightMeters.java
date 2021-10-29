@@ -106,7 +106,7 @@ public class DriveStraightMeters extends CommandBase {
       }
       m_drive.tankDriveVolts(leftPower, rightPower);
 
-     
+
       lastPoseXError = poseXError;
       lastAngularError = angularError;
     }

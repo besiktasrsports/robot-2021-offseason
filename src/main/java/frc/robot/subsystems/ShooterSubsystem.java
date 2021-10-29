@@ -46,7 +46,6 @@ public class ShooterSubsystem extends SubsystemBase {
 
         */
         SmartDashboard.putBoolean("shooter/running", isRunning);
-
     }
 
     public void runShooter(double speed) {
