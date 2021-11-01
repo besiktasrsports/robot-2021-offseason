@@ -27,7 +27,11 @@ public class RunClimber extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        m_climb.runClimber(m_speed);
+        if (!m_climb.isLocked) {
+            m_climb.runClimber(m_speed);
+        } else {
+            m_climb.runClimber(0);
+        }
     }
 
     // Called once the command ends or is interrupted.
@@ -39,6 +43,7 @@ public class RunClimber extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return false;
+
+        return m_climb.isLocked;
     }
 }

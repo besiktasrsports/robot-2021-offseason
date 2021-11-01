@@ -59,6 +59,7 @@ public class SetShooterRPMPF extends PIDCommand {
     @Override
     public void execute() {
         super.execute();
+        m_shooter.isRunning = true;
         m_shooter.isAtSetpoint = getController().atSetpoint();
     }
 
@@ -78,6 +79,7 @@ public class SetShooterRPMPF extends PIDCommand {
         if (!isInterruptable) {
             m_shooter.runShooterVoltage(0);
             m_shooter.isAtSetpoint = false;
+            m_shooter.isRunning = false;
         }
     }
 }
