@@ -8,12 +8,15 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ClimbSubsystem extends SubsystemBase {
 
     private final WPI_VictorSPX climbMotor1 = new WPI_VictorSPX(60);
     private final VictorSP climbMotor2 = new VictorSP(2);
+
+    public boolean isLocked = false;
 
     private final DoubleSolenoid climbLock = new DoubleSolenoid(4, 5);
     /** Creates a new ClimbSubsystem. */
@@ -24,6 +27,7 @@ public class ClimbSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
+        SmartDashboard.putBoolean("climb/lockstate", isLocked);
     }
 
     public void runClimber(double speed) {

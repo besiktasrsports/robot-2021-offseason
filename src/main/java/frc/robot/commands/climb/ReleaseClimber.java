@@ -24,6 +24,7 @@ public class ReleaseClimber extends CommandBase {
     @Override
     public void execute() {
         m_climb.releaseClimber();
+        m_climb.isLocked = false;
     }
 
     // Called once the command ends or is interrupted.

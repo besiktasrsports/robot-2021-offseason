@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -48,8 +49,9 @@ public class Robot extends TimedRobot {
         angle = table.getEntry("targetYaw");
         validAngle = table.getEntry("hasTarget");
 
-        autoChooser.setDefaultOption("Default Auto", 0);
-        autoChooser.addOption("8 Balls Right Side", 1);
+        autoChooser.setDefaultOption("8 Balls Right Side", 0);
+        autoChooser.addOption("3 Balls", 1);
+        SmartDashboard.putData("Autonomous Selector", autoChooser);
         m_robotContainer.m_robotDrive.zeroHeading();
     }
 

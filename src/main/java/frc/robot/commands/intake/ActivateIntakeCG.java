@@ -18,7 +18,7 @@ public class ActivateIntakeCG extends SequentialCommandGroup {
 
     private final FeederSubsystem m_feeder;
 
-    public ActivateIntakeCG(IntakeSubsystem intake, FeederSubsystem feeder) {
+    public ActivateIntakeCG(IntakeSubsystem intake, FeederSubsystem feeder, double speed) {
         // Add your commands in the addCommands() call, e.g.
         // addCommands(new FooCommand(), new BarCommand());
         m_intake = intake;
@@ -27,7 +27,7 @@ public class ActivateIntakeCG extends SequentialCommandGroup {
                 new DropIntake(m_intake)
                         .withTimeout(.2)
                         .andThen(new OffIntake(m_intake).withTimeout(.1))
-                        .andThen(new RunIntake(m_intake, 0.7))
+                        .andThen(new RunIntake(m_intake, speed))
                         .alongWith(new FeederCommand(m_feeder, -0.6, true)));
     }
 

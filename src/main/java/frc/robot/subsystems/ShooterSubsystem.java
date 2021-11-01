@@ -13,6 +13,7 @@ import frc.robot.Constants.ShooterConstants;
 public class ShooterSubsystem extends SubsystemBase {
     public boolean isAtSetpoint = false;
     private int i;
+    public boolean isRunning = false;
     private double rpmSum;
     private WPI_VictorSPX shooterMotor1 = new WPI_VictorSPX(ShooterConstants.kShooterMotor1Port);
     private WPI_VictorSPX shooterMotor2 = new WPI_VictorSPX(ShooterConstants.kShooterMotor2Port);
@@ -44,8 +45,7 @@ public class ShooterSubsystem extends SubsystemBase {
         i++;
 
         */
-
-        SmartDashboard.putNumber("shooter/rpm", getRPM());
+        SmartDashboard.putBoolean("shooter/running", isRunning);
     }
 
     public void runShooter(double speed) {
