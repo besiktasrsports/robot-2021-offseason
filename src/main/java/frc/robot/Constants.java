@@ -122,7 +122,7 @@ public final class Constants {
         public static final byte kShooterEncoderA = 0;
         public static final byte kShooterEncoderB = 1;
         public static final boolean kShooterEncoderIsReversed = false;
-        public static final double kShootP = 0.035; // 0.04
+        public static final double kShootP = 0.03; // 0.04
         public static final double kShootI = 0.000;
         public static final double kShootD = 0.000;
 

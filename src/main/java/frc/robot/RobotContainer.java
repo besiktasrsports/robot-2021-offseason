@@ -69,7 +69,7 @@ public class RobotContainer {
                 .whileHeld(new TurretJoystickCommand(m_turret, -0.3));
         // Intake Commands
         new JoystickButton(m_driverController, 1)
-                .toggleWhenPressed(new ActivateIntakeCG(m_intake, m_Feeder, 1));
+                .toggleWhenPressed(new ActivateIntakeCG(m_intake, m_Feeder, 0.7));
         // Shooter Commands
         new JoystickButton(m_driverController, 6)
                 .toggleWhenPressed(new SetShooterRPMPF(2900, m_shooter, false)); // 2900
