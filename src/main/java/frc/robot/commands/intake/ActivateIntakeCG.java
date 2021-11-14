@@ -5,6 +5,8 @@
 package frc.robot.commands.intake;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Robot;
+import frc.robot.RobotState;
 import frc.robot.commands.feeder.FeederCommand;
 import frc.robot.subsystems.FeederSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -23,12 +25,13 @@ public class ActivateIntakeCG extends SequentialCommandGroup {
         // addCommands(new FooCommand(), new BarCommand());
         m_intake = intake;
         m_feeder = feeder;
+        Robot.robotState = RobotState.INTAKE;
         addCommands(
                 new DropIntake(m_intake)
                         .withTimeout(.2)
                         .andThen(new OffIntake(m_intake).withTimeout(.1))
-                        .andThen(new RunIntake(m_intake, speed))
-                        .alongWith(new FeederCommand(m_feeder, -0.6, true)));
+                        .andThen(new RunIntake(m_intake, speed, false))
+                        .alongWith(new FeederCommand(m_feeder, -0.6, false)));
     }
 
     @Override

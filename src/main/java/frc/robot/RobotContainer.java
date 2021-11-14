@@ -59,7 +59,7 @@ public class RobotContainer {
 
     private void configureButtonBindings() {
 
-        new JoystickButton(m_driverController, 4).whileHeld(new RunIntake(m_intake, -0.7));
+        new JoystickButton(m_driverController, 4).whileHeld(new RunIntake(m_intake, -0.7, false));
         // Turret Commands
         new JoystickButton(m_driverController, 3).whileHeld(new TurretPIDCommand(m_turret));
         new JoystickButton(m_driverController, 2).whileHeld(new TurretInterruptor(m_turret));

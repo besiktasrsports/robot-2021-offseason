@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 */
 public class Robot extends TimedRobot {
     NetworkTableInstance photon = NetworkTableInstance.create();
+    public static RobotState robotState;
     public static NetworkTableEntry angle;
     public static NetworkTableEntry validAngle;
     public static NetworkTableInstance inst;
@@ -52,6 +53,7 @@ public class Robot extends TimedRobot {
         autoChooser.setDefaultOption("8 Balls Right Side", 0);
         autoChooser.addOption("3 Balls", 1);
         SmartDashboard.putData("Autonomous Selector", autoChooser);
+        robotState = RobotState.IDLE;
         m_robotContainer.m_robotDrive.zeroHeading();
     }
 

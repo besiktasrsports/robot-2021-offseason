@@ -5,6 +5,7 @@
 package frc.robot.commands.feeder;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
 import frc.robot.subsystems.FeederSubsystem;
 
 public class FeederCommand extends CommandBase {
@@ -12,24 +13,36 @@ public class FeederCommand extends CommandBase {
     private final FeederSubsystem m_accelarator;
 
     private final double m_speed;
-    private final boolean m_checkSensor;
+    private boolean m_toFeed;
+    private boolean shooterAtSetpoint;
 
-    public FeederCommand(FeederSubsystem accelarator, double speed, boolean checkSensor) {
+    public FeederCommand(FeederSubsystem accelarator, double speed, boolean toFeed) {
         // Use addRequirements() here to declare subsystem dependencies.
         m_accelarator = accelarator;
         m_speed = speed;
-        m_checkSensor = checkSensor;
+        m_toFeed = toFeed;
         addRequirements(m_accelarator);
     }
 
     // Called when the command is initially scheduled.
     @Override
-    public void initialize() {}
+    public void initialize() {
+        shooterAtSetpoint = Robot.m_robotContainer.m_shooter.isAtSetpoint;
+    }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        m_accelarator.runFeeder(m_speed);
+        shooterAtSetpoint = Robot.m_robotContainer.m_shooter.isAtSetpoint;
+        if (m_toFeed) {
+            if (shooterAtSetpoint) {
+                m_accelarator.runFeeder(m_speed);
+            } else {
+                m_accelarator.runFeeder(0);
+            }
+        } else {
+            m_accelarator.runFeeder(m_speed);
+        }
     }
 
     // Called once the command ends or is interrupted.
@@ -41,7 +54,7 @@ public class FeederCommand extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        if (m_checkSensor) {
+        if (!m_toFeed) {
             return m_accelarator.getSensorStatus();
         }
         return false;

@@ -42,10 +42,10 @@ public class TurretPIDCommand extends CommandBase {
             output = error * TurretConstants.kP;
             shouldTurnSide = error > 0 ? 'r' : 'l';
 
-            if (output > 6) {
-                output = 6;
-            } else if (output < -6) {
-                output = -6;
+            if (output > 8) {
+                output = 8;
+            } else if (output < -8) {
+                output = -8;
             }
             if (!m_turret.turretHallEffect1.get() == true && shouldTurnSide == 'r') {
                 output = 0;
@@ -72,8 +72,6 @@ public class TurretPIDCommand extends CommandBase {
             } else {
                 lookingSide = 'l';
             }
-            // System.out.println("Should turn side : " + shouldTurnSide);
-            // System.out.println("Error : " + error);
 
         } else {
             output = 0;
