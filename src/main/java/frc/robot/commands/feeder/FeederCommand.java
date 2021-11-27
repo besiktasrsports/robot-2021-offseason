@@ -35,7 +35,7 @@ public class FeederCommand extends CommandBase {
     public void execute() {
         shooterAtSetpoint = Robot.m_robotContainer.m_shooter.isAtSetpoint;
         if (m_toFeed) {
-            if (shooterAtSetpoint) {
+            if (shooterAtSetpoint && Robot.m_robotContainer.m_turret.isAtSetpoint) {
                 m_accelarator.runFeeder(m_speed);
             } else {
                 m_accelarator.runFeeder(0);

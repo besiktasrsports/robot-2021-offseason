@@ -46,6 +46,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
         */
         SmartDashboard.putBoolean("shooter/running", isRunning);
+        SmartDashboard.putNumber("shooter/rpm", getRPM());
     }
 
     public void runShooter(double speed) {

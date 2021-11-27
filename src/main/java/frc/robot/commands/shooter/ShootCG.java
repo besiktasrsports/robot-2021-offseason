@@ -46,7 +46,7 @@ public class ShootCG extends SequentialCommandGroup {
         addCommands(
                 new TurretPIDCommand(m_turret)
                         .alongWith(
-                                new SetShooterRPMPF(3000, shooter, false)
+                                new SetShooterRPMPF(2900, shooter, false)
                                         .alongWith(new FeedCG(m_shooter, m_feeder, m_intake, m_funnel))));
     }
 }

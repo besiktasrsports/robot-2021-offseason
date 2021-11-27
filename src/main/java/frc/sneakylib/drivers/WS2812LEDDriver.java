@@ -25,7 +25,7 @@ public class WS2812LEDDriver extends SubsystemBase {
 
     @Override
     public void periodic() {
-        // runDefault();
+        runDefault();
     }
 
     public static void setBufferColor(int r, int g, int b) {
@@ -68,18 +68,20 @@ public class WS2812LEDDriver extends SubsystemBase {
                     j = 0;
                     if (Robot.m_robotContainer.m_turret.isAtSetpoint == true) {
                         setBufferColor(0, 255, 20);
-                        m_led.setData(m_ledBuffer);
+                        
                         if (Robot.robotState == RobotState.SHOOT
                                 && Robot.m_robotContainer.m_shooter.isAtSetpoint) {
                             setBufferColor(127, 0, 255);
-                            m_led.setData(m_ledBuffer);
+                            
                         }
+                        m_led.setData(m_ledBuffer);
                     } else {
                         if (i <= 64) {
                             setBufferColor(0, 102, 204);
                             m_led.setData(m_ledBuffer);
                         } else {
                             setBufferColor(0, i, i);
+                            m_led.setData(m_ledBuffer);
                         }
                     }
                 }

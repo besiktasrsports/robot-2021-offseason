@@ -32,7 +32,7 @@ public class RunIntake extends CommandBase {
     public void execute() {
         shooterAtSetpoint = Robot.m_robotContainer.m_shooter.isAtSetpoint;
         if (m_toFeed) {
-            if (shooterAtSetpoint) {
+            if (shooterAtSetpoint && Robot.m_robotContainer.m_turret.isAtSetpoint) {
                 m_intake.runIntake(m_speed);
             } else {
                 m_intake.runIntake(0);
