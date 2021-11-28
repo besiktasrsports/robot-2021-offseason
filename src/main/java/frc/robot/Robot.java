@@ -52,7 +52,7 @@ public class Robot extends TimedRobot {
 
         autoChooser.setDefaultOption("8 Balls Right Side", 0);
         autoChooser.addOption("3 Balls", 1);
-        autoChooser.addOption("Ramsete Auto", 2);
+        autoChooser.addOption("7 Balls Steal", 2);
         SmartDashboard.putData("Autonomous Selector", autoChooser);
         robotState = RobotState.IDLE;
         m_robotContainer.m_robotDrive.zeroHeading();
@@ -89,9 +89,26 @@ public class Robot extends TimedRobot {
 
         m_robotContainer.m_robotDrive.resetEncoders();
         m_robotContainer.m_robotDrive.zeroHeading();
-        m_robotContainer.m_robotDrive.m_odometry.resetPosition(
-                m_robotContainer.s_trajectory.testAuto[0].getInitialPose(), new Rotation2d(0));
+        
+        if(autoChooser.getSelected() == 0){
+            m_robotContainer.m_robotDrive.m_odometry.resetPosition(
+                new Pose2d(0,0,new Rotation2d(0)), new Rotation2d(0));
+        }
+        else if(autoChooser.getSelected() == 1){
+            
+                m_robotContainer.m_robotDrive.m_odometry.resetPosition(
+                new Pose2d(0,0,new Rotation2d(0)), new Rotation2d(0));
 
+        }
+        else if(autoChooser.getSelected() == 2){
+            m_robotContainer.m_robotDrive.m_odometry.resetPosition(
+                m_robotContainer.s_trajectory.steal7Balls[0].getInitialPose(),m_robotContainer.s_trajectory.steal7Balls[0].getInitialPose().getRotation());
+        }
+        else{
+            m_robotContainer.m_robotDrive.m_odometry.resetPosition(
+                new Pose2d(0,0,new Rotation2d(0)), new Rotation2d(0));
+        }
+        
         m_autonomousCommand = m_robotContainer.getAutonomousCommand(autoChooser.getSelected());
         if (m_autonomousCommand != null) {
             m_autonomousCommand.schedule();

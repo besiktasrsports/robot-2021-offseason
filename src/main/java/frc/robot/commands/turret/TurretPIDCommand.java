@@ -12,7 +12,7 @@ import frc.robot.subsystems.TurretSubsystem;
 public class TurretPIDCommand extends CommandBase {
     /** Creates a new TurretPIDCommand. */
     private TurretSubsystem m_turret;
-
+    boolean m_isInterruptible;
     double error;
     double output;
     double outputSum;
@@ -20,9 +20,10 @@ public class TurretPIDCommand extends CommandBase {
     char shouldTurnSide = 'o';
     char lookingSide;
 
-    public TurretPIDCommand(TurretSubsystem turret) {
+    public TurretPIDCommand(TurretSubsystem turret, boolean isInterruptible) {
         // Use addRequirements() here to declare subsystem dependencies.
         m_turret = turret;
+        m_isInterruptible = isInterruptible;
         addRequirements(m_turret);
     }
 
@@ -103,6 +104,6 @@ public class TurretPIDCommand extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return false;
+        return m_isInterruptible&&m_turret.isAtSetpoint;
     }
 }
