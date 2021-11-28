@@ -19,15 +19,31 @@ import frc.robot.subsystems.TurretSubsystem;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class Auto7BallSteal extends SequentialCommandGroup {
-  /** Creates a new Auto5BallSteal. */
-  public Auto7BallSteal(SneakyTrajectory s_trajectory, IntakeSubsystem intake, FeederSubsystem feeder, DriveSubsystem drive, ShooterSubsystem shooter, FunnelSubsystem funnel, TurretSubsystem turret) {
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
-    super(s_trajectory.getRamsete(s_trajectory.steal7Balls[0]).raceWith(new ActivateIntakeCG(intake, feeder, 0.7)),
-    s_trajectory.getRamsete(s_trajectory.steal7Balls[1]).andThen(() -> drive.tankDriveVolts(0, 0)),
-    new ShootCG(shooter, turret, feeder, funnel, intake).withTimeout(4), s_trajectory.getRamsete(s_trajectory.steal7Balls[2]).raceWith(new ActivateIntakeCG(intake,feeder,0.7)),
-    s_trajectory.getRamsete(s_trajectory.steal7Balls[3]).andThen(() -> drive.tankDriveVolts(0, 0)),
-    new ShootCG(shooter, turret, feeder, funnel, intake)
-    );
-  }
+    /** Creates a new Auto5BallSteal. */
+    public Auto7BallSteal(
+            SneakyTrajectory s_trajectory,
+            IntakeSubsystem intake,
+            FeederSubsystem feeder,
+            DriveSubsystem drive,
+            ShooterSubsystem shooter,
+            FunnelSubsystem funnel,
+            TurretSubsystem turret) {
+        // Add your commands in the addCommands() call, e.g.
+        // addCommands(new FooCommand(), new BarCommand());
+        super(
+                s_trajectory
+                        .getRamsete(s_trajectory.steal7Balls[0])
+                        .raceWith(new ActivateIntakeCG(intake, feeder, 0.7)),
+                s_trajectory
+                        .getRamsete(s_trajectory.steal7Balls[1])
+                        .andThen(() -> drive.tankDriveVolts(0, 0)),
+                new ShootCG(shooter, turret, feeder, funnel, intake).withTimeout(4),
+                s_trajectory
+                        .getRamsete(s_trajectory.steal7Balls[2])
+                        .raceWith(new ActivateIntakeCG(intake, feeder, 0.7)),
+                s_trajectory
+                        .getRamsete(s_trajectory.steal7Balls[3])
+                        .andThen(() -> drive.tankDriveVolts(0, 0)),
+                new ShootCG(shooter, turret, feeder, funnel, intake));
+    }
 }

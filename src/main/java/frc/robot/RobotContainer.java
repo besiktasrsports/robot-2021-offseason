@@ -11,7 +11,6 @@ import frc.robot.Constants.JoystickConstants;
 import frc.robot.commands.auto.Auto7BallSteal;
 import frc.robot.commands.auto.Auto8Balls;
 import frc.robot.commands.auto.DefaultAuto;
-import frc.robot.commands.auto.RamseteCG;
 import frc.robot.commands.climb.LockClimber;
 import frc.robot.commands.climb.ReleaseClimber;
 import frc.robot.commands.climb.RunClimber;
@@ -64,7 +63,7 @@ public class RobotContainer {
         new JoystickButton(m_driverController, 4)
                 .whileHeld(new ShootCG(m_shooter, m_turret, m_Feeder, m_funnel, m_intake));
         // Turret Commands
-        new JoystickButton(m_driverController, 3).whileHeld(new TurretPIDCommand(m_turret,false));
+        new JoystickButton(m_driverController, 3).whileHeld(new TurretPIDCommand(m_turret, false));
         new JoystickButton(m_driverController, 2).whileHeld(new TurretInterruptor(m_turret));
 
         new JoystickButton(m_operatorController, 9).whileHeld(new TurretJoystickCommand(m_turret, 0.3));
@@ -102,8 +101,8 @@ public class RobotContainer {
             case 1:
                 return new DefaultAuto(m_robotDrive, m_shooter, m_Feeder, m_intake, m_funnel, m_turret);
             case 2:
-                return new Auto7BallSteal(s_trajectory, m_intake, m_Feeder, m_robotDrive, m_shooter, m_funnel,
-                        m_turret);
+                return new Auto7BallSteal(
+                        s_trajectory, m_intake, m_Feeder, m_robotDrive, m_shooter, m_funnel, m_turret);
             default:
                 return new Auto8Balls(
                         s_trajectory, m_robotDrive, m_intake, m_turret, m_shooter, m_Feeder, m_funnel);

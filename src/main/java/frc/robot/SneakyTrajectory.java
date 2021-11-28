@@ -27,7 +27,7 @@ public class SneakyTrajectory {
 
     private DriveSubsystem m_drive;
     public Trajectory[] testAuto = new Trajectory[2];
-    public Trajectory[] steal7Balls = new Trajectory [4];
+    public Trajectory[] steal7Balls = new Trajectory[4];
 
     public SneakyTrajectory(DriveSubsystem drive) {
 
@@ -72,35 +72,34 @@ public class SneakyTrajectory {
                         new Pose2d(-0.5, -1, new Rotation2d(Math.toRadians(0))),
                         configForward);
 
-        steal7Balls[0] =  TrajectoryGenerator.generateTrajectory(
-                List.of(
-                    new Pose2d(3.2, 2.55, new Rotation2d(3.142)),
-                    new Pose2d(6.155, 0.76, new Rotation2d(2.555))
-                ),configBackward);
+        steal7Balls[0] =
+                TrajectoryGenerator.generateTrajectory(
+                        List.of(
+                                new Pose2d(3.2, 2.55, new Rotation2d(3.142)),
+                                new Pose2d(6.155, 0.76, new Rotation2d(2.555))),
+                        configBackward);
 
-        steal7Balls[1] = TrajectoryGenerator.generateTrajectory(
-                List.of(
-                        new Pose2d(6.155, 0.76, new Rotation2d(2.555)),
-                        new Pose2d(4.172, 2.205, new Rotation2d(2.22)),
-                        new Pose2d(2.6, 4.659, new Rotation2d(2.51))
-                ),configForward);
+        steal7Balls[1] =
+                TrajectoryGenerator.generateTrajectory(
+                        List.of(
+                                new Pose2d(6.155, 0.76, new Rotation2d(2.555)),
+                                new Pose2d(4.172, 2.205, new Rotation2d(2.22)),
+                                new Pose2d(2.6, 4.659, new Rotation2d(2.51))),
+                        configForward);
 
-        steal7Balls[2] = TrajectoryGenerator.generateTrajectory(
-                List.of(
-                new Pose2d(2.6, 4.659, new Rotation2d(2.548)),
-                new Pose2d(6.912, 4.184, new Rotation2d(-2.822))
-                ),configBackward);
+        steal7Balls[2] =
+                TrajectoryGenerator.generateTrajectory(
+                        List.of(
+                                new Pose2d(2.6, 4.659, new Rotation2d(2.548)),
+                                new Pose2d(6.912, 4.184, new Rotation2d(-2.822))),
+                        configBackward);
 
-        steal7Balls[3] = TrajectoryGenerator.generateTrajectory(
-                List.of(
-                        new Pose2d(6.912, 4.184, new Rotation2d(-2.81)),
-                        new Pose2d(2.6, 4.659, new Rotation2d(2.548))
-                ),configForward);
-                        
-                        
-                
-
-        
+        steal7Balls[3] =
+                TrajectoryGenerator.generateTrajectory(
+                        List.of(
+                                new Pose2d(6.912, 4.184, new Rotation2d(-2.81)),
+                                new Pose2d(2.6, 4.659, new Rotation2d(2.548))),
+                        configForward);
     }
 
     public RamseteCommand getRamsete(Trajectory trajectory) {

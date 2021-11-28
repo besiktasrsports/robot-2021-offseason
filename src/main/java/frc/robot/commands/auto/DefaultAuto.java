@@ -25,7 +25,7 @@ public class DefaultAuto extends SequentialCommandGroup {
             TurretSubsystem turret) {
         // TODO: Change this to a reasonable auto
         super(
-                new TurretPIDCommand(turret,true)
+                new TurretPIDCommand(turret, true)
                         .withTimeout(1)
                         .alongWith(new SetShooterRPMPF(2900, shooter, true)),
                 new SetShooterRPMPF(2900, shooter, false)
