@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.Constants.ShooterConstants;
+import frc.robot.Robot;
+import frc.robot.RobotState;
 import frc.robot.subsystems.ShooterSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -43,7 +45,7 @@ public class SetShooterRPMPF extends PIDCommand {
                 });
         // Use addRequirements() here to declare subsystem dependencies.
         // Configure additional PID options by calling `getController` here.
-        getController().setTolerance(100);
+        getController().setTolerance(50);
         m_shooter = shooter;
         this.isInterruptable = _isInterruptable;
         addRequirements(m_shooter);
@@ -53,6 +55,7 @@ public class SetShooterRPMPF extends PIDCommand {
     public void initialize() {
 
         super.initialize();
+        Robot.robotState = RobotState.SHOOT;
         m_motorOutput = 0;
     }
 
