@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.JoystickConstants;
 import frc.robot.commands.auto.Auto8Balls;
 import frc.robot.commands.auto.DefaultAuto;
+import frc.robot.commands.auto.RamseteCG;
 import frc.robot.commands.climb.LockClimber;
 import frc.robot.commands.climb.ReleaseClimber;
 import frc.robot.commands.climb.RunClimber;
@@ -70,7 +71,7 @@ public class RobotContainer {
                 .whileHeld(new TurretJoystickCommand(m_turret, -0.3));
         // Intake Commands
         new JoystickButton(m_driverController, 1)
-                .toggleWhenPressed(new ActivateIntakeCG(m_intake, m_Feeder, 1));
+                .toggleWhenPressed(new ActivateIntakeCG(m_intake, m_Feeder, 0.7));
         // Shooter Commands
         new JoystickButton(m_driverController, 6)
                 .toggleWhenPressed(new SetShooterRPMPF(2900, m_shooter, false)); // 2900
@@ -99,6 +100,8 @@ public class RobotContainer {
         switch (auto) {
             case 1:
                 return new DefaultAuto(m_robotDrive, m_shooter, m_Feeder, m_intake, m_funnel, m_turret);
+            case 2:
+                return new RamseteCG(s_trajectory, m_robotDrive);
             default:
                 return new Auto8Balls(
                         s_trajectory, m_robotDrive, m_intake, m_turret, m_shooter, m_Feeder, m_funnel);

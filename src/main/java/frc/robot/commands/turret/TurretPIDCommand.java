@@ -41,12 +41,20 @@ public class TurretPIDCommand extends CommandBase {
         if (Robot.isValidAngle()) {
             error = Robot.getVisionYawAngle();
             output = (TurretConstants.kP*error + (TurretConstants.kD*(error-lastError)));
+            if(error >= 15){
+                output = 5;
+            }
+            else if(error <= -15){
+                output = -5;
+
+            }
+            
             shouldTurnSide = error > 0 ? 'r' : 'l';
 
-            if (output > 10) {
-                output = 10;
-            } else if (output < -10) {
-                output = -10;
+            if (output > 12) {
+                output = 12;
+            } else if (output < -12) {
+                output = -12;
             }
             if (!m_turret.turretHallEffect1.get() == true && shouldTurnSide == 'r') {
                 output = 0;
@@ -78,9 +86,9 @@ public class TurretPIDCommand extends CommandBase {
             output = 0;
         }
         if (0 < output && 2 > output) {
-            output += 1;
+            output += 0.75;
         } else if (0 > output && -2 < output) {
-            output -= 1;
+            output -= 0.75;
         }
         System.out.println("Output : "+output);
         m_turret.setTurretVolts(output);
