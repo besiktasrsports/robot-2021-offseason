@@ -12,10 +12,13 @@ import frc.robot.subsystems.DriveSubsystem;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class RamseteCG extends SequentialCommandGroup {
-  /** Creates a new RamseteCG. */
-  public RamseteCG(SneakyTrajectory s_trajectory, DriveSubsystem drive) {
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
-    super(s_trajectory.getRamsete(s_trajectory.testAuto[0]).andThen(() -> drive.tankDriveVolts(0, 0)));
-  }
+    /** Creates a new RamseteCG. */
+    public RamseteCG(SneakyTrajectory s_trajectory, DriveSubsystem drive) {
+        // Add your commands in the addCommands() call, e.g.
+        // addCommands(new FooCommand(), new BarCommand());
+        super(
+                s_trajectory
+                        .getRamsete(s_trajectory.testAuto[0])
+                        .andThen(() -> drive.tankDriveVolts(0, 0)));
+    }
 }

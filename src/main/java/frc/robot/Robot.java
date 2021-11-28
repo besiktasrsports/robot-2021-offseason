@@ -121,7 +121,7 @@ public class Robot extends TimedRobot {
     /** This function is called periodically during operator control. */
     @Override
     public void teleopPeriodic() {
-        //System.out.println("Robot State : " + robotState.toString());
+        // System.out.println("Robot State : " + robotState.toString());
     }
 
     @Override

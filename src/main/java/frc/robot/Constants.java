@@ -32,13 +32,13 @@ public final class Constants {
         public static final boolean kRightRearMotorInverted = true;
         public static final boolean kRightFrontMotorInverted = true;
 
-        public static final double ksVolts = 1.2; 
-        public static final double kvVoltSecondsPerMeter = 4.5; //10.5
-        public static final double kaVoltSecondsSquaredPerMeter = 2; //4.09
+        public static final double ksVolts = 1.2;
+        public static final double kvVoltSecondsPerMeter = 4.5; // 10.5
+        public static final double kaVoltSecondsSquaredPerMeter = 2; // 4.09
         public static final double kMaxSpeedMetersPerSecond = 1.5; // 2
         public static final double kMaxAccelerationMetersPerSecondSquared = 1; // 1.5
         public static final double kRamseteB = 2;
-        public static final double kPDriveVel = 1.88; //0.935
+        public static final double kPDriveVel = 1.88; // 0.935
         public static final double kRamseteZeta = 0.7;
         public static final double kTrackwidthMeters = 0.63;
         public static final double kMaxAutoVoltage = 10;
@@ -105,9 +105,9 @@ public final class Constants {
         public static final boolean kIsEncoderReversed = false;
         public static final boolean kIsMotorReversed = false;
 
-        public static final double kP = 0.2; //0.23
+        public static final double kP = 0.2; // 0.23
         public static final double kI = 0.000;
-        public static final double kD = 1;//0.28
+        public static final double kD = 1; // 0.28
         public static final double kS = 0.000;
         public static final double kV = 0.000;
         public static final double kA = 0.000;

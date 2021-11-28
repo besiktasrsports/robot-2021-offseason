@@ -64,7 +64,7 @@ public class DriveSubsystem extends SubsystemBase {
 
         m_field.setRobotPose(m_odometry.getPoseMeters().getX(), -m_odometry.getPoseMeters().getY(), new Rotation2d(Math.toRadians(-getHeading())));
 
-        
+
 
         // System.out.println("Speeds : " + getWheelSpeeds());
         //System.out.println("Heading : " + getHeading());
@@ -84,7 +84,7 @@ public class DriveSubsystem extends SubsystemBase {
         }
         */
         rightRearMotor.setVoltage(-rightVolts);
-        
+
         m_drive.feed();
     }
 

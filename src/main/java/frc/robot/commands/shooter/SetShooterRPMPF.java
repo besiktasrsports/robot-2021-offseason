@@ -10,9 +10,9 @@ package frc.robot.commands.shooter;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
+import frc.robot.Constants.ShooterConstants;
 import frc.robot.Robot;
 import frc.robot.RobotState;
-import frc.robot.Constants.ShooterConstants;
 import frc.robot.subsystems.ShooterSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
