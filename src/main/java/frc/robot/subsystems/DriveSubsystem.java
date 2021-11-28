@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 
@@ -30,6 +32,7 @@ public class DriveSubsystem extends SubsystemBase {
     public final DifferentialDriveOdometry m_odometry;
     public final AHRS m_gyro = new AHRS(SPI.Port.kMXP);
     private double target;
+    private final Field2d m_field = new Field2d();
     private NeutralMode defaultMode = NeutralMode.Brake;
 
     public DriveSubsystem() {
@@ -47,6 +50,7 @@ public class DriveSubsystem extends SubsystemBase {
         rightFrontMotor.follow(rightRearMotor);
 
         m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
+        SmartDashboard.putData("Field", m_field);
 
         zeroHeading();
         resetEncoders();
@@ -58,8 +62,12 @@ public class DriveSubsystem extends SubsystemBase {
         m_odometry.update(
                 Rotation2d.fromDegrees(getHeading()), getLeftEncoderDistance(), getRightEncoderDistance());
 
+        m_field.setRobotPose(m_odometry.getPoseMeters().getX(), -m_odometry.getPoseMeters().getY(), new Rotation2d(Math.toRadians(-getHeading())));
+
+        
+
         // System.out.println("Speeds : " + getWheelSpeeds());
-        // System.out.println("Heading : " + getHeading());
+        //System.out.println("Heading : " + getHeading());
         // System.out.println("Pose : " + getPose());
         // System.out.println("Left Encoder Pos : " + getLeftEncoderDistance());
         // System.out.println("Right Encoder Pos : " + getRightEncoderDistance());
@@ -68,12 +76,15 @@ public class DriveSubsystem extends SubsystemBase {
 
     public void tankDriveVolts(double leftVolts, double rightVolts) {
         leftRearMotor.setVoltage(leftVolts);
+        /*
         if (rightVolts >= 0) {
             rightVolts = rightVolts + 1;
         } else {
             rightVolts = rightVolts - 1;
         }
+        */
         rightRearMotor.setVoltage(-rightVolts);
+        
         m_drive.feed();
     }
 

@@ -16,6 +16,7 @@ public class TurretPIDCommand extends CommandBase {
     double error;
     double output;
     double outputSum;
+    double lastError;
     char shouldTurnSide = 'o';
     char lookingSide;
 
@@ -39,13 +40,21 @@ public class TurretPIDCommand extends CommandBase {
         error = 0;
         if (Robot.isValidAngle()) {
             error = Robot.getVisionYawAngle();
-            output = error * TurretConstants.kP;
+            output = (TurretConstants.kP*error + (TurretConstants.kD*(error-lastError)));
+            if(error >= 15){
+                output = 5;
+            }
+            else if(error <= -15){
+                output = -5;
+
+            }
+            
             shouldTurnSide = error > 0 ? 'r' : 'l';
 
-            if (output > 6) {
-                output = 6;
-            } else if (output < -6) {
-                output = -6;
+            if (output > 12) {
+                output = 12;
+            } else if (output < -12) {
+                output = -12;
             }
             if (!m_turret.turretHallEffect1.get() == true && shouldTurnSide == 'r') {
                 output = 0;
@@ -72,18 +81,18 @@ public class TurretPIDCommand extends CommandBase {
             } else {
                 lookingSide = 'l';
             }
-            // System.out.println("Should turn side : " + shouldTurnSide);
-            // System.out.println("Error : " + error);
 
         } else {
             output = 0;
         }
         if (0 < output && 2 > output) {
-            output += 1;
+            output += 0.75;
         } else if (0 > output && -2 < output) {
-            output -= 1;
+            output -= 0.75;
         }
+        System.out.println("Output : "+output);
         m_turret.setTurretVolts(output);
+        lastError = error;
     }
 
     // Called once the command ends or is interrupted.
